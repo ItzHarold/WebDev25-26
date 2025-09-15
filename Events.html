@@ -12,11 +12,9 @@
 
     <!-- HERO -->
     <section class="hero">
-        <nav>
-            <a href="Home.html">Home</a>
-            <a href="Events.html">Events</a>
-            <a href="#">Contact</a>
-        </nav>
+        <!-- replaced inline nav with shared topbar -->
+        <div id="topbar"></div>
+
         <div class="hero-content">
             <h1>Events</h1>
             <p>by San Diego Magazine</p>
@@ -45,13 +43,31 @@
             <img src="pictures/defaulticon.jpg" alt="Event Logo">
             <div class="location">
                 <strong>Location: </strong>
-                Rotterdam, Beurs
+                Rotterdam, Netherlands
+            </div>
+            <div>
+                <strong>Venue: </strong>
+                AHOY Rotterdam
             </div>
             <div>
                 <button>Register</button>
             </div>
         </div>
     </section>
+
+    <!-- loader for shared topbar -->
+    <script>
+        // load the shared topbar fragment into #topbar
+        (function () {
+            fetch('topbar.html')
+                .then(function (r) { return r.text(); })
+                .then(function (html) { document.getElementById('topbar').innerHTML = html; })
+                .catch(function () {
+                    // fallback if fetch fails
+                    document.getElementById('topbar').innerHTML = '<nav><a href="Home.html">Home</a><a href="Events.html">Events</a><a href="#">Contact</a></nav>';
+                });
+        })();
+    </script>
 
 </body>
 
