@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- inject shared topbar here so it sits above the hero -->
+    <div id="topbar"></div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>About</h1>
+            <p>Learn more about us</p>
+        </div>
+    </section>
+
+    <section class="overview">
+        <div>
+            <h2>Our Story</h2>
+            <p>
+                This is a simple placeholder About page. Add your organization's mission, history, and a few
+                important highlights here.
+            </p>
+        </div>
+        <div>
+            <img src="pictures/defaulticon.jpg" alt="About image">
+            <div class="location">
+                <strong>Headquarters: </strong>
+                Rotterdam, Netherlands
+            </div>
+        </div>
+    </section>
+
+    <!-- loader for shared topbar -->
+    <script>
+        (function () {
+            fetch('topbar.html')
+                .then(function (r) { return r.text(); })
+                .then(function (html) { document.getElementById('topbar').innerHTML = html; })
+                .catch(function () {
+                    document.getElementById('topbar').innerHTML =
+                        '<nav class="topbar"><div class="logo"><a href="Home.html"><img src="pictures/defaulticon.jpg" alt="Logo"></a></div>'
+                        + '<div class="nav-links"><a href="Home.html">Home</a><a href="Dashboard.html">Dashboard</a><a href="About.html">About</a><a href="Contact.html">Contact</a></div>'
+                        + '<div class="welcome">Welcome USER</div></nav>';
+                });
+        })();
+    </script>
+
+</body>
+
+</html>
