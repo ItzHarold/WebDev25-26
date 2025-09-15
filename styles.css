@@ -15,6 +15,7 @@ body {
     align-items: center;
     text-align: center;
     color: white;
+    padding-top: 4.2rem; /* add top spacing inside hero so boxed topbar doesn't overlap the hero content */
 }
 
 .hero::before {
@@ -25,7 +26,7 @@ body {
     z-index: 0;
 }
 
-nav {
+.hero nav {
     position: absolute;
     top: 0;
     right: 0;
@@ -35,7 +36,7 @@ nav {
     z-index: 2;
 }
 
-nav a {
+.hero nav a {
     color: white;
     text-decoration: none;
     font-size: 0.9em;
@@ -43,7 +44,7 @@ nav a {
     transition: color 0.3s;
 }
 
-nav a:hover {
+.hero nav a:hover {
     color: #f0c040;
 }
 
@@ -150,4 +151,39 @@ nav a:hover {
     .overview {
         grid-template-columns: 1fr;
     }
+}
+
+/* ---------------- TOPBAR (shared boxed navigation) ---------------- */
+/* This styles the injected shared topbar so it looks like a separate box */
+nav.topbar {
+    position: relative;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: flex-end; /* adjust as needed */
+    max-width: 1100px;
+    margin: 1rem auto;
+    padding: 0.6rem 1rem;
+    background: rgba(255,255,255,0.98);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(21,30,46,0.08);
+    border: 1px solid rgba(21,30,46,0.06);
+    z-index: 4;
+    gap: 1.25rem;
+}
+
+/* Ensure topbar links are dark and have their own hover color */
+nav.topbar a {
+    color: #111;
+    text-decoration: none;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.5rem;
+    transition: color 0.2s, background 0.15s;
+    border-radius: 6px;
+}
+
+nav.topbar a:hover {
+    color: #0b5dd7;
+    background: rgba(11,93,215,0.06);
 }
