@@ -10,11 +10,11 @@
 
 <body>
 
+    <!-- inject shared topbar here so it sits above the hero -->
+    <div id="topbar"></div>
+
     <!-- HERO -->
     <section class="hero">
-        <!-- replaced inline nav with shared topbar -->
-        <div id="topbar"></div>
-
         <div class="hero-content">
             <h1>Events</h1>
             <p>by San Diego Magazine</p>
@@ -63,8 +63,11 @@
                 .then(function (r) { return r.text(); })
                 .then(function (html) { document.getElementById('topbar').innerHTML = html; })
                 .catch(function () {
-                    // fallback if fetch fails
-                    document.getElementById('topbar').innerHTML = '<nav><a href="Home.html">Home</a><a href="Events.html">Events</a><a href="#">Contact</a></nav>';
+                    // fallback if fetch fails (simple structure)
+                    document.getElementById('topbar').innerHTML =
+                        '<nav class="topbar"><div class="logo"><a href="Home.html"><img src="pictures/defaulticon.jpg" alt="Logo"></a></div>'
+                        + '<div class="nav-links"><a href="Home.html">Home</a><a href="Dashboard.html">Dashboard</a><a href="About.html">About</a><a href="Contact.html">Contact</a></div>'
+                        + '<div class="welcome">Welcome USER</div></nav>';
                 });
         })();
     </script>

@@ -10,26 +10,62 @@
 
 <body>
 
+    <!-- inject shared topbar here so it sits above the hero -->
+    <div id="topbar"></div>
+
     <!-- HERO -->
     <section class="hero">
-        <!-- replaced inline nav with shared topbar -->
-        <div id="topbar"></div>
-
         <div class="hero-content">
-            <h1>Home</h1>
+            <h1>ESPORTS TOURNAMENTS</h1>
+            <h2>Discover upcoming events and tournaments. Click a card to view full details.</h2>
         </div>
     </section>
 
+    <!-- EVENTS -->
+    <section class="events">
+        <div class="events-header">
+            <div class="events-title">
+                <h2>Events</h2>
+            </div>
+            <div class="event-filters" role="tablist" aria-label="Event status filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="live">Live</button>
+                <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+                <button class="filter-btn" data-filter="ended">Ended</button>
+            </div>
+        </div>
 
-    <!-- Event Description -->
-    <section class="overview">
-        <div>
-            <h2>Event Details</h2>
-            <p>
-                ipsum Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro fugiat similique itaque? Aut dolore
-                nulla fugiat est veritatis, assumenda commodi error atque vitae aliquid aspernatur quia, neque
-                laboriosam deleniti tempora!
-            </p>
+        <div class="events-grid">
+            <!-- Repeatable event card -->
+            <article class="event-card">
+                <div class="card-media" style="background-image: url('pictures/defaulticon.jpg')"></div>
+                <div class="card-body">
+                    <h3>Sample Event One</h3>
+                    <p class="meta">Rotterdam • May 10-12, 2025</p>
+                    <p class="desc">Short description of the event. A quick summary that fits two lines.</p>
+                    <a class="btn" href="Events.html">View Details</a>
+                </div>
+            </article>
+
+            <article class="event-card">
+                <div class="card-media" style="background-image: url('pictures/defaulticon.jpg')"></div>
+                <div class="card-body">
+                    <h3>Sample Event Two</h3>
+                    <p class="meta">Rotterdam • June 20-22, 2025</p>
+                    <p class="desc">Short description for the second event. Keep copy brief.</p>
+                    <a class="btn" href="Events.html">View Details</a>
+                </div>
+            </article>
+
+            <article class="event-card">
+                <div class="card-media" style="background-image: url('pictures/defaulticon.jpg')"></div>
+                <div class="card-body">
+                    <h3>Sample Event Three</h3>
+                    <p class="meta">Rotterdam • July 8-9, 2025</p>
+                    <p class="desc">Another short line of descriptive text to balance the card.</p>
+                    <a class="btn" href="Events.html">View Details</a>
+                </div>
+            </article>
         </div>
     </section>
 
@@ -41,8 +77,11 @@
                 .then(function (r) { return r.text(); })
                 .then(function (html) { document.getElementById('topbar').innerHTML = html; })
                 .catch(function () {
-                    // fallback if fetch fails
-                    document.getElementById('topbar').innerHTML = '<nav><a href="Home.html">Home</a><a href="Events.html">Events</a><a href="#">Contact</a></nav>';
+                    // fallback if fetch fails (simple structure)
+                    document.getElementById('topbar').innerHTML =
+                        '<nav class="topbar"><div class="logo"><a href="Home.html"><img src="pictures/defaulticon.jpg" alt="Logo"></a></div>'
+                        + '<div class="nav-links"><a href="Home.html">Home</a><a href="Dashboard.html">Dashboard</a><a href="About.html">About</a><a href="Contact.html">Contact</a></div>'
+                        + '<div class="welcome">Welcome USER</div></nav>';
                 });
         })();
     </script>
