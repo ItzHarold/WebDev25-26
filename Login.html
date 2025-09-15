@@ -1,0 +1,104 @@
+<!-- Login.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+<div id="topbar"></div>
+
+<section class="hero hero-auth">
+    <div class="hero-content">
+        <h1>Login</h1>
+        <p>Access your account</p>
+    </div>
+</section>
+
+<main class="auth-wrap">
+    <section class="auth-grid" aria-labelledby="login-title">
+        <div class="form-card">
+            <h2 id="login-title" class="form-title">Sign in</h2>
+            <p class="form-subtitle">Welcome back. Please enter your details.</p>
+
+            <form id="login-form" class="form" action="#" method="post" novalidate>
+                <div class="form-row">
+                    <label class="label" for="login-email">Email</label>
+                    <input id="login-email" class="input" name="email" type="email" autocomplete="email" required />
+                    <div class="error-text" id="login-email-error" hidden>Enter a valid email.</div>
+                </div>
+
+                <div class="form-row">
+                    <label class="label" for="login-password">Password</label>
+                    <div class="input-with-action">
+                        <input id="login-password" class="input" name="password" type="password" autocomplete="current-password" minlength="6" required />
+                        <button type="button" class="btn small" id="toggle-login-pw" aria-controls="login-password" aria-pressed="false">Show</button>
+                    </div>
+                </div>
+
+                <div class="form-inline">
+                    <label class="checkbox" for="remember">
+                        <input type="checkbox" id="remember" name="remember" />
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" class="link" aria-label="Forgot password">Forgot password?</a>
+                </div>
+
+                <div class="form-footer">
+                    <button class="btn" type="submit">Sign in</button>
+                    <span class="helper">No account? <a class="link" href="Register.html">Create one</a></span>
+                </div>
+            </form>
+        </div>
+
+        <aside class="auth-aside">
+            <img src="pictures/defaulticon.jpg" alt="Secure portal" />
+            <div class="location"><strong>Secure Portal</strong><br />Rotterdam, Netherlands</div>
+        </aside>
+    </section>
+</main>
+
+<script>
+    (function () {
+        fetch('topbar.html')
+            .then(function (r) { return r.text(); })
+            .then(function (html) { document.getElementById('topbar').innerHTML = html; })
+            .catch(function () {
+                document.getElementById('topbar').innerHTML =
+                    '<nav class="topbar"><div class="logo"><a href="Home.html"><img src="pictures/defaulticon.jpg" alt="Logo"></a></div>'
+                    + '<div class="nav-links"><a href="Home.html">Home</a><a href="Dashboard.html">Dashboard</a><a href="About.html">About</a><a href="Contact.html">Contact</a></div>'
+                    + '<div class="welcome">Welcome USER</div></nav>';
+            });
+
+        var toggleBtn = document.getElementById('toggle-login-pw');
+        var pwInput = document.getElementById('login-password');
+        if (toggleBtn && pwInput) {
+            toggleBtn.addEventListener('click', function () {
+                var showing = pwInput.type === 'text';
+                pwInput.type = showing ? 'password' : 'text';
+                toggleBtn.textContent = showing ? 'Show' : 'Hide';
+                toggleBtn.setAttribute('aria-pressed', String(!showing));
+            });
+        }
+
+        document.getElementById('login-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var email = document.getElementById('login-email');
+            var emailErr = document.getElementById('login-email-error');
+            if (!email.value || !email.checkValidity()) {
+                emailErr.hidden = false;
+                email.focus();
+                return;
+            }
+            emailErr.hidden = true;
+            window.location.href = 'Dashboard.html';
+        });
+    })();
+</script>
+</body>
+
+</html>
