@@ -44,9 +44,10 @@
             height: 100%;
             justify-content: center;
             align-items: center;
+            background-color: rgba(0, 0, 0, 0.5);
         }
 
-        .modal-content {
+        .mdlcontent {
             background: white;
             padding: 10px;
             border-radius: 2px;
@@ -59,6 +60,13 @@
             flex: 1;
             border: none;
         }
+
+        .xbutton {
+            text-decoration: none;
+            background: white;
+            color: #fff;
+            float: right;
+        }
     </style>
 </head>
 
@@ -67,14 +75,14 @@
     <div class="event-card">
         <h3>Sample Event</h3>
         <p>Rotterdam • May 10-12, 2025</p>
-        <p>Short description of the event.</p>
+        <p>Short descriptions</p>
         <a id="eventBtn" class="btn" href="Events.html">Event Details</a>
     </div>
 
-    <!-- Modal -->
+    <!-- modal -->
     <div id="eventModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
+        <div class="mdlcontent">
+            <a id="xbtn" class="xbutton" href="">❌</a>
             <iframe id="eventFrame" src="" width="100%" height="800"></iframe>
         </div>
     </div>
@@ -83,12 +91,16 @@
         const modal = document.getElementById("eventModal");
         const iframe = document.getElementById("eventFrame");
         const eventBtn = document.getElementById("eventBtn");
+        const closeBtn = document.getElementById("xbtn");
 
         eventBtn.addEventListener("click", function (event) {
-            event.preventDefault();// prevents page from navigation
+            event.preventDefault();// stops page from navigation
             iframe.src = eventBtn.getAttribute("href"); // Events.html in iframe from href
             modal.style.display = "flex"; // show modal
         });
+        closeBtn.addEventListener("click"), function (event) {
+            modal.style.display = "none"; // close modal
+        }
     </script>
 
 </body>
