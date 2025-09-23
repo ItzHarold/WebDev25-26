@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login</title>
+  <link rel="stylesheet" href="Login.css" />
+</head>
+<body>
+<header class="topbar">
+  <a class="nav-btn left" href="../../Home.html">
+    <span class="emoji">🎮</span><span class="label">Home</span>
+  </a>
+  <nav class="right">
+    <button class="nav-btn ghost" id="loginRefresh">Login</button>
+    <a class="nav-btn ghost" href="../Register/Register.html">Register</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Login</h1>
+</section>
+
+<main class="card">
+  <div class="stack">
+    <label class="input">
+      <input type="email" placeholder="Enter email" />
+    </label>
+
+    <label class="input" style="padding-right:130px">
+      <input id="password" type="password" placeholder="Enter password" />
+      <button id="toggle" type="button" class="pill-toggle">show / hide</button>
+    </label>
+
+    <div class="row">
+      <button class="btn">Submit</button>
+      <a href="../Register/Register.html" class="muted">No account? Click here to register</a>
+    </div>
+  </div>
+</main>
+
+<script>
+  const pwd = document.getElementById('password');
+  const toggle = document.getElementById('toggle');
+  toggle.addEventListener('click', () => {
+    pwd.type = pwd.type === 'password' ? 'text' : 'password';
+  });
+  document.getElementById('loginRefresh').addEventListener('click', () => {
+    location.reload();
+  });
+</script>
+</body>
+</html>
