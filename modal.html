@@ -94,7 +94,7 @@
         const closeBtn = document.getElementById("xbtn");
 
         eventBtn.addEventListener("click", function (event) {
-            event.preventDefault();// stops page from navigation
+            event.preventDefault();
             iframe.src = eventBtn.getAttribute("href"); // Events.html in iframe from href
             modal.style.display = "flex"; // show modal
         });
