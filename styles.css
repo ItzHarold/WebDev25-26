@@ -649,3 +649,27 @@ nav.topbar .welcome {
         max-width: 300px;
     }
 }
+body.dark {
+  background: #121212;
+  color: #c1b5b5;
+}
+
+body.dark .event-card {
+  background: #1e1e1e;
+  color: #eee;
+}
+
+body.dark nav.topbar {
+  background: #222;
+  color: #eee;
+}
+
+body.dark a {
+  color: #90caf9;
+}
+#darkModeBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+}
