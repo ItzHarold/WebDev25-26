@@ -1,0 +1,151 @@
+/* ---------------- HERO ---------------- */
+.hero {
+    position: relative;
+    height: 40vh;
+    min-height: 220px;
+    background: url('../pictures/clouds.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding-top: 3rem;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    padding: 0 1em;
+}
+
+.hero-content h1 {
+    font-size: 2.5em;
+    margin: 0.5em 0;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+/* ---------------- DASHBOARD STATS ---------------- */
+.dashboard .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0 2rem;
+}
+
+.stat-card {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(21, 30, 46, 0.04);
+    border: 1px solid rgba(21, 30, 46, 0.04);
+}
+
+.stat-title {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.stat-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-top: 0.4rem;
+}
+
+.stat-sub {
+    color: #888;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+/* ---------------- MANAGEMENT HEADER ---------------- */
+.management-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.tabs .tab {
+    background: #f5f6f8;
+    border: 1px solid rgba(21, 30, 46, 0.03);
+    padding: 0.4rem 0.7rem;
+    border-radius: 8px;
+    margin-right: 0.4rem;
+    cursor: pointer;
+}
+
+.create-btn {
+    background: #071428;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 0.9rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* ---------------- TOURNAMENTS TABLE ---------------- */
+.tournaments-panel {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1rem;
+    border: 1px solid rgba(21, 30, 46, 0.04);
+    overflow-x: auto;
+}
+
+.tournaments-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tournaments-table th,
+.tournaments-table td {
+    padding: 0.9rem 0.6rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(21, 30, 46, 0.04);
+}
+
+.status-pill {
+    display: inline-block;
+    background: #28c67a;
+    color: #fff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.status-completed {
+    background: #6c757d;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 900px) {
+    .dashboard .stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 520px) {
+    .dashboard .stat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .management-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
