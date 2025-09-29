@@ -46,7 +46,7 @@
     <!-- loader for shared topbar -->
     <script>
         (function () {
-            fetch('topbar.html')
+            fetch('../Shared/topbar.html')
                 .then(function (r) { return r.text(); })
                 .then(function (html) { document.getElementById('topbar').innerHTML = html; })
                 .catch(function () {
