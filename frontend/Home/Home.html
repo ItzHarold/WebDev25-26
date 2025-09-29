@@ -49,7 +49,7 @@
                     <h3>Sample Event One</h3>
                     <p class="meta">Rotterdam • May 10-12, 2025</p>
                     <p class="desc">Short description of the event. A quick summary that fits two lines.</p>
-                    <a class="btn" href="../Events/Events.html">View Details</a>
+                    <a id="eventBtn" class="btn" href="../Events/Events.html">View Details</a>
                 </div>
             </article>
 
@@ -62,16 +62,22 @@
                     <a class="btn" href="../Events/Events.html">View Details</a>
                 </div>
             </article>
-
             <article class="event-card">
                 <div class="card-media" style="background-image: url('pictures/defaulticon.jpg')"></div>
                 <div class="card-body">
-                    <h3>Sample Event Three</h3>
-                    <p class="meta">Rotterdam • July 8-9, 2025</p>
-                    <p class="desc">Another short line of descriptive text to balance the card.</p>
+                    <h3>Sample Event Two</h3>
+                    <p class="meta">Rotterdam • June 20-22, 2025</p>
+                    <p class="desc">Short description for the second event. Keep copy brief.</p>
                     <a class="btn" href="../Events/Events.html">View Details</a>
                 </div>
             </article>
+        </div>
+        <!-- modal -->
+        <div id="eventModal" class="modal">
+            <div class="mdlcontent">
+                <a id="xbtn" class="xbutton" href="">❌</a>
+                <iframe id="eventFrame" src="" width="100%" height="800"></iframe>
+            </div>
         </div>
     </section>
 
@@ -90,6 +96,19 @@
                         + '<div class="welcome">Welcome USER</div></nav>';
                 });
         })();
+        const modal = document.getElementById("eventModal");
+        const iframe = document.getElementById("eventFrame");
+        const eventBtn = document.getElementById("eventBtn");
+        const closeBtn = document.getElementById("xbtn");
+
+        eventBtn.addEventListener("click", function (event) {
+            event.preventDefault();
+            iframe.src = eventBtn.getAttribute("href"); // Events.html in iframe from href
+            modal.style.display = "flex"; // show modal
+        });
+        closeBtn.addEventListener("click"), function (event) {
+            modal.style.display = "none"; // close modal
+        }
     </script>
 
 </body>
