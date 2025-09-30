@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../shared/base.css">
-    <link rel="stylesheet" href="../shared/topbar.css">
-    <link rel="stylesheet" href="../shared/darkmode.css">
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="../Shared/base.css">
+    <link rel="stylesheet" href="../Shared/topbar.css">
+    <link rel="stylesheet" href="../Shared/darkmode.css">
+    <link rel="stylesheet" href="Dashboard.css">
 
     <style>
         /* small overrides for the dashboard page only */
@@ -68,6 +68,12 @@
 
             <h3>Tournament Management</h3>
 
+            <!-- Added: simple search bar -->
+            <div style="margin:8px 0;">
+                <input id="tournament-search" type="search" placeholder="Search tournaments, games, status..."
+                    style="width:100%;padding:8px;">
+            </div>
+
             <div class="tournaments-panel">
                 <table class="tournaments-table">
                     <thead>
@@ -103,19 +109,8 @@
         </section>
     </main>
 
-    <script>
-        (function () {
-            fetch('../Shared/topbar.html')
-                .then(function (r) { return r.text(); })
-                .then(function (html) { document.getElementById('topbar').innerHTML = html; })
-                .catch(function () {
-                    document.getElementById('topbar').innerHTML =
-                        '<nav class="topbar"><div class="logo"><a href="../Home/Home.html"><img src="pictures/defaulticon.jpg" alt="Logo"></a></div>'
-                        + '<div class="nav-links"><a href="../Home/Home.html">Home</a><a href="../Dashboard/Dashboard.html">Dashboard</a><a href="../About/About.html">About</a><a href="../Contact/Contact.html">Contact</a></div>'
-                        + '<div class="welcome">Welcome ADMIN</div></nav>';
-                });
-        })();
-    </script>
+    <!-- Load dashboard behaviour (topbar + tournament search) -->
+    <script src="../compiled/Dashboard.js" defer></script>
 
 </body>
 
