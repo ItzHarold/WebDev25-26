@@ -62,17 +62,14 @@
                     <button class="tab">Settings</button>
                 </div>
                 <div class="management-actions">
+                    <input id="tournament-search" class="tournament-search" type="search" placeholder="Search tournaments, games, status...">
                     <button class="create-btn">+ Create Tournament</button>
                 </div>
             </div>
 
             <h3>Tournament Management</h3>
 
-            <!-- Added: simple search bar -->
-            <div style="margin:8px 0;">
-                <input id="tournament-search" type="search" placeholder="Search tournaments, games, status..."
-                    style="width:100%;padding:8px;">
-            </div>
+            <!-- search moved into management header (keeps layout compact) -->
 
             <div class="tournaments-panel">
                 <table class="tournaments-table">
@@ -103,6 +100,46 @@
                             <td>4/01/2025</td>
                             <td>View · Edit · Delete</td>
                         </tr>
+                        <tr>
+                            <td>Arena Clash - Spring Cup</td>
+                            <td>Arena FPS</td>
+                            <td><span class="status-pill">Ongoing</span></td>
+                            <td>8/64</td>
+                            <td>9/05/2025</td>
+                            <td>View · Edit · Delete</td>
+                        </tr>
+                        <tr>
+                            <td>Rocket Rumble Invitational</td>
+                            <td>Rocket League</td>
+                            <td><span class="status-pill">Registration Open</span></td>
+                            <td>3/16</td>
+                            <td>10/12/2025</td>
+                            <td>View · Edit · Delete</td>
+                        </tr>
+                        <tr>
+                            <td>Super Smash Showdown</td>
+                            <td>Super Smash Bros</td>
+                            <td><span class="status-pill status-completed">Completed</span></td>
+                            <td>16/16</td>
+                            <td>2/20/2025</td>
+                            <td>View · Edit · Delete</td>
+                        </tr>
+                        <tr>
+                            <td>Indie Cup: Open Qualifiers</td>
+                            <td>Various</td>
+                            <td><span class="status-pill">Cancelled</span></td>
+                            <td>0/64</td>
+                            <td>5/01/2025</td>
+                            <td>View · Edit · Delete</td>
+                        </tr>
+                        <tr>
+                            <td>LAN Heroes - Autumn League</td>
+                            <td>Multiple</td>
+                            <td><span class="status-pill">Registration Open</span></td>
+                            <td>12/24</td>
+                            <td>11/18/2025</td>
+                            <td>View · Edit · Delete</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -110,7 +147,7 @@
     </main>
 
     <!-- Load dashboard behaviour (topbar + tournament search) -->
-    <script src="../compiled/Dashboard.js" defer></script>
+    <script src="../compiled/Dashboard/Dashboard.js" defer></script>
 
 </body>
 

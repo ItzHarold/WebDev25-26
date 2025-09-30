@@ -1,3 +1,16 @@
+/* Ensure the main container has extra bottom padding so content doesn't stick to the page bottom */
+main.container {
+    padding-bottom: 3rem;
+}
+
+/* Local container for the dashboard page only: keeps content from stretching edge-to-edge */
+.container {
+    max-width: 1100px; /* compact centered content */
+    margin: 0 auto;    /* center */
+    padding: 0 1rem;   /* side gutters */
+    box-sizing: border-box;
+}
+
 /* ---------------- HERO ---------------- */
 .hero {
     position: relative;
@@ -9,7 +22,7 @@
     align-items: center;
     text-align: center;
     color: white;
-    padding-top: 3rem;
+    padding-top: 2.2rem;
 }
 
 .hero::before {
@@ -42,12 +55,12 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
-    margin: 1.5rem 0 2rem;
+    margin: 1rem 0 1.25rem;
 }
 
 .stat-card {
     background: #fff;
-    padding: 1rem;
+    padding: 0.75rem;
     border-radius: 10px;
     box-shadow: 0 6px 18px rgba(21, 30, 46, 0.04);
     border: 1px solid rgba(21, 30, 46, 0.04);
@@ -76,7 +89,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1rem;
+    margin: 0.6rem 0 0.8rem;
     flex-wrap: wrap;
 }
 
@@ -93,16 +106,38 @@
     background: #071428;
     color: #fff;
     border: none;
-    padding: 0.5rem 0.9rem;
+    padding: 0.42rem 0.75rem;
     border-radius: 8px;
     cursor: pointer;
+}
+
+/* Actions area: place search next to create button */
+.management-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tournament-search {
+    width: 220px; /* small compact box */
+    padding: 0.35rem 0.5rem;
+    border-radius: 6px;
+    border: 1px solid rgba(21,30,46,0.08);
+    background: #fff;
+    font-size: 0.9rem;
+    transition: box-shadow 0.15s ease, width 0.15s ease;
+}
+
+.tournament-search:focus {
+    outline: none;
+    box-shadow: 0 4px 10px rgba(7,20,40,0.06);
 }
 
 /* ---------------- TOURNAMENTS TABLE ---------------- */
 .tournaments-panel {
     background: #fff;
     border-radius: 10px;
-    padding: 1rem;
+    padding: 0.75rem;
     border: 1px solid rgba(21, 30, 46, 0.04);
     overflow-x: auto;
 }
@@ -114,9 +149,15 @@
 
 .tournaments-table th,
 .tournaments-table td {
-    padding: 0.9rem 0.6rem;
+    padding: 0.5rem 0.45rem;
     text-align: left;
     border-bottom: 1px solid rgba(21, 30, 46, 0.04);
+    font-size: 0.92rem;
+}
+
+.tournaments-table thead th {
+    font-weight: 600;
+    font-size: 0.9rem;
 }
 
 .status-pill {
@@ -147,5 +188,17 @@
     .management-header {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    /* On small screens, make search full width and stack actions */
+    .management-actions {
+        width: 100%;
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .tournament-search {
+        width: 100%;
     }
 }
