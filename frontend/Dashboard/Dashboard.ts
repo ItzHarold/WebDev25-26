@@ -1,29 +1,8 @@
 // Initialize when the page DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    loadTopbar();
     renderTournaments();
     setupTournamentSearch();
 });
-
-// Load topbar.html into the #topbar element. If fetch fails, use a small fallback HTML.
-function loadTopbar(): void {
-    const topbarElement = document.getElementById('topbar');
-    if (!topbarElement) return;
-
-    fetch('../Shared/topbar.html')
-        .then(res => res.text())
-        .then(html => {
-            if (topbarElement) topbarElement.innerHTML = html;
-        })
-        .catch(() => {
-            if (topbarElement) {
-                topbarElement.innerHTML =
-                    '<nav class="topbar"><div class="logo"><a href="../Home/Home.html"><img src="pictures/defaulticon.jpg" alt="Logo"></a></div>' +
-                    '<div class="nav-links"><a href="../Home/Home.html">Home</a><a href="../Dashboard/Dashboard.html">Dashboard</a><a href="../About/About.html">About</a><a href="../Contact/Contact.html">Contact</a></div>' +
-                    '<div class="welcome">Welcome ADMIN</div></nav>';
-            }
-        });
-}
 
 // Reads the search input and hides table rows that don't match.
 function setupTournamentSearch(): void {
