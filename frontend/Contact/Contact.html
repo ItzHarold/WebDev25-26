@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact</title>
     <link rel="stylesheet" href="../shared/base.css">
-    <link rel="stylesheet" href="../Shared/Topbar/topbar.css">
-    <link rel="stylesheet" href="../Shared/Darkmode/darkmode.css">
+    <link rel="stylesheet" href="../shared/topbar.css">
+    <link rel="stylesheet" href="../shared/darkmode.css">
     <link rel="stylesheet" href="contact.css">
 
 </head>
@@ -15,11 +15,11 @@
 <body>
     <!-- Dark mode toggle -->
     <button id="darkModeBtn">🌙 Dark Mode</button>
-    <script src="../Shared/Darkmode/darkmode.js" defer></script>
+    <script src="../Shared/darkmode.js" defer></script>
 
     <!-- inject shared topbar here so it sits above the hero -->
     <div id="topbar"></div>
-    <script src="../Shared/Topbar/topbar.js" defer></script>
+    <script src="../Shared/topbar.js" defer></script>
 
     <section class="hero">
         <div class="hero-content">
@@ -50,7 +50,7 @@
     <!-- loader for shared topbar -->
     <script>
         (function () {
-            fetch('../Shared/Topbar/topbar.html')
+            fetch('../Shared/topbar.html')
                 .then(function (r) { return r.text(); })
                 .then(function (html) { document.getElementById('topbar').innerHTML = html; })
                 .catch(function () {
