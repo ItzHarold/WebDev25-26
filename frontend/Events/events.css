@@ -4,7 +4,7 @@
     height: 24vh;
     min-height: 160px;
     max-height: 260px;
-    background: url('../pictures/clouds.jpg') no-repeat center center/cover;
+    background: url('../Pictures/clouds.jpg') no-repeat center center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
