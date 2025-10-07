@@ -1,3 +1,4 @@
+<!-- Register.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,15 +51,6 @@
   </div>
 </main>
 
-<script>
-  const pwd = document.getElementById('password');
-  const toggle = document.getElementById('toggle');
-  toggle.addEventListener('click', () => {
-    pwd.type = pwd.type === 'password' ? 'text' : 'password';
-  });
-  document.getElementById('registerRefresh').addEventListener('click', () => {
-    location.reload();
-  });
-</script>
+<script type="module" src="Register.js"></script>
 </body>
 </html>
