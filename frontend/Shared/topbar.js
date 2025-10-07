@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(() => {
       // Small safe fallback if fetch fails
       topbarElement.innerHTML =
-        '<nav class="topbar"><div class="logo"><a href="../Home/Home.html"><img src="pictures/defaulticon.jpg" alt="Logo"></a></div>' +
+        '<nav class="topbar"><div class="logo"><a href="../Home/Home.html"><img src="../Pictures/defaulticon.jpg" alt="Logo"></a></div>' +
         '<div class="nav-links"><a href="../Home/Home.html">Home</a><a href="../Dashboard/Dashboard.html">Dashboard</a><a href="../About/About.html">About</a><a href="../Contact/Contact.html">Contact</a></div>' +
         '<div class="welcome">Welcome USER</div></nav>';
     });
