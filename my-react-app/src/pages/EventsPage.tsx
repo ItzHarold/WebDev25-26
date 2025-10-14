@@ -1,7 +1,6 @@
 
 // src/pages/EventsPage.tsx
 import React from "react";
-import TopBar from "../components/topbar";
 import "../styles/base.css";
 import "../styles/darkmode.css";
 import "../styles/events.css";
@@ -22,8 +21,6 @@ const EventsPage: React.FC = () => {
             <button id="darkModeBtn" onClick={toggleDarkMode}>
                 🌙 Dark Mode
             </button>
-
-            <TopBar />
 
 
             <section className="hero">

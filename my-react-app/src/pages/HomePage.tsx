@@ -1,33 +1,19 @@
 
 import React from "react";
-import TopBar from "../components/topbar";
+import { Link } from "react-router-dom";
 import "../styles/base.css";
 import "../styles/darkmode.css";
 import "../styles/home.css";
 import "../styles/topbar.css";
 
 const HomePage: React.FC = () => {
-    const Testbtn = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-        alert("Sorry, Registration is Closed");
-    };
 
     return (
         <>
-            <head>
-                <title>Wireframe Layout</title>
-                <link rel="stylesheet" href="../shared/base.css"></link>
-                <link rel="stylesheet" href="../shared/topbar.css"></link>
-                <link rel="stylesheet" href="../shared/darkmode.css"></link>
-                <link rel="stylesheet" href="home.css"></link>
-            </head>
 
             <body>
                 <button id="darkModeBtn">🌙 Dark Mode</button>
                 <script src="../Shared/darkmode.js" defer></script>
-
-                <div id="topbar"></div>
-                <script src="../Shared/topbar.js" defer></script>
 
                 <section className="hero">
                     <div className="hero-content">
@@ -57,8 +43,9 @@ const HomePage: React.FC = () => {
                                 <h3>Sample Event One</h3>
                                 <p className="meta">Rotterdam • May 10-12, 2025</p>
                                 <p className="desc">Short description of the event. A quick summary that fits two lines.</p>
-                                <button onClick={Testbtn}>View Details</button>
-                                <link></link>
+                                <Link to="/Events">
+                                    <button className="btn">View Details</button>
+                                </Link>
                             </div>
                         </article>
 
@@ -68,7 +55,9 @@ const HomePage: React.FC = () => {
                                 <h3>Sample Event Two</h3>
                                 <p className="meta">Rotterdam • June 20-22, 2025</p>
                                 <p className="desc">Short description for the second event. Keep copy brief.</p>
-                                <a id="" className="btn" href="../Events/Events.html">View Details</a>
+                                <Link to="/Events">
+                                    <button className="btn">View Details</button>
+                                </Link>
                             </div>
                         </article>
                         <article className="event-card">
@@ -77,7 +66,9 @@ const HomePage: React.FC = () => {
                                 <h3>Sample Event Three</h3>
                                 <p className="meta">Rotterdam • June 20-22, 2025</p>
                                 <p className="desc">Short description for the second event. Keep copy brief.</p>
-                                <a id="" className="btn" href="../Events/Events.html">View Details</a>
+                                <Link to="/Events">
+                                    <button className="btn">View Details</button>
+                                </Link>
                             </div>
                         </article>
                     </div>
