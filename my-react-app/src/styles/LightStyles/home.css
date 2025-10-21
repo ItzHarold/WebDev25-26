@@ -1,0 +1,185 @@
+/* ===============================================
+   src/styles/LightStyles/home.css
+   Homepage (hero, cards, filters)
+   ------------------------------------------------
+   Classnames used by: src/pages/HomePage.tsx
+================================================= */
+
+/* ---------- HERO ---------- */
+.hero {
+    position: relative;
+    height: 60vh;
+    min-height: 300px;
+
+    /* Background image lives in /src/assets */
+    background: url('../assets/clouds.jpg') no-repeat center center / cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    color: #fff;
+    padding-top: 3.5rem; /* space for topbar */
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.50); /* subtle dark overlay for legibility */
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 0 1em;
+}
+
+.hero-content h1 {
+    font-size: 3em;
+    margin: 0.5em 0;
+    line-height: 1.2;
+}
+
+.hero-content h2 {
+    font-size: 1.4em;
+    font-weight: normal;
+    margin: 0;
+}
+
+/* ---------- EVENTS SECTION ---------- */
+.events {
+    max-width: 1100px;
+    margin: 3em auto;
+    padding: 0 1em;
+}
+
+.events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin-bottom: 1.5em;
+}
+
+.events-title h2 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+/* Filter buttons (All / Live / Upcoming / Ended) */
+.event-filters {
+    display: flex;
+    gap: 0.5em;
+}
+
+.filter-btn {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 0.5em 1em;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background .2s, border-color .2s, color .2s;
+}
+
+.filter-btn:hover { background: var(--panel-2); }
+.filter-btn.active {
+    background: var(--blue);
+    color: #fff;
+    border-color: var(--blue);
+}
+
+/* ---------- EVENTS GRID ---------- */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5em;
+}
+
+.event-card {
+    background: var(--panel);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease;
+}
+
+.event-card:hover { transform: translateY(-4px); }
+
+.card-media {
+    height: 160px;
+    background-size: cover;
+    background-position: center;
+    background-image: url('../assets/defaulticon.jpg');
+}
+
+.card-body { padding: 1em; }
+
+.card-body h3 {
+    margin: 0 0 0.4em;
+    font-size: 1.2em;
+    color: var(--text);
+}
+
+.card-body .meta {
+    font-size: 0.9em;
+    color: var(--muted);
+    margin-bottom: 0.6em;
+}
+
+.card-body .desc {
+    font-size: 0.95em;
+    margin-bottom: 1em;
+    color: var(--text);
+}
+
+.card-body .btn {
+    display: inline-block;
+    padding: 0.6em 1.2em;
+    background: var(--blue);
+    color: #fff;
+    border: 0;
+    border-radius: 10px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background .15s;
+}
+
+.card-body .btn:hover { background: var(--blue-hover); }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 600px) {
+    .hero-content h1 { font-size: 2em; }
+    .hero-content h2 { font-size: 1em; }
+}
+
+/* Modal shell (kept hidden by default; used if you add JS to open it) */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.mdlcontent {
+    background: var(--panel);
+    border-radius: 30px;
+    max-width: 600px;
+    width: 80%;
+    height: 80%;
+    box-shadow: var(--shadow);
+}
+
+iframe { flex: 1; border: none; }
+.xbutton { text-decoration: none; color: #fff; float: right; }

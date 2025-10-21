@@ -1,6 +1,6 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import logo from "../assets/defaulticon.jpg"
+import React from "react";
+import { Link } from "react-router-dom";
+import logo from "../assets/defaulticon.jpg";
 
 const TopBar: React.FC = () => {
 	return (
@@ -18,9 +18,12 @@ const TopBar: React.FC = () => {
 				<Link to="/contact">Contact</Link>
 			</div>
 
-			<div className="welcome">Welcome USER</div>
+			<div className="auth-buttons">
+				<Link to="/Login" className="auth-btn">Login</Link>
+				<Link to="/Register" className="auth-btn">Register</Link>
+			</div>
 		</nav>
-	)
-}
+	);
+};
 
-export default TopBar
+export default TopBar;

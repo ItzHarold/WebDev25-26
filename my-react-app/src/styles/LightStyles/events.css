@@ -1,0 +1,109 @@
+/* ===============================================
+   src/styles/LightStyles/events.css
+   Single event / details page
+   ------------------------------------------------
+   Classnames used by: src/pages/EventsPage.tsx
+================================================= */
+
+/* Small hero for detail screens */
+.hero {
+    position: relative;
+    height: 24vh;
+    min-height: 160px;
+    max-height: 260px;
+
+    background: url('../../assets/clouds.jpg') no-repeat center center / cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    color: #fff;
+    padding-top: 2.8rem;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.50);
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+}
+
+.hero-content h1 {
+    font-size: 2.5em;
+    margin: 0.5em 0;
+    line-height: 1.3;
+}
+
+/* Info row beneath hero */
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    max-width: 900px;
+    margin: 2em auto;
+    padding: 1em;
+
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95em;
+    color: var(--text);
+}
+
+.info div { margin-right: 2em; }
+
+/* Main two-column overview */
+.overview {
+    max-width: 1000px;
+    margin: 3em auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2em;
+    padding: 0 1em;
+    color: var(--text);
+}
+
+.overview h2 { margin-top: 0; }
+.overview img { max-width: 100%; border-radius: 8px; }
+
+/* Primary action */
+.overview button {
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    padding: 0.8em 1.5em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .15s;
+}
+
+.overview button:hover { background: var(--blue-hover); }
+
+/* Supplemental image + location text */
+.event-img {
+    width: 100%;
+    height: auto;
+    margin-top: 1rem;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.location {
+    font-size: 0.9em;
+    margin-top: 1em;
+    color: var(--muted);
+}
+
+/* Stack columns on small screens */
+@media (max-width: 768px) {
+    .info { flex-direction: column; gap: 1em; text-align: center; }
+    .overview { grid-template-columns: 1fr; }
+}

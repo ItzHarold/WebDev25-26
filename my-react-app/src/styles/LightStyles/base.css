@@ -1,0 +1,41 @@
+/* ===============================================
+   src/styles/LightStyles/base.css
+   Global LIGHT theme tokens + base element resets
+   ------------------------------------------------
+   - Modern white + light blue palette
+   - Page background / text color
+   - Typography and anchors
+================================================= */
+
+:root {
+    /* Color tokens */
+    --bg:         #f8fafc;  /* App background (slate-50)           */
+    --panel:      #ffffff;  /* Surfaces: cards, hero, topbar        */
+    --panel-2:    #f1f5f9;  /* Subtle surfaces (slate-100)          */
+    --text:       #0f172a;  /* Primary text (slate-900)             */
+    --muted:      #64748b;  /* Secondary text (slate-500)           */
+    --blue:       #2563eb;  /* Primary / buttons (blue-600)         */
+    --blue-hover: #1d4ed8;  /* Button hover (blue-700)              */
+    --border:     #e2e8f0;  /* Borders (slate-200)                  */
+    --input:      #ffffff;  /* Inputs                                */
+
+    /* Radii + elevation */
+    --radius-xl:  18px;
+    --radius-lg:  14px;
+    --shadow:     0 8px 24px rgba(15, 23, 42, .06);
+}
+
+/* Base page scaffold */
+html, body {
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+}
+
+/* Links inherit color; components set their own */
+a {
+    color: inherit;
+    text-decoration: none;
+}

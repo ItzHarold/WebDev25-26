@@ -1,0 +1,87 @@
+/* ===============================================
+   src/styles/LightStyles/topbar.css
+   Global top navigation bar (light theme)
+   ------------------------------------------------
+   Classnames used by: src/components/topbar.tsx
+================================================= */
+
+nav.topbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    max-width: 1100px;
+    margin: 0.6rem auto;
+    padding: 0.35rem 0.8rem;
+
+    background: var(--panel);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+
+    z-index: 10;
+    gap: 1rem;
+}
+
+/* Brand */
+nav.topbar .logo img {
+    height: 34px;
+    width: 34px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+}
+
+/* Center links */
+nav.topbar .nav-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+}
+
+/* Link appearance */
+nav.topbar a {
+    color: var(--text);
+    font-size: 0.9em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    transition: background .15s, color .15s;
+}
+
+nav.topbar .nav-links a:hover {
+    background: rgba(37, 99, 235, .08);
+    color: var(--blue);
+}
+
+/* Right-side auth actions (Login / Register) */
+nav.topbar .auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+nav.topbar .auth-btn {
+    text-transform: uppercase;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #fff;
+    background: var(--blue);
+    padding: 0.45rem 0.8rem;
+    border-radius: 8px;
+    transition: background .15s, transform .05s, opacity .15s;
+}
+
+nav.topbar .auth-btn:hover { background: var(--blue-hover); }
+nav.topbar .auth-btn:active { transform: translateY(1px); }
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    nav.topbar { padding: 0.4rem; gap: 0.5rem; }
+    nav.topbar .nav-links { gap: 0.5rem; font-size: 0.85em; }
+    nav.topbar .logo img { height: 30px; width: 30px; }
+    nav.topbar .auth-btn { padding: 0.4rem 0.65rem; font-size: 0.8em; }
+}

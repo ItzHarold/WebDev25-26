@@ -1,0 +1,120 @@
+/* ===============================================
+   src/styles/LightStyles/login.css
+   Login page (hero + form card)
+   ------------------------------------------------
+   Classnames used by: src/pages/LoginPage.tsx
+================================================= */
+
+:root {
+    /* Re-declare for stand-alone usage if needed */
+    --bg:         #f8fafc;
+    --panel:      #ffffff;
+    --text:       #0f172a;
+    --blue:       #2563eb;
+    --blue-hover: #1d4ed8;
+    --input:      #ffffff;
+    --border:     #e2e8f0;
+
+    --radius-xl:  18px;
+    --radius-lg:  14px;
+    --shadow:     0 8px 24px rgba(15, 23, 42, .06);
+}
+
+/* Page scaffold */
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    padding: 28px;
+}
+
+/* Title block */
+.hero {
+    width: 100%;
+    max-width: 1280px;
+    min-height: 220px;
+    background: var(--panel);
+    border-radius: var(--radius-xl);
+    display: grid;
+    place-items: center;
+    box-shadow: var(--shadow);
+}
+
+.hero h1 { font-size: 80px; margin: 0; }
+
+/* Form card */
+.card {
+    width: min(700px, 92vw);
+    background: var(--panel);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 30px 26px 26px;
+}
+
+.stack { display: flex; flex-direction: column; gap: 18px; }
+
+/* Inputs + password toggle */
+.input {
+    position: relative;
+    background: var(--input);
+    border-radius: 28px;
+    padding: 14px 18px;
+    border: 1px solid var(--border);
+}
+
+.input input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    font-size: 28px;
+    background: transparent;
+    color: var(--text);
+}
+
+.pill-toggle {
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    border: 0;
+    font-size: 20px;
+    padding: 8px 14px;
+    border-radius: 24px;
+    background: var(--panel-2);
+    color: var(--text);
+    cursor: pointer;
+}
+
+/* Actions row */
+.row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.btn {
+    background: var(--blue);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    border: 0;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .15s;
+}
+
+.btn:hover { background: var(--blue-hover); }
+
+.muted {
+    color: var(--blue);
+    font-size: 16px;
+    text-decoration: none;
+}
