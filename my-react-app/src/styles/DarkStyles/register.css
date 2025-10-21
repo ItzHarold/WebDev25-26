@@ -1,26 +1,32 @@
 /* ===============================================
-   src/styles/LightStyles/login.css
-   Login page (hero + form card)
+   src/styles/DarkStyles/register.css
+   Register page — DARK THEME
    ------------------------------------------------
-   Updated: pure white centered text + smooth edges
+   - Colors only differ from Light theme
+   - Same sizing/spacing to avoid layout shifts
 ================================================= */
 
 :root {
-    --bg:         #f8fafc;
-    --panel:      #ffffff;
-    --text:       #0f172a;
-    --blue:       #2563eb;
-    --blue-hover: #1d4ed8;
-    --input:      #ffffff;
-    --border:     #e2e8f0;
-    --radius-xl:  18px;
-    --radius-lg:  14px;
-    --shadow:     0 8px 24px rgba(15, 23, 42, .06);
+    /* Tokens */
+    --bg:#0f172a;
+    --panel:#111827;
+    --panel-2:#1f2937;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --blue:#60a5fa;
+    --blue-hover:#3b82f6;
+    --input:#0b1220;
+    --border:#2c2c2c;
+
+    /* Radii/Shadow (match rest of app) */
+    --radius-xl:18px;
+    --radius-lg:14px;
+    --shadow:0 8px 24px rgba(0,0,0,.5);
 }
 
-/* Page layout */
+/* ---------- PAGE LAYOUT ---------- */
 * { box-sizing: border-box; }
-
+html, body { height: 100%; }
 body {
     margin: 0;
     background: var(--bg);
@@ -32,7 +38,7 @@ body {
     padding: 28px;
 }
 
-/* ---------------- HERO ---------------- */
+/* ---------- HERO ---------- */
 .hero {
     position: relative;
     width: 100%;
@@ -54,14 +60,14 @@ body {
 }
 
 .hero h1 {
-    font-size: 80px;
     margin: 0;
-    color: #ffffff; /* full white */
-    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+    font-size: 80px;
+    color: #ffffff;
     letter-spacing: 1px;
+    text-shadow: 0 3px 10px rgba(0,0,0,.6);
 }
 
-/* ---------------- CARD ---------------- */
+/* ---------- CARD ---------- */
 .card {
     width: min(700px, 92vw);
     background: var(--panel);
@@ -72,7 +78,7 @@ body {
 
 .stack { display: flex; flex-direction: column; gap: 18px; }
 
-/* ---------------- INPUTS ---------------- */
+/* ---------- INPUTS ---------- */
 .input {
     position: relative;
     background: var(--input);
@@ -98,35 +104,74 @@ body {
     font-size: 20px;
     padding: 8px 14px;
     border-radius: 24px;
-    background: var(--panel);
+    background: #1e293b;
     color: var(--text);
     cursor: pointer;
 }
 
-/* ---------------- ACTIONS ---------------- */
+/* ---------- DOB ---------- */
+.dob {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.dob-label {
+    font-size: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.chip {
+    width: 80px;
+    border: 0;
+    outline: 0;
+    background: #0b1220;
+    color: var(--text);
+    font-size: 18px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,.06);
+    text-align: center;
+}
+
+/* ---------- ACTIONS ---------- */
 .row {
     display: flex;
+    align-items: center;
     gap: 16px;
     flex-wrap: wrap;
-    align-items: center;
 }
 
 .btn {
     background: var(--blue);
     color: #fff;
-    font-size: 20px;
+    font-size: 28px;
     font-weight: 600;
     border: 0;
-    padding: 12px 18px;
-    border-radius: 10px;
+    padding: 14px 22px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: background .15s;
+    box-shadow: 0 2px 6px rgba(96,165,250,.25);
+    transition: opacity .15s;
 }
 
-.btn:hover { background: var(--blue-hover); }
+.btn:hover { opacity: .9; }
 
 .muted {
     color: var(--blue);
-    font-size: 16px;
+    font-size: 18px;
     text-decoration: none;
+    white-space: nowrap;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 700px) {
+    .hero h1 { font-size: 58px; }
+    .dob-label { font-size: 24px; }
+    .chip { font-size: 24px; }
+    .btn { font-size: 24px; }
+    .input input { font-size: 24px; }
+    .pill-toggle { font-size: 18px; }
 }

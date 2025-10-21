@@ -1,8 +1,7 @@
-// src/components/DarkModeButton.tsx
 import { useEffect, useState } from "react";
 
 type Theme = "Light" | "Dark";
-const CSS_FILES = ["base.css", "topbar.css", "home.css", "login.css", "events.css"];
+const CSS_FILES = ["base.css", "topbar.css", "home.css", "login.css", "events.css", "register.css"];
 
 const hrefFor = (theme: Theme, file: string) =>
     new URL(`../styles/${theme}Styles/${file}`, import.meta.url).href;

@@ -1,47 +1,49 @@
 /* ===============================================
    src/styles/DarkStyles/home.css
-   Homepage (cards, hero, filter buttons)
+   Home page — Dark Theme
    ------------------------------------------------
-   Classnames used by: src/pages/HomePage.tsx
+   Updated hero section:
+   - Auto-growing height
+   - Text wraps properly
+   - Maintains consistent style
 ================================================= */
 
 /* ---------- HERO ---------- */
 .hero {
     position: relative;
-    height: 60vh;
-    min-height: 300px;
-
-    /* Background image lives in /src/assets */
-    background: url('../assets/clouds.jpg') no-repeat center center / cover;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-height: 60vh;
+    height: auto;
+    background: url('../../assets/clouds.jpg') no-repeat center center / cover;
+    display: grid;
+    place-items: center;
     text-align: center;
-
     color: #fff;
-    padding-top: 3.5rem; /* space for topbar */
+    padding: 4rem 1rem;
 }
 
 .hero::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.55); /* darken overlay for readability */
+    background: rgba(0, 0, 0, 0.55);
     z-index: 0;
 }
 
 .hero-content {
     position: relative;
     z-index: 1;
-    max-width: 800px;
-    padding: 0 1em;
+    max-width: 900px;
+    width: 100%;
+    padding: 0 0.5rem;
+    overflow-wrap: anywhere;
+    white-space: normal;
 }
 
 .hero-content h1 {
     font-size: 3em;
     margin: 0.5em 0;
     line-height: 1.2;
+    color: #fff;
 }
 
 .hero-content h2 {
@@ -70,10 +72,8 @@
 .events-title h2 {
     margin: 0;
     font-size: 1.8em;
-    color: var(--text);
 }
 
-/* Filter buttons (All / Live / Upcoming / Ended) */
 .event-filters {
     display: flex;
     gap: 0.5em;
@@ -81,17 +81,19 @@
 
 .filter-btn {
     background: var(--bg);
-    border: 1px solid #2c2c2c;
+    border: 1px solid var(--border);
     color: var(--text);
-
     padding: 0.5em 1em;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 0.9em;
     transition: background 0.3s, border-color 0.3s;
 }
 
-.filter-btn:hover { background: #1e293b; }
+.filter-btn:hover {
+    background: #1e293b;
+}
+
 .filter-btn.active {
     background: var(--blue);
     color: #fff;
@@ -108,15 +110,16 @@
 .event-card {
     background: var(--panel);
     border-radius: 10px;
-    box-shadow: var(--shadow);
+    box-shadow: 0 4px 12px rgba(21, 30, 46, 0.08);
     overflow: hidden;
-
     display: flex;
     flex-direction: column;
     transition: transform 0.25s ease;
 }
 
-.event-card:hover { transform: translateY(-4px); }
+.event-card:hover {
+    transform: translateY(-4px);
+}
 
 .card-media {
     height: 160px;
@@ -125,12 +128,13 @@
     background-image: url('../assets/defaulticon.jpg');
 }
 
-.card-body { padding: 1em; }
+.card-body {
+    padding: 1em;
+}
 
 .card-body h3 {
     margin: 0 0 0.4em;
     font-size: 1.2em;
-    color: var(--text);
 }
 
 .card-body .meta {
@@ -142,7 +146,6 @@
 .card-body .desc {
     font-size: 0.95em;
     margin-bottom: 1em;
-    color: var(--text);
 }
 
 .card-body .btn {
@@ -150,39 +153,25 @@
     padding: 0.6em 1.2em;
     background: var(--blue);
     color: #fff;
-    border: 0;
-    border-radius: 10px;
+    text-decoration: none;
+    border-radius: 4px;
     font-size: 0.9em;
+    border: 0;
     cursor: pointer;
     transition: opacity 0.3s;
 }
 
-.card-body .btn:hover { opacity: 0.9; }
+.card-body .btn:hover {
+    opacity: 0.9;
+}
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 600px) {
-    .hero-content h1 { font-size: 2em; }
-    .hero-content h2 { font-size: 1em; }
-}
+    .hero-content h1 {
+        font-size: 2em;
+    }
 
-/* Modal shell (kept hidden by default; used if you add JS to open it) */
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    .hero-content h2 {
+        font-size: 1em;
+    }
 }
-
-.mdlcontent {
-    background: var(--panel);
-    border-radius: 30px;
-    max-width: 600px;
-    width: 80%;
-    height: 80%;
-}
-
-iframe { flex: 1; border: none; }
-.xbutton { text-decoration: none; color: #fff; float: right; }
