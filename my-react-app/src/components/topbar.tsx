@@ -1,13 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/defaulticon.jpg";
 
 const TopBar: React.FC = () => {
 	return (
 		<nav className="topbar" role="navigation">
 			<div className="logo">
 				<Link to="/Home">
-					<img src={logo} alt="Logo" />
+					<img src="/trophy.svg" alt="ETM Trophy Logo"/>
 				</Link>
 			</div>
 
