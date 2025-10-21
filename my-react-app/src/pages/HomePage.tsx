@@ -55,13 +55,6 @@ const HomePage: React.FC = () => {
                         </div>
                     </article>
                 </div>
-
-                <div id="eventModal" className="modal">
-                    <div className="mdlcontent">
-                        <a id="xbtn" className="xbutton" href="">❌</a>
-                        <iframe id="eventFrame" src="" width="100%" height="800"></iframe>
-                    </div>
-                </div>
             </section>
         </>
     );
