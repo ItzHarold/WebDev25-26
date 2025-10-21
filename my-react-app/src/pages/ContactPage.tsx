@@ -33,7 +33,6 @@ const ContactPage: React.FC = () => {
                             <a className="link" href="https://github.com/herkam3" target="_blank" rel="noreferrer">GitHub</a>
                         </li>
                     </ul>
-                    <p className="note">Replace the links with the correct GitHub URLs.</p>
                 </article>
             </main>
         </>
