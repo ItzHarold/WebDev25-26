@@ -1,19 +1,42 @@
+// src/App.tsx
 import { Routes, Route, Navigate } from "react-router-dom";
 import TopBar from "./components/topbar";
 import HomePage from "./pages/HomePage";
 import EventsPage from "./pages/EventsPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
 import DarkModeButton from "./components/DarkModeButton";
 import { AuthProvider } from "./context/AuthContext";
 import { RequireAuth, RequireRole } from "./components/guards";
 
-// Minimal role-target pages (placeholders to satisfy routing/components rule)
-const AdminDashboard = () => <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}><h2>Admin Dashboard</h2></section>;
-const ManageUsers    = () => <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}><h2>Manage Users</h2></section>;
-const ManagerHome    = () => <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}><h2>Team Manager</h2></section>;
-const ManagerEvents  = () => <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}><h2>Create / Manage Events</h2></section>;
-const UserProfile    = () => <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}><h2>My Profile</h2></section>;
+// Minimal role-target pages (placeholders)
+const AdminDashboard = () => (
+    <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}>
+        <h2>Admin Dashboard</h2>
+    </section>
+);
+const ManageUsers = () => (
+    <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}>
+        <h2>Manage Users</h2>
+    </section>
+);
+const ManagerHome = () => (
+    <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}>
+        <h2>Team Manager</h2>
+    </section>
+);
+const ManagerEvents = () => (
+    <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}>
+        <h2>Create / Manage Events</h2>
+    </section>
+);
+const UserProfile = () => (
+    <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}>
+        <h2>My Profile</h2>
+    </section>
+);
 
 export default function App() {
     return (
@@ -27,6 +50,24 @@ export default function App() {
                 <Route path="/Register" element={<RegisterPage />} />
                 <Route path="/Home" element={<HomePage />} />
                 <Route path="/Events" element={<EventsPage />} />
+
+                {/* visible only to logged-in User or Manager via guard */}
+                <Route
+                    path="/about"
+                    element={
+                        <RequireRole roles={["user", "manager"]}>
+                            <AboutPage />
+                        </RequireRole>
+                    }
+                />
+                <Route
+                    path="/contact"
+                    element={
+                        <RequireRole roles={["user", "manager"]}>
+                            <ContactPage />
+                        </RequireRole>
+                    }
+                />
 
                 {/* protected by role */}
                 <Route
