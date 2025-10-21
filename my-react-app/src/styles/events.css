@@ -1,0 +1,108 @@
+/* ---------------- HERO ---------------- */
+.hero {
+    position: relative;
+    height: 24vh;
+    min-height: 160px;
+    max-height: 260px;
+    background: url('../Pictures/clouds.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding-top: 2.8rem;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+}
+
+.hero-content h1 {
+    font-size: 2.5em;
+    margin: 0.5em 0;
+    line-height: 1.3;
+}
+
+/* ---------------- INFO SECTION ---------------- */
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    margin: 2em auto;
+    padding: 1em;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.95em;
+}
+
+.info div {
+    margin-right: 2em;
+}
+
+/* ---------------- OVERVIEW ---------------- */
+.overview {
+    max-width: 1000px;
+    margin: 3em auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2em;
+    padding: 0 1em;
+}
+
+.overview h2 {
+    margin-top: 0;
+}
+
+.overview img {
+    max-width: 100%;
+}
+
+.overview button {
+    background: #007BFF;
+    color: white;
+    border: none;
+    padding: 0.8em 1.5em;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.overview button:hover {
+    background: #0056b3;
+}
+
+.event-img {
+    width: 100%;
+    height: auto;
+    margin-top: 1rem;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.location {
+    font-size: 0.9em;
+    margin-top: 1em;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+    .info {
+        flex-direction: column;
+        gap: 1em;
+        text-align: center;
+    }
+
+    .overview {
+        grid-template-columns: 1fr;
+    }
+}
