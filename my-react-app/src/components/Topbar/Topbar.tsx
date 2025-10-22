@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import UserMenu from "./UserMenu";
-import logo from "../../public/trophy.svg";
+import UserMenu from "../UserMenu.tsx";
+import logo from "../../../public/trophy.svg";
 
 const TopBar: React.FC = () => {
 	return (

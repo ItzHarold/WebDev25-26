@@ -1,6 +1,6 @@
 import React from "react";
-import "../styles/LightStyles/about.css";
-import "../styles/DarkStyles/about.css";
+import "./LightAbout.css";
+import "./DarkAbout.css";
 
 const AboutPage: React.FC = () => {
     return (

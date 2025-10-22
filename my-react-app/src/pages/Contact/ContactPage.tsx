@@ -1,7 +1,7 @@
 // src/pages/ContactPage.tsx
 import React from "react";
-import "../styles/LightStyles/contact.css";
-import "../styles/DarkStyles/contact.css";
+import "./DarkContact.css";
+import "./DarkContact.css";
 
 const ContactPage: React.FC = () => {
     return (

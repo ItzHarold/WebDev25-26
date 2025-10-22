@@ -5,8 +5,8 @@
 
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import type { Role } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext.tsx";
+import type { Role } from "../../context/AuthContext";
 
 const LoginPage: React.FC = () => {
     const { login, destinationFor } = useAuth();

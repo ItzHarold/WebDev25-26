@@ -1,17 +1,15 @@
-// src/App.tsx
 import { Routes, Route, Navigate } from "react-router-dom";
-import TopBar from "./components/topbar";
-import HomePage from "./pages/HomePage";
-import EventsPage from "./pages/EventsPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import AboutPage from "./pages/AboutPage";
-import ContactPage from "./pages/ContactPage";
+import TopBar from "./components/Topbar/topbar";
+import HomePage from "./pages/Home/HomePage";
+import EventsPage from "./pages/Events/EventsPage";
+import LoginPage from "./pages/Login/LoginPage";
+import RegisterPage from "./pages/Register/RegisterPage";
+import AboutPage from "./pages/About/AboutPage";
+import ContactPage from "./pages/Contact/ContactPage";
 import DarkModeButton from "./components/DarkModeButton";
 import { AuthProvider } from "./context/AuthContext";
 import { RequireAuth, RequireRole } from "./components/guards";
 
-// Minimal role-target pages (placeholders)
 const AdminDashboard = () => (
     <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}>
         <h2>Admin Dashboard</h2>
