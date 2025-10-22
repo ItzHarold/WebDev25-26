@@ -1,7 +1,66 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import EventGrid from "../components/HomePage/EventGrid";
+
+const mockEvents = [
+    {
+        id: "1",
+        title: "Sample Event One",
+        location: "Rotterdam",
+        date: "June 20–22, 2025",
+        description: "Short description for the first event.",
+        status: "upcoming" as const,
+        imageUrl: "defaulticon.jpg"
+    },
+    {
+        id: "2",
+        title: "Sample Event Two",
+        location: "Amsterdam",
+        date: "June 20–22, 2025",
+        description: "Short description for the Second event.",
+        status: "upcoming" as const,
+        imageUrl: "/images/event1.jpg"
+    },
+    {
+        id: "3",
+        title: "Sample Event Three",
+        location: "Amsterdam",
+        date: "June 20–22, 2025",
+        description: "Short description for the Second event.",
+        status: "upcoming" as const,
+        imageUrl: "/images/event1.jpg"
+    },
+    {
+        id: "3",
+        title: "Sample Event Four",
+        location: "Amsterdam",
+        date: "June 20–22, 2025",
+        description: "Short description for the Fourth event.",
+        status: "upcoming" as const,
+        imageUrl: "/images/event1.jpg"
+    },
+    {
+        id: "5",
+        title: "Sample Event Five",
+        location: "Amsterdam",
+        date: "June 20–22, 2025",
+        description: "Short description for the Fifth event.",
+        status: "upcoming" as const,
+        imageUrl: "/images/event1.jpg"
+    },
+    {
+        id: "6",
+        title: "Sample Event Six",
+        location: "Amsterdam",
+        date: "June 20–22, 2025",
+        description: "Short description for the Sixth event.",
+        status: "upcoming" as const,
+        imageUrl: "/images/event1.jpg"
+    }
+
+];
 
 const HomePage: React.FC = () => {
+    const [events] = useState(mockEvents);
     return (
         <>
             <section className="hero">
@@ -23,38 +82,7 @@ const HomePage: React.FC = () => {
                         <button className="filter-btn" data-filter="ended">Ended</button>
                     </div>
                 </div>
-
-                <div className="events-grid">
-                    <article className="event-card">
-                        <div className="card-media"></div>
-                        <div className="card-body">
-                            <h3>Sample Event One</h3>
-                            <p className="meta">Rotterdam • May 10–12, 2025</p>
-                            <p className="desc">Short description of the event. A quick summary that fits two lines.</p>
-                            <Link to="/Events"><button className="btn">View Details</button></Link>
-                        </div>
-                    </article>
-
-                    <article className="event-card">
-                        <div className="card-media"></div>
-                        <div className="card-body">
-                            <h3>Sample Event Two</h3>
-                            <p className="meta">Rotterdam • June 20–22, 2025</p>
-                            <p className="desc">Short description for the second event. Keep copy brief.</p>
-                            <Link to="/Events"><button className="btn">View Details</button></Link>
-                        </div>
-                    </article>
-
-                    <article className="event-card">
-                        <div className="card-media"></div>
-                        <div className="card-body">
-                            <h3>Sample Event Three</h3>
-                            <p className="meta">Rotterdam • June 20–22, 2025</p>
-                            <p className="desc">Short description for the second event. Keep copy brief.</p>
-                            <Link to="/Events"><button className="btn">View Details</button></Link>
-                        </div>
-                    </article>
-                </div>
+                <EventGrid events={events} />
             </section>
         </>
     );
