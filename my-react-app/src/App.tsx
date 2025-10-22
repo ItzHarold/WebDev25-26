@@ -1,12 +1,12 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import TopBar from "./components/Topbar/topbar";
+import TopBar from "./components/Topbar/Topbar";
 import HomePage from "./pages/Home/HomePage";
 import EventsPage from "./pages/Events/EventsPage";
 import LoginPage from "./pages/Login/LoginPage";
 import RegisterPage from "./pages/Register/RegisterPage";
 import AboutPage from "./pages/About/AboutPage";
 import ContactPage from "./pages/Contact/ContactPage";
-import DarkModeButton from "./components/DarkModeButton";
+import DarkModeButton from "./components/DarkMode/DarkModeButton";
 import { AuthProvider } from "./context/AuthContext";
 import { RequireAuth, RequireRole } from "./components/guards";
 

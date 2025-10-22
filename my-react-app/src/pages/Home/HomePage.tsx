@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import EventGrid from "../components/HomePage/EventGrid";
+import EventGrid from "../../components/HomePage/EventGrid";
 
 const mockEvents = [
     {
