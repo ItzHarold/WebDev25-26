@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import EventGrid from "../../components/HomePage/EventGrid";
+import defaulticon from "../../assets/game.jpg";
 
 const mockEvents = [
     {
@@ -9,7 +10,7 @@ const mockEvents = [
         date: "June 20–22, 2025",
         description: "Short description for the first event.",
         status: "upcoming" as const,
-        imageUrl: "defaulticon.jpg"
+        imageUrl: defaulticon
     },
     {
         id: "2",
@@ -18,7 +19,7 @@ const mockEvents = [
         date: "June 20–22, 2025",
         description: "Short description for the Second event.",
         status: "upcoming" as const,
-        imageUrl: "/images/event1.jpg"
+        imageUrl: defaulticon
     },
     {
         id: "3",
@@ -27,7 +28,7 @@ const mockEvents = [
         date: "June 20–22, 2025",
         description: "Short description for the Second event.",
         status: "upcoming" as const,
-        imageUrl: "/images/event1.jpg"
+        imageUrl: defaulticon
     },
     {
         id: "3",
@@ -36,7 +37,7 @@ const mockEvents = [
         date: "June 20–22, 2025",
         description: "Short description for the Fourth event.",
         status: "upcoming" as const,
-        imageUrl: "/images/event1.jpg"
+        imageUrl: defaulticon
     },
     {
         id: "5",
@@ -45,7 +46,7 @@ const mockEvents = [
         date: "June 20–22, 2025",
         description: "Short description for the Fifth event.",
         status: "upcoming" as const,
-        imageUrl: "/images/event1.jpg"
+        imageUrl: defaulticon
     },
     {
         id: "6",
@@ -54,7 +55,7 @@ const mockEvents = [
         date: "June 20–22, 2025",
         description: "Short description for the Sixth event.",
         status: "upcoming" as const,
-        imageUrl: "/images/event1.jpg"
+        imageUrl: defaulticon
     }
 
 ];
