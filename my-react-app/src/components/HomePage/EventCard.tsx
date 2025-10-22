@@ -18,9 +18,7 @@ interface EventCardProps {
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
     return (
         <article className="event-card">
-            <div className="card-media">
-                {event.imageUrl && <img src={event.imageUrl} alt={event.title} />}
-            </div>
+            <div className="card-media" style={{ backgroundImage: `url(${event.imageUrl})` }}></div>
             <div className="card-body">
                 <h3>{event.title}</h3>
                 <p className="meta">{event.location} • {event.date}</p>

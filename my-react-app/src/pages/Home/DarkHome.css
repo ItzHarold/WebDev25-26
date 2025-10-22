@@ -125,7 +125,6 @@
     height: 160px;
     background-size: cover;
     background-position: center;
-    background-image: url('../assets/defaulticon.jpg');
 }
 
 .card-body {
