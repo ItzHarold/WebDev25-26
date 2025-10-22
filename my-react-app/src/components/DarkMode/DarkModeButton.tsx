@@ -8,7 +8,7 @@ const THEME_FILES: Record<Theme, string[]> = {
         "../Topbar/LightTopbar.css",
         "../../pages/Home/LightHome.css",
         "../../pages/Login/LightLogin.css",
-        "../../pages/Events/LightEvents.css",
+        "../../pages/Events/LightEvent.css",
         "../../pages/Register/LightRegister.css",
         "../../pages/About/LightAbout.css",
         "../../pages/Contact/LightContact.css",
