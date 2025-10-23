@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import EventGrid from "../../components/HomePage/EventGrid";
 import defaulticon from "../../assets/game.jpg";
+import EventGrid from "../../components/HomePage/EventGrid";
 
 const mockEvents = [
     {
@@ -9,7 +9,7 @@ const mockEvents = [
         location: "Rotterdam",
         date: "June 20–22, 2025",
         description: "Short description for the first event.",
-        status: "upcoming" as const,
+        status: "Live" as const,
         imageUrl: defaulticon
     },
     {
@@ -27,7 +27,7 @@ const mockEvents = [
         location: "Amsterdam",
         date: "June 20–22, 2025",
         description: "Short description for the Second event.",
-        status: "upcoming" as const,
+        status: "Live" as const,
         imageUrl: defaulticon
     },
     {
@@ -36,14 +36,14 @@ const mockEvents = [
         location: "Amsterdam",
         date: "June 20–22, 2025",
         description: "Short description for the Fourth event.",
-        status: "upcoming" as const,
+        status: "Live" as const,
         imageUrl: defaulticon
     },
     {
         id: "5",
         title: "Sample Event Five",
         location: "Amsterdam",
-        date: "June 20–22, 2025",
+        date: "June 20–22, 2026",
         description: "Short description for the Fifth event.",
         status: "upcoming" as const,
         imageUrl: defaulticon
@@ -52,9 +52,9 @@ const mockEvents = [
         id: "6",
         title: "Sample Event Six",
         location: "Amsterdam",
-        date: "June 20–22, 2025",
+        date: "June 20–22, 2022z",
         description: "Short description for the Sixth event.",
-        status: "upcoming" as const,
+        status: "Ended" as const,
         imageUrl: defaulticon
     }
 
