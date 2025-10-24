@@ -8,6 +8,7 @@ interface Event {
     location: string;
     date: string;
     description: string;
+    status: "live" | "upcoming" | "ended";
     imageUrl?: string;
 }
 
@@ -16,6 +17,10 @@ interface EventGridProps {
 }
 
 const EventGrid: React.FC<EventGridProps> = ({ events }) => {
+    if (events.length === 0) {
+        return (<p>No events available.</p>)
+    };
+
     return (
         <div className="events-grid">
             {events.map(event => (
@@ -24,5 +29,6 @@ const EventGrid: React.FC<EventGridProps> = ({ events }) => {
         </div>
     );
 };
+
 
 export default EventGrid;
