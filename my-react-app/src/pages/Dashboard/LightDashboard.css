@@ -1,0 +1,67 @@
+/* Light theme styles for Dashboard page */
+
+main.container { padding-bottom: 3rem; }
+
+.hero.hero--dash {
+  position: relative;
+  height: 40vh; min-height: 220px;
+  background: linear-gradient(135deg, #1a73e8 0%, #7bb3ff 100%);
+  display: flex; justify-content: center; align-items: center; text-align: center;
+  color: #fff; padding-top: 2.2rem;
+}
+.hero.hero--dash::before { content: none; }
+.hero-content { position: relative; z-index: 1; max-width: 700px; padding: 0 1em; }
+.hero-content h1 { font-size: 2.5em; margin: 0.5em 0; }
+.hero-content p { font-size: 1.2em; margin: 0; }
+
+.dashboard .stat-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1rem; margin: 1rem 0 1.25rem;
+}
+.stat-card { background:#fff; padding:.75rem; border-radius:10px; box-shadow:0 6px 18px rgba(21,30,46,.04); border:1px solid rgba(21,30,46,.06); }
+.stat-title { font-size:.95rem; color:#666; }
+.stat-value { font-size:1.6rem; font-weight:700; margin-top:.4rem; }
+.stat-sub { color:#888; font-size:.85rem; margin-top:.5rem; }
+
+.management-header { display:flex; justify-content:space-between; align-items:center; gap:1rem; margin:.6rem 0 .8rem; flex-wrap:wrap; }
+.tabs .tab { background:#f5f6f8; border:1px solid rgba(21,30,46,.06); padding:.4rem .7rem; border-radius:8px; margin-right:.4rem; cursor:pointer; }
+.tabs .tab[aria-pressed="true"] { background:#e6efff; border-color:#c7dcff; }
+.create-btn { background:#071428; color:#fff; border:none; padding:.42rem .75rem; border-radius:8px; cursor:pointer; }
+.management-actions { display:flex; align-items:center; gap:.5rem; }
+.tournament-search { width:220px; padding:.35rem .5rem; border-radius:6px; border:1px solid rgba(21,30,46,.12); background:#fff; font-size:.9rem; }
+.tournament-search:focus { outline:none; box-shadow:0 4px 10px rgba(7,20,40,.06); }
+
+.tournaments-panel { background:#fff; border-radius:10px; padding:.75rem; border:1px solid rgba(21,30,46,.06); overflow-x:auto; }
+.tournaments-table { width:100%; border-collapse:collapse; }
+.tournaments-table th, .tournaments-table td { padding:.5rem .45rem; text-align:left; border-bottom:1px solid rgba(21,30,46,.06); font-size:.92rem; }
+.tournaments-table thead th { font-weight:600; font-size:.9rem; }
+
+.status-pill { display:inline-block; background:#28c67a; color:#fff; padding:.25rem .5rem; border-radius:12px; font-size:.8rem; }
+.status-completed { background:#6c757d; }
+.status-ongoing { background:#ffb020; color:#1b1f23; }
+.status-cancelled { background:#d9534f; }
+.status-open { background:#28c67a; }
+.status-approved { background:#28c67a; }
+.status-resigned { background:#9aa0a6; color:#1b1f23; }
+
+.link-btn { background:none; border:none; color:#0b5ed7; cursor:pointer; padding:0; font: inherit; }
+.link-btn.danger { color:#c43c39; }
+
+/* Modal */
+.modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.35); display:flex; align-items:center; justify-content:center; z-index:50; }
+.modal { background:#fff; color:#111; width:min(560px, 92vw); border-radius:12px; padding:1rem; position:relative; box-shadow:0 20px 60px rgba(0,0,0,.15); }
+.modal-close { position:absolute; top:.5rem; right:.5rem; background:none; border:none; font-size:1rem; cursor:pointer; }
+.form-grid { display:grid; gap:.5rem; }
+.form-grid label { display:grid; gap:.25rem; font-size:.9rem; }
+.form-grid input, .form-grid select { padding:.5rem; border:1px solid #cfd6e4; border-radius:8px; }
+.btn-row { display:flex; gap:.5rem; justify-content:flex-end; margin-top:.5rem; }
+
+.placeholder { background:#fff; border:1px solid rgba(21,30,46,.06); border-radius:10px; padding:1rem; }
+
+@media (max-width: 900px) { .dashboard .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) {
+  .dashboard .stat-grid { grid-template-columns: 1fr; }
+  .management-header { flex-direction: column; align-items: flex-start; }
+  .management-actions { width:100%; display:flex; gap:.5rem; margin-top:.5rem; }
+  .tournament-search { width:100%; }
+}

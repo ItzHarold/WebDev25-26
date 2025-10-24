@@ -9,12 +9,8 @@ import ContactPage from "./pages/Contact/ContactPage";
 import DarkModeButton from "./components/DarkMode/DarkModeButton";
 import { AuthProvider } from "./context/AuthContext";
 import { RequireAuth, RequireRole } from "./components/guards";
+import DashboardPage from "./pages/Dashboard/DashboardPage";
 
-const AdminDashboard = () => (
-    <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}>
-        <h2>Admin Dashboard</h2>
-    </section>
-);
 const ManageUsers = () => (
     <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}>
         <h2>Manage Users</h2>
@@ -72,7 +68,15 @@ export default function App() {
                     path="/admin"
                     element={
                         <RequireRole roles={["admin"]}>
-                            <AdminDashboard />
+                            <DashboardPage />
+                        </RequireRole>
+                    }
+                />
+                <Route
+                    path="/dashboard"
+                    element={
+                        <RequireRole roles={["admin"]}>
+                            <DashboardPage />
                         </RequireRole>
                     }
                 />
