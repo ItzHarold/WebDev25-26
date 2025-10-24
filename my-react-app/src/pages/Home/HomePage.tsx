@@ -9,7 +9,7 @@ const mockEvents = [
         location: "Rotterdam",
         date: "June 20–22, 2025",
         description: "Short description for the first event.",
-        status: "Live",
+        status: "live" as const,
         imageUrl: defaulticon
     },
     {
@@ -18,7 +18,7 @@ const mockEvents = [
         location: "Amsterdam",
         date: "June 20–22, 2025",
         description: "Short description for the Second event.",
-        status: "upcoming",
+        status: "upcoming" as const,
         imageUrl: defaulticon
     },
     {
@@ -27,16 +27,16 @@ const mockEvents = [
         location: "Amsterdam",
         date: "June 20–22, 2025",
         description: "Short description for the Second event.",
-        status: "Live",
+        status: "live" as const,
         imageUrl: defaulticon
     },
     {
-        id: "3",
+        id: "4",
         title: "Sample Event Four",
         location: "Amsterdam",
         date: "June 20–22, 2025",
         description: "Short description for the Fourth event.",
-        status: "Live",
+        status: "live" as const,
         imageUrl: defaulticon
     },
     {
@@ -45,16 +45,16 @@ const mockEvents = [
         location: "Amsterdam",
         date: "June 20–22, 2026",
         description: "Short description for the Fifth event.",
-        status: "upcoming",
+        status: "upcoming" as const,
         imageUrl: defaulticon
     },
     {
         id: "6",
         title: "Sample Event Six",
         location: "Amsterdam",
-        date: "June 20–22, 2022z",
+        date: "June 20–22, 2022",
         description: "Short description for the Sixth event.",
-        status: "Ended",
+        status: "ended" as const,
         imageUrl: defaulticon
     }
 
@@ -64,6 +64,16 @@ const mockEvents = [
 const HomePage: React.FC = () => {
     const [events] = useState(mockEvents);
     const [activeFilter, setActiveFilter] = useState<"all" | "live" | "upcoming" | "ended">("all");
+    const filteredEvents = events.filter(event => {
+        if (activeFilter === 'all') {
+            return true;
+        }
+        const eventStatus = event.status.toLowerCase();
+        const filterStatus = activeFilter.toLowerCase();
+
+        return eventStatus === filterStatus;
+    }
+    );
     return (
         <>
             <section className="hero">
@@ -101,7 +111,7 @@ const HomePage: React.FC = () => {
                         </button>
                     </div>
                 </div>
-                <EventGrid events={events} />
+                <EventGrid events={filteredEvents} />
             </section>
         </>
     );

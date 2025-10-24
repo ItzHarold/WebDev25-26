@@ -8,6 +8,7 @@ interface Event {
     location: string;
     date: string;
     description: string;
+    status: "live" | "upcoming" | "ended";
     imageUrl?: string;
 }
 
@@ -21,7 +22,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
             <div className="card-media" style={{ backgroundImage: `url(${event.imageUrl})` }}></div>
             <div className="card-body">
                 <h3>{event.title}</h3>
-                <p className="meta">{event.location} • {event.date}</p>
+                <p className="meta">{event.location} • {event.date} <span className={`status ${event.status.toLowerCase()}`}>{event.status}</span> </p>
                 <p className="desc">{event.description}</p>
                 <Link to={`/events/`}>
                     <button className="btn">View Details</button>
