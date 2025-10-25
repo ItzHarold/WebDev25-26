@@ -9,21 +9,28 @@
 
 :root {
     /* Color tokens */
-    --bg:        #0f172a;   /* App background (slate-900)         */
-    --panel:     #111827;   /* Surfaces: cards, hero, topbar       */
-    --text:      #e5e7eb;   /* Primary text (gray-200)             */
-    --muted:     #9ca3af;   /* Secondary text                      */
-    --blue:      #60a5fa;   /* Accent / primary buttons            */
-    --input:     #0b1220;   /* Input background                    */
+    --bg: #03050a;
+    /* App background (slate-900)         */
+    --panel: #202424;
+    /* Surfaces: cards, hero, topbar       */
+    --text: #e5e7eb;
+    /* Primary text (gray-200)             */
+    --muted: #9ca3af;
+    /* Secondary text                      */
+    --blue: #60a5fa;
+    /* Accent / primary buttons            */
+    --input: #0b1220;
+    /* Input background                    */
 
     /* Radii + shadows */
     --radius-xl: 18px;
     --radius-lg: 14px;
-    --shadow:    0 2px 8px rgba(0, 0, 0, .5);
+    --shadow: 0 2px 8px rgba(0, 0, 0, .5);
 }
 
 /* Base page scaffold */
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     background: var(--bg);
