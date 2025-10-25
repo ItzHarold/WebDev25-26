@@ -6,20 +6,21 @@
 ================================================= */
 
 :root {
-    --bg:         #0f172a;
-    --panel:      #111827;
-    --text:       #e5e7eb;
-    --blue:       #60a5fa;
+    --panel: #111827;
+    --text: #e5e7eb;
+    --blue: #60a5fa;
     --blue-hover: #3b82f6;
-    --input:      #0b1220;
-    --border:     #2c2c2c;
-    --radius-xl:  18px;
-    --radius-lg:  14px;
-    --shadow:     0 8px 24px rgba(0, 0, 0, .5);
+    --input: #0b1220;
+    --border: #2c2c2c;
+    --radius-xl: 18px;
+    --radius-lg: 14px;
+    --shadow: 0 8px 24px rgba(0, 0, 0, .5);
 }
 
 /* Page layout */
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
@@ -56,7 +57,8 @@ body {
 .hero h1 {
     font-size: 80px;
     margin: 0;
-    color: #ffffff; /* full white */
+    color: #ffffff;
+    /* full white */
     text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
     letter-spacing: 1px;
 }
@@ -70,7 +72,11 @@ body {
     padding: 30px 26px 26px;
 }
 
-.stack { display: flex; flex-direction: column; gap: 18px; }
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
 
 /* ---------------- INPUTS ---------------- */
 .input {
@@ -123,7 +129,9 @@ body {
     transition: background .15s;
 }
 
-.btn:hover { background: var(--blue-hover); }
+.btn:hover {
+    background: var(--blue-hover);
+}
 
 .muted {
     color: var(--blue);
