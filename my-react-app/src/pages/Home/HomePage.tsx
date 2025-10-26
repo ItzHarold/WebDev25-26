@@ -1,118 +1,71 @@
 import React, { useState } from "react";
-import defaulticon from "../../assets/game.jpg";
 import EventGrid from "../../components/HomePage/EventGrid";
-
-const mockEvents = [
-    {
-        id: "1",
-        title: "Sample Event One",
-        location: "Rotterdam",
-        date: "June 20–22, 2025",
-        description: "Short description for the first event.",
-        status: "live" as const,
-        imageUrl: defaulticon
-    },
-    {
-        id: "2",
-        title: "Sample Event Two",
-        location: "Amsterdam",
-        date: "June 20–22, 2025",
-        description: "Short description for the Second event.",
-        status: "upcoming" as const,
-        imageUrl: defaulticon
-    },
-    {
-        id: "3",
-        title: "Sample Event Three",
-        location: "Amsterdam",
-        date: "June 20–22, 2025",
-        description: "Short description for the Second event.",
-        status: "live" as const,
-        imageUrl: defaulticon
-    },
-    {
-        id: "4",
-        title: "Sample Event Four",
-        location: "Amsterdam",
-        date: "June 20–22, 2025",
-        description: "Short description for the Fourth event.",
-        status: "live" as const,
-        imageUrl: defaulticon
-    },
-    {
-        id: "5",
-        title: "Sample Event Five",
-        location: "Amsterdam",
-        date: "June 20–22, 2026",
-        description: "Short description for the Fifth event.",
-        status: "upcoming" as const,
-        imageUrl: defaulticon
-    },
-    {
-        id: "6",
-        title: "Sample Event Six",
-        location: "Amsterdam",
-        date: "June 20–22, 2022",
-        description: "Short description for the Sixth event.",
-        status: "ended" as const,
-        imageUrl: defaulticon
-    }
-
-];
-
+import TeamList from "../../components/HomePage/TeamList";
+import mockEvents from "../../data/mockEvents.json";
+import mockTeams from "../../data/mockTeams.json";
 
 const HomePage: React.FC = () => {
     const [events] = useState(mockEvents);
-    const [activeFilter, setActiveFilter] = useState<"all" | "live" | "upcoming" | "ended">("all");
+    const [teams] = useState(mockTeams);
+    const [activeFilter, setActiveFilter] = useState("all");
     const filteredEvents = events.filter(event => {
         if (activeFilter === 'all') {
             return true;
         }
-        const eventStatus = event.status.toLowerCase();
-        const filterStatus = activeFilter.toLowerCase();
 
-        return eventStatus === filterStatus;
+        return event.status === activeFilter;
     }
     );
     return (
         <>
-            <section className="hero">
-                <div className="hero-content">
-                    <h1>ESPORTS TOURNAMENTS</h1>
-                    <h2>Discover upcoming events and tournaments. Click a card to view full details.</h2>
-                </div>
-            </section>
+            <div className="homepage">
+                <section className="hero">
+                    <div className="hero-content">
+                        <h1>ESPORTS TOURNAMENTS</h1>
+                        <h2>Discover upcoming events and tournaments. Click a card to view full details.</h2>
+                    </div>
+                </section>
 
-            <section className="events">
-                <div className="events-header">
-                    <div className="events-title">
-                        <h2>Events</h2>
-                    </div>
-                    <div className="event-filters" role="tablist" aria-label="Event status filters">
-                        <button className={`filter-btn ${activeFilter === "all" ? "active" : ""}`}
-                            onClick={() => setActiveFilter("all")}
-                        >
-                            All
-                        </button>
-                        <button className={`filter-btn ${activeFilter === "live" ? "active" : ""}`}
-                            onClick={() => setActiveFilter("live")}
-                        >
-                            Live
-                        </button>
-                        <button className={`filter-btn ${activeFilter === "upcoming" ? "active" : ""}`}
-                            onClick={() => setActiveFilter("upcoming")}
-                        >
-                            Upcoming
-                        </button>
-                        <button className={`filter-btn ${activeFilter === "ended" ? "active" : ""}`}
-                            onClick={() => setActiveFilter("ended")}
-                        >
-                            Ended
-                        </button>
-                    </div>
+                {/* Homepage Content*/}
+                <div className="main-content">
+                    {/*Teams Section*/}
+                    <aside className="teams-sidebar">
+                        <h2>Teams</h2>
+                        <TeamList teams={teams} />
+                    </aside>
+                    {/* Event Section */}
+                    <section className="event-section">
+                        <div className="events-header">
+                            <div className="events-title">
+                                <h2>Events</h2>
+                            </div>
+                            <div className="event-filters" role="tablist" aria-label="Event status filters">
+                                <button className={`filter-btn ${activeFilter === "all" ? "active" : ""}`}
+                                    onClick={() => setActiveFilter("all")}
+                                >
+                                    All
+                                </button>
+                                <button className={`filter-btn ${activeFilter === "live" ? "active" : ""}`}
+                                    onClick={() => setActiveFilter("live")}
+                                >
+                                    Live
+                                </button>
+                                <button className={`filter-btn ${activeFilter === "upcoming" ? "active" : ""}`}
+                                    onClick={() => setActiveFilter("upcoming")}
+                                >
+                                    Upcoming
+                                </button>
+                                <button className={`filter-btn ${activeFilter === "ended" ? "active" : ""}`}
+                                    onClick={() => setActiveFilter("ended")}
+                                >
+                                    Ended
+                                </button>
+                            </div>
+                        </div>
+                        <EventGrid events={filteredEvents} />
+                    </section>
                 </div>
-                <EventGrid events={filteredEvents} />
-            </section>
+            </div>
         </>
     );
 };

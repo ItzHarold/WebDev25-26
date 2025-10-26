@@ -1,0 +1,56 @@
+[
+    {
+        "id": "1",
+        "title": "Sample Event One",
+        "location": "Rotterdam",
+        "date": "June 20–22, 2025",
+        "description": "Short description for the first event.",
+        "status": "live",
+        "imageUrl": "/src/assets/game.jpg"
+    },
+    {
+        "id": "2",
+        "title": "Sample Event Two",
+        "location": "Amsterdam",
+        "date": "June 20–22, 2025",
+        "description": "Short description for the Second event.",
+        "status": "upcoming",
+        "imageUrl": "/src/assets/game.jpg"
+    },
+    {
+        "id": "3",
+        "title": "Sample Event Three",
+        "location": "Amsterdam",
+        "date": "June 20–22, 2025",
+        "description": "Short description for the Second event.",
+        "status": "live",
+        "imageUrl": "/src/assets/game.jpg"
+    },
+    {
+        "id": "4",
+        "title": "Sample Event Four",
+        "location": "Amsterdam",
+        "date": "June 20–22, 2025",
+        "description": "Short description for the Fourth event.",
+        "status": "live",
+        "imageUrl": "/src/assets/game.jpg"
+    },
+    {
+        "id": "5",
+        "title": "Sample Event Five",
+        "location": "Amsterdam",
+        "date": "June 20–22, 2026",
+        "description": "Short description for the Fifth event.",
+        "status": "upcoming",
+        "imageUrl": "/src/assets/game.jpg"
+    },
+    {
+        "id": "6",
+        "title": "Sample Event Six",
+        "location": "Amsterdam",
+        "date": "June 20–22, 2022",
+        "description": "Short description for the Sixth event.",
+        "status": "ended",
+        "imageUrl": "/src/assets/game.jpg"
+    }
+]
