@@ -4,14 +4,14 @@
         "name": "Team Alpha",
         "game": "Valorant",
         "players": 5,
-        "imageUrl": "../../assets/team-default.jpg"
+        "imageUrl": "/src/assets/team-default.jpg"
     },
     {
         "id": "2",
         "name": "Team Beta",
         "game": "CS:GO",
         "players": 5,
-        "imageUrl": "../../assets/team-default.jpg"
+        "imageUrl": "/src/assets/unnamed.jpg"
     },
     {
         "id": "3",
