@@ -8,7 +8,7 @@ interface Event {
     location: string;
     date: string;
     description: string;
-    status: "live" | "upcoming" | "ended";
+    status: string;
     imageUrl?: string;
 }
 
