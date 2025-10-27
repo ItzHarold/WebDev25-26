@@ -103,6 +103,14 @@
     margin-top: 1em;
 }
 
+.banner {
+    width: 100%;
+    margin-top: 1rem;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 768px) {
     .info {

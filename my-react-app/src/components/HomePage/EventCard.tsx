@@ -24,7 +24,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
                 <h3>{event.title}</h3>
                 <p className="meta">{event.location} • {event.date} <span className={`status ${event.status.toLowerCase()}`}>{event.status}</span> </p>
                 <p className="desc">{event.description}</p>
-                <Link to={`/events/`}>
+                <Link to={`/events/${event.id}`}>
                     <button className="btn">View Details</button>
                 </Link>
             </div>
