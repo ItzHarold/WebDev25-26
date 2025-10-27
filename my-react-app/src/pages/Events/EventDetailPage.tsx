@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import mockEvents from "../../data/mockEvents.json";
 
 
@@ -12,6 +12,7 @@ type EventItem = {
   location?: string;
   imageUrl?: string;
   description?: string;
+  detail?: string;
   status?: "live" | "upcoming" | "ended" | string;
 };
 
@@ -69,16 +70,16 @@ const EventDetailPage: React.FC = () => {
           {event.description && (
             <>
               <h3>Description</h3>
-              <p>{event.description}</p>
+              <p>{event.detail}</p>
             </>
           )}
 
           <div className="actions">
             <Link to="/register">
-                <button type="button">Registreren</button>
+              <button type="button">Register</button>
             </Link>
             <Link to="/Home">
-                <button type="button">Cansel</button>
+              <button type="button">Cancel</button>
             </Link>
           </div>
         </article>

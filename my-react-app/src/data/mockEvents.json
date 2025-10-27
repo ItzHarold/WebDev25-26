@@ -14,6 +14,7 @@
         "location": "Amsterdam",
         "date": "June 20–22, 2025",
         "description": "Short description for the Second event.",
+        "detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porttitor mauris sed massa tristique consequat. Morbi libero risus, lacinia id rutrum malesuada, molestie a velit. Integer non accumsan felis. Aliquam eu eleifend nulla, vel efficitur nisi. Maecenas sit amet enim volutpat ligula auctor malesuada eget a erat. Praesent pharetra orci ac arcu facilisis, ut congue lorem finibus. Mauris pharetra, nibh sit amet rutrum consectetur, odio justo posuere nulla, ornare auctor lectus mi non nibh. Fusce commodo, enim ut mattis ornare, lorem nisi pellentesque leo, vitae ultrices risus tellus quis risus. Donec nec nisi scelerisque metus vulputate elementum. Pellentesque sed lectus eu ipsum ullamcorper egestas ac id libero. Nam at leo eget lacus interdum feugiat at eget sem. Quisque a augue vitae tortor posuere facilisis sed id ipsum.",
         "status": "upcoming",
         "imageUrl": "/src/assets/QuantumArena.png"
     },
