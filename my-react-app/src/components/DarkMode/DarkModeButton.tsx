@@ -13,6 +13,7 @@ const THEME_FILES: Record<Theme, string[]> = {
         "../../pages/About/LightAbout.css",
         "../../pages/Contact/LightContact.css",
         "../../pages/Dashboard/LightDashboard.css",
+        "../../pages/Profile/LightProfile.css",
     ],
     Dark: [
         "../../pages/DarkBase.css",
@@ -24,6 +25,7 @@ const THEME_FILES: Record<Theme, string[]> = {
         "../../pages/About/DarkAbout.css",
         "../../pages/Contact/DarkContact.css",
         "../../pages/Dashboard/DarkDashboard.css",
+        "../../pages/Profile/DarkProfile.css",
     ],
 };
 

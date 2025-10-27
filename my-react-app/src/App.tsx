@@ -1,3 +1,6 @@
+// ===============================================
+// src/App.tsx
+// ===============================================
 import { Routes, Route, Navigate } from "react-router-dom";
 import TopBar from "./components/Topbar/Topbar";
 import HomePage from "./pages/Home/HomePage";
@@ -8,29 +11,9 @@ import AboutPage from "./pages/About/AboutPage";
 import ContactPage from "./pages/Contact/ContactPage";
 import DarkModeButton from "./components/DarkMode/DarkModeButton";
 import { AuthProvider } from "./context/AuthContext";
-import { RequireAuth, RequireRole } from "./components/guards";
+import { RequireRole } from "./components/guards";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
-
-const ManageUsers = () => (
-    <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}>
-        <h2>Manage Users</h2>
-    </section>
-);
-const ManagerHome = () => (
-    <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}>
-        <h2>Team Manager</h2>
-    </section>
-);
-const ManagerEvents = () => (
-    <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}>
-        <h2>Create / Manage Events</h2>
-    </section>
-);
-const UserProfile = () => (
-    <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }}>
-        <h2>My Profile</h2>
-    </section>
-);
+import ProfilePage from "./pages/Profile/ProfilePage";
 
 export default function App() {
     return (
@@ -44,72 +27,18 @@ export default function App() {
                 <Route path="/Register" element={<RegisterPage />} />
                 <Route path="/Home" element={<HomePage />} />
                 <Route path="/Events/:id" element={<EventDetailPage />} />
-
-                {/* visible only to logged-in User or Manager via guard */}
-                <Route
-                    path="/about"
-                    element={
-                        <RequireRole roles={["user", "manager"]}>
-                            <AboutPage />
-                        </RequireRole>
-                    }
-                />
-                <Route
-                    path="/contact"
-                    element={
-                        <RequireRole roles={["user", "manager"]}>
-                            <ContactPage />
-                        </RequireRole>
-                    }
-                />
-
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                
+                
                 {/* protected by role */}
-                <Route
-                    path="/admin"
-                    element={
-                        <RequireRole roles={["admin"]}>
-                            <DashboardPage />
-                        </RequireRole>
-                    }
-                />
                 <Route
                     path="/dashboard"
                     element={
                         <RequireRole roles={["admin"]}>
                             <DashboardPage />
                         </RequireRole>
-                    }
-                />
-                <Route
-                    path="/admin/users"
-                    element={
-                        <RequireRole roles={["admin"]}>
-                            <ManageUsers />
-                        </RequireRole>
-                    }
-                />
-                <Route
-                    path="/manager"
-                    element={
-                        <RequireRole roles={["manager"]}>
-                            <ManagerHome />
-                        </RequireRole>
-                    }
-                />
-                <Route
-                    path="/manager/events"
-                    element={
-                        <RequireRole roles={["manager"]}>
-                            <ManagerEvents />
-                        </RequireRole>
-                    }
-                />
-                <Route
-                    path="/profile"
-                    element={
-                        <RequireAuth>
-                            <UserProfile />
-                        </RequireAuth>
                     }
                 />
 

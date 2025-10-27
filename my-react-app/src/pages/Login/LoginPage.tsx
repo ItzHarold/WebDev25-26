@@ -1,20 +1,18 @@
 // ===============================================
-// src/pages/LoginPage.tsx
-// Dev-only role buttons + use destinationFor() + loading-safe
+// src/pages/Login/LoginPage.tsx
 // ===============================================
-
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext.tsx";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import type { Role } from "../../context/AuthContext";
 
 const LoginPage: React.FC = () => {
-    const { login, destinationFor } = useAuth();
-    const navigate = useNavigate();
-
+    const { login } = useAuth();
     const [email, setEmail] = useState("");
     const [pwd, setPwd] = useState("");
     const [showPwd, setShowPwd] = useState(false);
+
+    const preferred = (localStorage.getItem("prefRole") as Role) || "player";
 
     const handleDevLogin = (role: Role) => {
         login({
@@ -22,25 +20,20 @@ const LoginPage: React.FC = () => {
             email: email || `${role}@test.com`,
             role,
         });
-        navigate(destinationFor(role));
     };
 
     const handleSubmit = () => {
-        // placeholder for real backend login later
-        const role: Role = "user";
+        const role: Role = preferred;
         login({
             id: crypto.randomUUID(),
-            email: email || "user@test.com",
+            email: email || `${role}@test.com`,
             role,
         });
-        navigate(destinationFor(role));
     };
 
     return (
         <>
-            <section className="hero">
-                <h1>Login</h1>
-            </section>
+            <section className="hero"><h1>Login</h1></section>
 
             <main className="card">
                 <div className="stack">
@@ -60,28 +53,20 @@ const LoginPage: React.FC = () => {
                             value={pwd}
                             onChange={(e) => setPwd(e.target.value)}
                         />
-                        <button
-                            type="button"
-                            className="pill-toggle"
-                            onClick={() => setShowPwd((v) => !v)}
-                        >
+                        <button type="button" className="pill-toggle" onClick={() => setShowPwd((v) => !v)}>
                             {showPwd ? "hide" : "show"}
                         </button>
                     </label>
 
                     <div className="row">
-                        <button className="btn" type="button" onClick={handleSubmit}>
-                            Submit
-                        </button>
-                        <Link to="/Register" className="muted">
-                            No account? Click here to register
-                        </Link>
+                        <button className="btn" type="button" onClick={handleSubmit}>Submit</button>
+                        <Link to="/Register" className="muted">No account? Click here to register</Link>
                     </div>
 
                     {import.meta.env.DEV && (
                         <div className="row" style={{ marginTop: 16, flexWrap: "wrap", gap: 10 }}>
-                            <button className="btn" type="button" onClick={() => handleDevLogin("user")}>
-                                ▶︎ Dev: Login as User
+                            <button className="btn" type="button" onClick={() => handleDevLogin("player")}>
+                                ▶︎ Dev: Login as Player
                             </button>
                             <button className="btn" type="button" onClick={() => handleDevLogin("manager")}>
                                 ▶︎ Dev: Login as Manager
@@ -91,6 +76,7 @@ const LoginPage: React.FC = () => {
                             </button>
                         </div>
                     )}
+
                 </div>
             </main>
         </>

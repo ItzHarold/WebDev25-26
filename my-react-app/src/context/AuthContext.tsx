@@ -1,73 +1,59 @@
 // ===============================================
 // src/context/AuthContext.tsx
-// Auth with loading state + centralized post-login redirect
 // ===============================================
+import React, { createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
-
-export type Role = "user" | "admin" | "manager";
-
-export type AuthUser = {
+export type Role = "player" | "manager" | "admin";
+export interface User {
     id: string;
     email: string;
     role: Role;
-} | null;
+    hasTeam?: boolean;
+}
 
-type AuthContextValue = {
-    user: AuthUser;
-    loading: boolean;
-    login: (u: { id: string; email: string; role: Role }) => void | Promise<void>;
+interface AuthContextType {
+    user: User | null;
+    login: (u: User) => void;
     logout: () => void;
-    hasRole: (roles: Role | Role[]) => boolean;
-    destinationFor: (role: Role) => string;
-};
+    hasRole: (r: Role) => boolean;
+}
 
-const LS_USER = "auth:user";
-
-const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const STORAGE_KEY = "auth:user";
 
 export const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-    const [user, setUser] = useState<AuthUser>(null);
-    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        try {
-            const raw = localStorage.getItem(LS_USER);
-            if (raw) setUser(JSON.parse(raw));
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+    // Rehydrate from localStorage so navigation doesn’t drop auth
+    const [user, setUser] = useState<User | null>(() => {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        try { return raw ? (JSON.parse(raw) as User) : null; } catch { return null; }
+    });
 
-    const login = (u: { id: string; email: string; role: Role }) => {
+    const login = (u: User) => {
         setUser(u);
-        localStorage.setItem(LS_USER, JSON.stringify(u));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(u));
+        navigate("/Home", { replace: true });
     };
 
     const logout = () => {
         setUser(null);
-        localStorage.removeItem(LS_USER);
+        localStorage.removeItem(STORAGE_KEY);
+        navigate("/Login", { replace: true });
     };
 
-    const hasRole = (roles: Role | Role[]) => {
-        if (!user) return false;
-        const list = Array.isArray(roles) ? roles : [roles];
-        return list.includes(user.role);
-    };
+    const hasRole = (r: Role) => user?.role === r;
 
-    const destinationFor = (role: Role) =>
-        role === "admin" ? "/admin" : role === "manager" ? "/manager" : "/profile";
-
-    const value = useMemo(
-        () => ({ user, loading, login, logout, hasRole, destinationFor }),
-        [user, loading]
+    return (
+        <AuthContext.Provider value={{ user, login, logout, hasRole }}>
+            {children}
+        </AuthContext.Provider>
     );
-
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {
     const ctx = useContext(AuthContext);
-    if (!ctx) throw new Error("useAuth must be used within <AuthProvider>");
+    if (!ctx) throw new Error("useAuth must be used within AuthProvider");
     return ctx;
 };
