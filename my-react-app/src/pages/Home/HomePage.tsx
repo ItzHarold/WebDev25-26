@@ -3,14 +3,13 @@ import EventGrid from "../../components/HomePage/EventGrid";
 import Leaderboard from "../../components/HomePage/LeaderBoardList";
 import TeamList from "../../components/HomePage/TeamList";
 import mockEvents from "../../data/mockEvents.json";
+import mockLeaderboard from "../../data/mockLeaderboard.json";
 import mockTeams from "../../data/mockTeams.json";
 
 const HomePage: React.FC = () => {
     const [events] = useState(mockEvents);
     const [teams] = useState(mockTeams);
-    const leaderboard = [
-        { rank: 1, teamName: "Team Alpha", points: 1500 },
-        { rank: 2, teamName: "Team Bravo", points: 1400 },]
+    const [leaderboard] = useState(mockLeaderboard);
     const [activeFilter, setActiveFilter] = useState("all");
     const filteredEvents = events.filter(event => {
         if (activeFilter === 'all') {
