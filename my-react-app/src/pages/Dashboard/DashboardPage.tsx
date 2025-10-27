@@ -1,33 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-
-type Tournament = {
-    id: string;
-    name: string;
-    game: string;
-    status: "Registration Open" | "Ongoing" | "Completed" | "Cancelled";
-    currentTeams: number; // e.g. 3
-    maxTeams: number; // e.g. 16
-    startDate: string; // display string
-};
-
-// Represents a team requesting or participating in a tournament
-export type TeamEntry = {
-    id: string;
-    teamName: string;
-    tournament: string;
-    players: number;
-    status: "Pending" | "Approved" | "Rejected" | "Resigned";
-};
-
-const INITIAL_TOURNAMENTS: Tournament[] = [
-    { id: "t1", name: "CS2 Global Championship 2025", game: "Counter-Strike 2", status: "Registration Open", currentTeams: 1, maxTeams: 32, startDate: "3/15/2025" },
-    { id: "t2", name: "VALORANT Champions Tour", game: "VALORANT", status: "Completed", currentTeams: 32, maxTeams: 32, startDate: "4/01/2025" },
-    { id: "t3", name: "Arena Clash - Spring Cup", game: "Arena FPS", status: "Ongoing", currentTeams: 8, maxTeams: 64, startDate: "9/05/2025" },
-    { id: "t4", name: "Rocket Rumble Invitational", game: "Rocket League", status: "Registration Open", currentTeams: 3, maxTeams: 16, startDate: "10/12/2025" },
-    { id: "t5", name: "Super Smash Showdown", game: "Super Smash Bros", status: "Completed", currentTeams: 16, maxTeams: 16, startDate: "2/20/2025" },
-    { id: "t6", name: "Indie Cup: Open Qualifiers", game: "Various", status: "Cancelled", currentTeams: 0, maxTeams: 64, startDate: "5/01/2025" },
-    { id: "t7", name: "LAN Heroes - Autumn League", game: "Multiple", status: "Registration Open", currentTeams: 12, maxTeams: 24, startDate: "11/18/2025" },
-];
+import type { Tournament, TeamEntry, Room } from "./types";
+import Modal from "../../components/Dashboard/Modal";
+import ViewTournament from "../../components/Dashboard/ViewTournament";
+import EditTournament from "../../components/Dashboard/EditTournament";
+import CreateTournament from "../../components/Dashboard/CreateTournament";
+import EditRoom from "../../components/Dashboard/EditRoom";
+import CreateRoom from "../../components/Dashboard/CreateRoom";
+import tournamentsData from "../../data/mockAdminTournaments.json";
 
 function classForStatus(s: Tournament["status"]) {
     const key = s.toLowerCase();
@@ -41,7 +20,7 @@ type TabKey = "tournaments" | "teams" | "rooms" | "settings";
 
 export default function DashboardPage() {
     const [tab, setTab] = useState<TabKey>("tournaments");
-    const [items, setItems] = useState<Tournament[]>(INITIAL_TOURNAMENTS);
+    const [items, setItems] = useState<Tournament[]>(tournamentsData as unknown as Tournament[]);
     const [query, setQuery] = useState("");
 
     // --- Team Entries (approvals) ---
@@ -140,7 +119,6 @@ export default function DashboardPage() {
     };
 
     // --- Rooms & Servers ---
-    type Room = { id: string; name: string; type: "LAN" | "Online"; capacity: number; active: boolean };
     const [rooms, setRooms] = useState<Room[]>([
         { id: "r1", name: "LAN Room A", type: "LAN", capacity: 16, active: true },
         { id: "r2", name: "EU-1", type: "Online", capacity: 64, active: true },
@@ -427,215 +405,5 @@ export default function DashboardPage() {
                 </Modal>
             )}
         </main>
-    );
-}
-
-function Modal({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
-    return (
-        <div className="modal-backdrop" onClick={onClose}>
-            <div className="modal" onClick={(e) => e.stopPropagation()}>
-                <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
-                {children}
-            </div>
-        </div>
-    );
-}
-
-function ViewTournament({ t, approved, onRemove }: { t: Tournament; approved: TeamEntry[]; onRemove: (id: string) => void }) {
-    return (
-        <div>
-            <h3>{t.name}</h3>
-            <p><strong>Game:</strong> {t.game}</p>
-            <p><strong>Status:</strong> {t.status}</p>
-            <p><strong>Teams:</strong> {t.currentTeams}/{t.maxTeams}</p>
-            <p><strong>Start:</strong> {t.startDate}</p>
-
-            <h4 style={{ marginTop: ".75rem" }}>Joined Teams</h4>
-            {approved.length === 0 ? (
-                <p>No approved teams yet.</p>
-            ) : (
-                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                    {approved.map((e) => (
-                        <li key={e.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: ".25rem 0" }}>
-                            <span>{e.teamName} <small>({e.players} players)</small></span>
-                            <button className="link-btn danger" onClick={() => onRemove(e.id)}>Remove from event</button>
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </div>
-    );
-}
-
-function EditTournament({ t, onSave }: { t: Tournament; onSave: (t: Tournament) => void }) {
-    const [form, setForm] = useState<Tournament>({ ...t });
-    return (
-        <form
-            className="form-grid"
-            onSubmit={(e) => {
-                e.preventDefault();
-                onSave(form);
-            }}
-        >
-            <h3>Edit Tournament</h3>
-            <label>
-                Name
-                <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-            </label>
-            <label>
-                Game
-                <input value={form.game} onChange={(e) => setForm({ ...form, game: e.target.value })} required />
-            </label>
-            <label>
-                Status
-                <select
-                    value={form.status}
-                    onChange={(e) => setForm({ ...form, status: e.target.value as Tournament["status"] })}
-                >
-                    <option>Registration Open</option>
-                    <option>Ongoing</option>
-                    <option>Completed</option>
-                    <option>Cancelled</option>
-                </select>
-            </label>
-            <label>
-                Max Teams
-                <input type="number" min={2} max={256} value={form.maxTeams} onChange={(e) => setForm({ ...form, maxTeams: Number(e.target.value) })} />
-            </label>
-            <label>
-                Start Date
-                <input value={form.startDate} onChange={(e) => setForm({ ...form, startDate: e.target.value })} />
-            </label>
-            <div className="btn-row">
-                <button type="submit" className="create-btn">Save</button>
-            </div>
-        </form>
-    );
-}
-
-function CreateTournament({ onCreate }: { onCreate: (t: Omit<Tournament, "id" | "currentTeams"> & { currentTeams: number }) => void }) {
-    const [form, setForm] = useState<Omit<Tournament, "id" | "currentTeams"> & { currentTeams: number }>({
-        name: "",
-        game: "",
-        status: "Registration Open",
-        currentTeams: 0,
-        maxTeams: 16,
-        startDate: "",
-    });
-    return (
-        <form
-            className="form-grid"
-            onSubmit={(e) => {
-                e.preventDefault();
-                onCreate(form);
-            }}
-        >
-            <h3>Create Tournament</h3>
-            <label>
-                Name
-                <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-            </label>
-            <label>
-                Game
-                <input value={form.game} onChange={(e) => setForm({ ...form, game: e.target.value })} required />
-            </label>
-            <label>
-                Status
-                <select
-                    value={form.status}
-                    onChange={(e) => setForm({ ...form, status: e.target.value as Tournament["status"] })}
-                >
-                    <option>Registration Open</option>
-                    <option>Ongoing</option>
-                    <option>Completed</option>
-                    <option>Cancelled</option>
-                </select>
-            </label>
-            <label>
-                Max Teams
-                <input type="number" min={2} max={256} value={form.maxTeams} onChange={(e) => setForm({ ...form, maxTeams: Number(e.target.value) })} />
-            </label>
-            <label>
-                Start Date
-                <input value={form.startDate} onChange={(e) => setForm({ ...form, startDate: e.target.value })} />
-            </label>
-            <div className="btn-row">
-                <button type="submit" className="create-btn">Create</button>
-            </div>
-        </form>
-    );
-}
-
-function EditRoom({ room, onSave }: { room: { id: string; name: string; type: "LAN" | "Online"; capacity: number; active: boolean }; onSave: (r: { id: string; name: string; type: "LAN" | "Online"; capacity: number; active: boolean }) => void }) {
-    const [form, setForm] = useState(room);
-    return (
-        <form
-            className="form-grid"
-            onSubmit={(e) => {
-                e.preventDefault();
-                onSave(form);
-            }}
-        >
-            <h3>Edit Room/Server</h3>
-            <label>
-                Name
-                <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-            </label>
-            <label>
-                Type
-                <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value as "LAN" | "Online" })}>
-                    <option>LAN</option>
-                    <option>Online</option>
-                </select>
-            </label>
-            <label>
-                Capacity
-                <input type="number" min={1} value={form.capacity} onChange={(e) => setForm({ ...form, capacity: Number(e.target.value) })} />
-            </label>
-            <label>
-                Active
-                <input type="checkbox" checked={form.active} onChange={(e) => setForm({ ...form, active: e.target.checked })} />
-            </label>
-            <div className="btn-row">
-                <button type="submit" className="create-btn">Save</button>
-            </div>
-        </form>
-    );
-}
-
-function CreateRoom({ onCreate }: { onCreate: (r: { name: string; type: "LAN" | "Online"; capacity: number; active: boolean }) => void }) {
-    const [form, setForm] = useState<{ name: string; type: "LAN" | "Online"; capacity: number; active: boolean }>({ name: "", type: "LAN", capacity: 16, active: true });
-    return (
-        <form
-            className="form-grid"
-            onSubmit={(e) => {
-                e.preventDefault();
-                onCreate(form);
-            }}
-        >
-            <h3>Add Room/Server</h3>
-            <label>
-                Name
-                <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-            </label>
-            <label>
-                Type
-                <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value as "LAN" | "Online" })}>
-                    <option>LAN</option>
-                    <option>Online</option>
-                </select>
-            </label>
-            <label>
-                Capacity
-                <input type="number" min={1} value={form.capacity} onChange={(e) => setForm({ ...form, capacity: Number(e.target.value) })} />
-            </label>
-            <label>
-                Active
-                <input type="checkbox" checked={form.active} onChange={(e) => setForm({ ...form, active: e.target.checked })} />
-            </label>
-            <div className="btn-row">
-                <button type="submit" className="create-btn">Create</button>
-            </div>
-        </form>
     );
 }
