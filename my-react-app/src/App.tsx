@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import TopBar from "./components/Topbar/Topbar";
 import HomePage from "./pages/Home/HomePage";
-import EventsPage from "./pages/Events/EventsPage";
+import EventDetailPage from "./pages/Events/EventDetailPage";
 import LoginPage from "./pages/Login/LoginPage";
 import RegisterPage from "./pages/Register/RegisterPage";
 import AboutPage from "./pages/About/AboutPage";
@@ -43,7 +43,7 @@ export default function App() {
                 <Route path="/Login" element={<LoginPage />} />
                 <Route path="/Register" element={<RegisterPage />} />
                 <Route path="/Home" element={<HomePage />} />
-                <Route path="/Events" element={<EventsPage />} />
+                <Route path="/Events/:id" element={<EventDetailPage />} />
 
                 {/* visible only to logged-in User or Manager via guard */}
                 <Route
