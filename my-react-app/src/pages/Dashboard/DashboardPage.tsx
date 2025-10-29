@@ -7,6 +7,8 @@ import CreateTournament from "../../components/Dashboard/CreateTournament";
 import EditRoom from "../../components/Dashboard/EditRoom";
 import CreateRoom from "../../components/Dashboard/CreateRoom";
 import tournamentsData from "../../data/mockAdminTournaments.json";
+import teamEntriesData from "../../data/mockTeamEntries.json";
+import roomsData from "../../data/mockRooms.json";
 
 function classForStatus(s: Tournament["status"]) {
     const key = s.toLowerCase();
@@ -23,14 +25,9 @@ export default function DashboardPage() {
     const [items, setItems] = useState<Tournament[]>(tournamentsData as unknown as Tournament[]);
     const [query, setQuery] = useState("");
 
-    // --- Team Entries (approvals) ---
+    // --- TEAM ENTRIES ---
     const [teamQuery, setTeamQuery] = useState("");
-    const [entries, setEntries] = useState<TeamEntry[]>([
-        { id: "e1", teamName: "Alpha Wolves", tournament: "CS2 Global Championship 2025", players: 5, status: "Pending" },
-        { id: "e2", teamName: "Rocket Riders", tournament: "Rocket Rumble Invitational", players: 3, status: "Approved" },
-        { id: "e3", teamName: "Valor Vipers", tournament: "VALORANT Champions Tour", players: 5, status: "Rejected" },
-        { id: "e4", teamName: "LAN Legends", tournament: "LAN Heroes - Autumn League", players: 4, status: "Pending" },
-    ]);
+    const [entries, setEntries] = useState<TeamEntry[]>(teamEntriesData as unknown as TeamEntry[]);
     const filteredEntries = useMemo<TeamEntry[]>(() => {
         const q = teamQuery.trim().toLowerCase();
         if (!q) return entries;
@@ -38,7 +35,9 @@ export default function DashboardPage() {
             [e.teamName, e.tournament, e.status].join(" ").toLowerCase().includes(q)
         );
     }, [entries, teamQuery]);
+
     const findTournamentIndexByName = (name: string) => items.findIndex(t => t.name === name);
+
     const incrementTeamCount = (tournamentName: string): boolean => {
         const idx = findTournamentIndexByName(tournamentName);
         if (idx === -1) return false;
@@ -62,7 +61,7 @@ export default function DashboardPage() {
         setEntries((prev) => {
             const e = prev.find(p => p.id === id);
             if (!e) return prev;
-            if (e.status === "Approved") return prev; // nothing to do
+            if (e.status === "Approved") return prev;
             const ok = incrementTeamCount(e.tournament);
             if (!ok) {
                 setTeamNotice("Tournament is full. Increase Max Teams or choose another.");
@@ -118,18 +117,12 @@ export default function DashboardPage() {
         });
     };
 
-    // --- Rooms & Servers ---
-    const [rooms, setRooms] = useState<Room[]>([
-        { id: "r1", name: "LAN Room A", type: "LAN", capacity: 16, active: true },
-        { id: "r2", name: "EU-1", type: "Online", capacity: 64, active: true },
-        { id: "r3", name: "NA-1", type: "Online", capacity: 64, active: false },
-    ]);
+    // --- ROOMS & SERVERS ---
+    const [rooms, setRooms] = useState<Room[]>(roomsData as unknown as Room[]);
     const toggleRoom = (id: string) => setRooms((prev: Room[]) => prev.map((r: Room) => r.id === id ? { ...r, active: !r.active } : r));
     const saveRoom = (room: Room) => setRooms((prev: Room[]) => prev.map((r: Room) => r.id === room.id ? room : r));
     const createRoom = (room: Omit<Room, "id">) => setRooms((prev: Room[]) => [{ id: `r${Math.random().toString(36).slice(2, 9)}`, ...room }, ...prev]);
     const deleteRoom = (id: string) => setRooms((prev: Room[]) => prev.filter((r: Room) => r.id !== id));
-
-    // Settings tab intentionally empty (to be filled) !!!!!!
 
     const [modal, setModal] = useState<
         | null
@@ -183,12 +176,12 @@ export default function DashboardPage() {
                     <div className="stat-card">
                         <div className="stat-title">Active Tournaments</div>
                         <div className="stat-value">{items.filter(i => i.status === "Ongoing" || i.status === "Registration Open").length}</div>
-                        <div className="stat-sub">sample data</div>
+                        <div className="stat-sub">Ongoing & Open</div>
                     </div>
                     <div className="stat-card">
                         <div className="stat-title">Completed</div>
                         <div className="stat-value">{items.filter(i => i.status === "Completed").length}</div>
-                        <div className="stat-sub">historical</div>
+                        <div className="stat-sub">Historical</div>
                     </div>
                     <div className="stat-card">
                         <div className="stat-title">Total Rooms</div>
@@ -197,7 +190,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="stat-card">
                         <div className="stat-title">This Month</div>
-                        <div className="stat-value">5</div>
+                        <div className="stat-value">3</div>
                         <div className="stat-sub">scheduled events</div>
                     </div>
                 </div>
