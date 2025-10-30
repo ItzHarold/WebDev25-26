@@ -8,15 +8,13 @@ import { useAuth } from "../../context/AuthContext";
 const FavouritesPage: React.FC = () => {
   const { isLiked } = useFavourites();
   const { user } = useAuth();
-
-  // Filter je mock events op favourites
   const favouriteEvents = (mockEvents as any[]).filter(e => isLiked(String(e.id)));
 
   return (
     <>
       <section className="hero">
         <div className="hero-content">
-          <h1>My Favorites</h1>
+          <h1>My Favourites</h1>
         </div>
       </section>
 
@@ -36,8 +34,8 @@ const FavouritesPage: React.FC = () => {
               <p>
                 Tap the heart on an event to save it here.
               </p>
-              <Link to="/home">
-                <button className="btn">Browse events</button>
+              <Link to="/Home">
+                <button type="button">Cancel</button>
               </Link>
             </article>
           ) : (
