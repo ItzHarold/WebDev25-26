@@ -24,13 +24,13 @@ const FavouritesPage: React.FC = () => {
         <section className="event-section">
           <div className="events-header">
             <div className="events-title">
-              <h2>Favorites</h2>
+              <h2>Favourites</h2>
             </div>
           </div>
 
           {(!user || favouriteEvents.length === 0) ? (
             <article className="card" style={{ marginTop: "1rem" }}>
-              <h3>No favorites yet</h3>
+              <h3>No Favourites yet</h3>
               <p>
                 Tap the heart on an event to save it here.
               </p>
