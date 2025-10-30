@@ -61,6 +61,7 @@ export default function UserMenu() {
                             {hasRole("player") && (
                                 <>
                                     <Link to="/profile" role="menuitem" className="menu-item" onClick={() => setOpen(false)}>Profile</Link>
+                                    <Link to="/favourites" role="menuitem" className="menu-item" onClick={() => setOpen(false)}>Favourites</Link>
                                     <div className="menu-sep" aria-hidden="true"></div>
                                     <Link to="/about" role="menuitem" className="menu-item" onClick={() => setOpen(false)}>About</Link>
                                     <Link to="/contact" role="menuitem" className="menu-item" onClick={() => setOpen(false)}>Contact</Link>

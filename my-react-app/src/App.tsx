@@ -14,6 +14,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { RequireRole } from "./components/guards";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 import ProfilePage from "./pages/Profile/ProfilePage";
+import FavouritesPage from "./pages/Favourites/Favourites";
 
 export default function App() {
     return (
@@ -30,6 +31,7 @@ export default function App() {
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/Favourites" element={<FavouritesPage />} />
                 
                 
                 {/* protected by role */}

@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import mockEvents from "../../data/mockEvents.json";
+import { useFavourites } from "../../context/FavouritesContext";
+import { useAuth } from "../../context/AuthContext";
 
 
 type EventItem = {
@@ -19,6 +21,9 @@ type EventItem = {
 const EventDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const event = (mockEvents as EventItem[]).find(e => String(e.id) === String(id));
+  const {isLiked, toggle} = useFavourites();
+  const liked = isLiked(String(event?.id));
+  const { user } = useAuth()
 
   if (!event) {
     return (
@@ -73,15 +78,38 @@ const EventDetailPage: React.FC = () => {
               <p>{event.detail}</p>
             </>
           )}
-
           <div className="actions">
-            <Link to="/register">
-              <button type="button">Register</button>
-            </Link>
+              <Link to="/register">
+                <button type="button">{user ? "sign up" : "Login"}</button>
+              </Link>
             <Link to="/Home">
               <button type="button">Cancel</button>
             </Link>
           </div>
+          { user && ( 
+            <button
+                type="button"
+                className={`fav-btn fav-bottom-right ${liked ? "is-liked" : ""}`}
+                aria-pressed={isLiked(event.id)}
+                aria-label={isLiked(event.id) ? "Remove from favorites" : "Add to favorites"}
+                title={isLiked(event.id) ? "Remove from favorites" : "Add to favorites"}
+                onClick={() => toggle(event.id)}
+                >
+                <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 20"
+                fill={liked ? "currentColor" : "none"}
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                >
+                <path d="M12 21s-6.7-4.35-10-9.33C-1.1 6.74 2.13 2 6.5 2 8.87 2 10.5 3.5 12 5.09 13.5 3.5 15.13 2 17.5 2 21.87 2 25.1 6.74 22 11.67 18.7 16.65 12 21 12 21z" />
+                </svg>
+            </button>
+          )}
         </article>
       </main>
     </>

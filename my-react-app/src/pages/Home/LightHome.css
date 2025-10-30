@@ -289,3 +289,40 @@
         font-size: 1em;
     }
 }
+.event-card { position: relative; }
+
+.fav-bottom-right {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+.fav-btn {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 8px;
+  background: #fff;
+  color: #222;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease-in-out;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+.fav-btn:hover {
+  background: #e63946;
+  color: #fff;
+  transform: scale(1.05);
+}
+.fav-btn.is-liked {
+  background: #fff;
+  color: #e63946;
+  transform: scale(1.05);
+}
+.fav-btn.is-liked svg {
+  fill: currentColor;
+}
+.fav-btn:active {
+  transform: scale(0.95);
+}
