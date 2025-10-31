@@ -2,9 +2,6 @@
    src/styles/darktoggle.css
    Dark/Light Mode Toggle Button
    ------------------------------------------------
-   - Always visible (fixed bottom-right)
-   - Controlled by DarkModeButton.tsx
-   - Automatically switches icon + colors
 ================================================= */
 
 /* Base button style (Light Mode active by default) */
@@ -44,6 +41,7 @@ html.dark #darkModeBtn {
 
 /* Hover effect in dark mode */
 html.dark #darkModeBtn:hover {
-    background: #f3f4f6; /* slightly off-white hover */
+    background: #f3f4f6;
+    /* slightly off-white hover */
     transform: translateY(-1px);
 }

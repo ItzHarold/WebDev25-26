@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 import type { Role } from "../../context/AuthContext";
 
 const MONTHS = [
-    "january","february","march","april","may","june",
-    "july","august","september","october","november","december"
+    "january", "february", "march", "april", "may", "june",
+    "july", "august", "september", "october", "november", "december"
 ];
 
 function monthToIndex(m: string): number | null {
@@ -69,7 +69,6 @@ export default function RegisterPage() {
             return;
         }
 
-        // persist preferred role + birthday for Login/Profile usage
         localStorage.setItem("prefRole", role);
         localStorage.setItem("profile:birthday", isoDob);
         localStorage.setItem("profile:email", email.trim());
