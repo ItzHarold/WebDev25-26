@@ -1,0 +1,336 @@
+/* ===============================================
+   src/styles/DarkStyles/home.css
+   Home page — Dark Theme
+   ------------------------------------------------
+   Updated hero section:
+   - Auto-growing height
+   - Text wraps properly
+   - Maintains consistent style
+================================================= */
+
+/* ---------- HERO ---------- */
+.hero {
+    position: relative;
+    min-height: 60vh;
+    height: auto;
+    background: url('../../assets/clouds.jpg') no-repeat center center / cover;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: #fff;
+    padding: 4rem 1rem;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    width: 100%;
+    padding: 0 0.5rem;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+
+.hero-content h1 {
+    font-size: 3em;
+    margin: 0.5em 0;
+    line-height: 1.2;
+    color: #fff;
+}
+
+.hero-content h2 {
+    font-size: 1.4em;
+    font-weight: normal;
+    margin: 0;
+    color: var(--muted);
+}
+
+.homepage-container {
+    width: 100%;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 220px 1fr 220px;
+    gap: 2rem;
+    max-width: 1600px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* ---------- TEAMS SIDEBAR ---------- */
+.teams-sidebar {
+    width: 100%;
+}
+
+.teams-sidebar h2 {
+    margin: 0 0 1.5rem 0;
+    color: var(--text);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.teams-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.team-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--input);
+    transition: transform 0.2s;
+}
+
+.team-card:hover {
+    transform: translateY(-2px);
+}
+
+.team-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    background-size: cover;
+    background-position: center;
+    background-color: darkgray;
+    flex-shrink: 0;
+}
+
+.team-info {
+    flex: 1;
+}
+
+.team-name {
+    margin: 0 0 0.2rem 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.team-game {
+    margin: 0 0 0.2rem 0;
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+.team-players {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+
+/* ---------- EVENTS SECTION ---------- */
+.events-section {
+    flex: 1;
+}
+
+.events {
+    max-width: 1100px;
+    margin: 3em auto;
+    padding: 0 1em;
+}
+
+.events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin-bottom: 1.5em;
+}
+
+.events-title h2 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+.event-filters {
+    display: flex;
+    gap: 0.5em;
+}
+
+.filter-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.5em 1em;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.filter-btn:hover {
+    background: #1e293b;
+}
+
+.filter-btn.active {
+    background: var(--blue);
+    color: #fff;
+    border-color: var(--blue);
+}
+
+/* ---------- EVENTS GRID ---------- */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5em;
+}
+
+.event-card {
+    background: var(--panel);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(21, 30, 46, 0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-4px);
+}
+
+.card-media {
+    height: 160px;
+    background-size: cover;
+    background-position: center;
+}
+
+.card-body {
+    padding: 1em;
+}
+
+.card-body h3 {
+    margin: 0 0 0.4em;
+    font-size: 1.2em;
+}
+
+.card-body .meta {
+    font-size: 0.9em;
+    color: var(--muted);
+    margin-bottom: 0.6em;
+}
+
+.card-body .desc {
+    font-size: 0.95em;
+    margin-bottom: 1em;
+}
+
+.card-body .btn {
+    display: inline-block;
+    padding: 0.6em 1.2em;
+    background: var(--blue);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border: 0;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.card-body .btn:hover {
+    opacity: 0.9;
+}
+
+/* ---------- LEADERBOARD ---------- */
+.leaderboard-sidebar {
+    width: 100%;
+}
+
+.leaderboard h2 {
+    margin: 0 0 1.5rem 0;
+    color: var(--text);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: var(--input);
+}
+
+.rank {
+    font-weight: bold;
+    color: var(--blue);
+    min-width: 30px;
+}
+
+.team-name {
+    flex: 1;
+    font-size: 0.9rem;
+}
+
+.points {
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 600px) {
+    .hero-content h1 {
+        font-size: 2em;
+    }
+
+    .hero-content h2 {
+        font-size: 1em;
+    }
+}
+/*Shows the heart only in the card*/
+.event-card { position: relative; }
+/*Shows the heart right in the card*/
+.fav-bottom-right {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+.fav-btn {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 8px;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease-in-out;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+.fav-btn:hover {
+  background: #e63946;
+  color: #fff;
+  transform: scale(1.05);
+}
+.fav-btn.is-liked {
+  background: #222;
+  color: #e63946;
+  transform: scale(1.05);
+}
+.fav-btn.is-liked svg {
+  fill: currentColor;
+}
+.fav-btn:active {
+  transform: scale(0.95);
+}
