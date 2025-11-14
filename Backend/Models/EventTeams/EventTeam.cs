@@ -1,3 +1,5 @@
+namespace Backend.Models.EventTeam;
+
 public class EventTeam
 {
     public int Id { get; set; }
