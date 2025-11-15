@@ -326,3 +326,39 @@
 .fav-btn:active {
   transform: scale(0.95);
 }
+
+@media (max-width: 900px) {
+    .main-content {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .teams-sidebar {
+        order: 1; 
+    }
+
+    .event-section {
+        order: 3; 
+    }
+
+    .leaderboard-sidebar {
+        order: 2; 
+    }
+}
+@media (max-width: 600px) {
+    .events-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .event-filters {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .filter-btn {
+        flex: 1 1 calc(50% - 0.5rem);
+        text-align: center;
+    }
+}
