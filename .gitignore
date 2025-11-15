@@ -24,3 +24,11 @@ Thumbs.db
 # Live-server cache
 *.cache
 
+#Backend Debug
+Backend/debug/
+Backend/obj/debug/
+
+#Build folders
+Backend/bin/
+Backend/obj/
+
