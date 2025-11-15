@@ -1,4 +1,4 @@
-namespace Backend.Models.Teams;
+namespace Backend.Models.Team;
 
 public class Team
 {
