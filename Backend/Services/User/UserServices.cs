@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using Backend.Models.User;
+using Backend.Models;
 
     public interface IUserService
     {
@@ -46,9 +46,9 @@ using Backend.Models.User;
                     UserName = user.UserName,
                     Email = user.Email,
                     Password = user.Password,
-                    DOB = user.DOB,
+                    Dob = user.Dob,
                     Team = user.Team,
-                    Favourite = user.Favourite,
+                    Favourites = user.Favourites,
                     ImageUrl = user.ImageUrl
                 };
                 _users[_users.IndexOf(existingUser)] = updatedUser;
