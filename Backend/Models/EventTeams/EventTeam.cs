@@ -1,4 +1,4 @@
-namespace Backend.Models.EventTeam;
+namespace Backend.Models.EventTeams;
 
 public class EventTeam
 {
