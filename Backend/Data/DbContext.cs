@@ -1,10 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Backend.Models.User;
-using Backend.Models.Team;
-using Backend.Models.Event;
-using Backend.Models.TeamPlayers;
-using Backend.Models.UserFavourites;
-using Backend.Models.EventTeams;
+using Backend.Models;
 namespace Backend.Data
 {
     public class AppDbContext : DbContext
@@ -18,7 +13,6 @@ namespace Backend.Data
         public DbSet<Team> Teams { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<UserFavourite> UserFavourites { get; set; }
-        public DbSet<TeamPlayer> TeamPlayers { get; set; }
         public DbSet<EventTeam> EventTeams { get; set; }
     }
 }
