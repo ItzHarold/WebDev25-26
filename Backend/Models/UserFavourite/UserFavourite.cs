@@ -1,4 +1,4 @@
-namespace Backend.Models.UserFavourite;
+namespace Backend.Models;
 
 public class UserFavourite
 {

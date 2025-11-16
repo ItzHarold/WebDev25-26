@@ -1,4 +1,4 @@
-namespace Backend.Models.TeamPlayers;
+namespace Backend.Models;
 public class TeamPlayer
 {
     public int Id { get; set; }
