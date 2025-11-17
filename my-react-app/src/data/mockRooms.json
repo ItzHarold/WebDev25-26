@@ -1,5 +1,0 @@
-[
-  { "id": "r1", "name": "LAN Room A", "type": "LAN", "capacity": 16, "active": true },
-  { "id": "r2", "name": "EU-1", "type": "Online", "capacity": 64, "active": true },
-  { "id": "r3", "name": "NA-1", "type": "Online", "capacity": 64, "active": false }
-]
