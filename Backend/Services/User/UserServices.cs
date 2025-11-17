@@ -1,66 +1,75 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
+using Backend.Data;
 using Backend.Models;
+using Microsoft.EntityFrameworkCore;
 
-    public interface IUserService
+namespace Backend.Services;
+
+public interface IUserService
+{
+    Task<List<User>> GetAllAsync();
+    Task<User?> GetByIdAsync(int id);
+    Task<User> CreateAsync(User user);
+    Task<bool> UpdateAsync(int id, User user);
+    Task<bool> DeleteAsync(int id);
+}
+
+public class UserService : IUserService
+{
+    private readonly AppDbContext _context;
+
+    public UserService(AppDbContext context)
     {
-        IEnumerable<User> GetAllUsers();
-        User? GetUserById(int id);
-        void AddUser(User user);
-        void UpdateUser(User user);
-        void DeleteUser(int id);
+        _context = context;
     }
 
-    public class UserService : IUserService
+    // get all users from the database
+    public Task<List<User>> GetAllAsync()
     {
-        private readonly List<User> _users = new();
-
-        public IEnumerable<User> GetAllUsers()
-        {
-            return _users;
-        }
-
-        public User? GetUserById(int id)
-        {
-            return _users.FirstOrDefault(c => c.Id == id);
-        }
-
-        public void AddUser(User user)
-        {
-            user.Id = _users.Count > 0 ? _users.Max(c => c.Id) + 1 : 1;
-            _users.Add(user);
-        }
-
-        public void UpdateUser(User user)
-        {
-            var existingUser = GetUserById(user.Id);
-            if (existingUser != null)
-            {
-                var updatedUser = new User
-                {
-                    Id = existingUser.Id,
-                    Role = user.Role,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    Password = user.Password,
-                    Dob = user.Dob,
-                    Team = user.Team,
-                    Favourites = user.Favourites,
-                    ImageUrl = user.ImageUrl
-                };
-                _users[_users.IndexOf(existingUser)] = updatedUser;
-            }
-        }
-
-        public void DeleteUser(int id)
-        {
-            var user = GetUserById(id);
-            if (user != null)
-            {
-                _users.Remove(user);
-            }
-        }
+        return _context.Users.ToListAsync();
     }
+
+    // find a single user by id
+    public Task<User?> GetByIdAsync(int id)
+    {
+        return _context.Users.FindAsync(id).AsTask();
+    }
+
+    // add a new user and save
+    public async Task<User> CreateAsync(User user)
+    {
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
+        return user;
+    }
+
+    // update an existing user if it exists
+    public async Task<bool> UpdateAsync(int id, User data)
+    {
+        var user = await _context.Users.FindAsync(id);
+        if (user == null) return false;
+
+        user.Role = data.Role;
+        user.FirstName = data.FirstName;
+        user.LastName = data.LastName;
+        user.UserName = data.UserName;
+        user.Email = data.Email;
+        user.Password = data.Password;
+        user.Dob = data.Dob;
+        user.TeamId = data.TeamId;
+        user.ImageUrl = data.ImageUrl;
+
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+    // delete a user by id
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var user = await _context.Users.FindAsync(id);
+        if (user == null) return false;
+
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+}
