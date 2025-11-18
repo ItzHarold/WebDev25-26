@@ -17,10 +17,12 @@ public interface IUserService
 public class UserService : IUserService
 {
     private readonly AppDbContext _context;
+    private readonly IPasswordService _password;
 
-    public UserService(AppDbContext context)
+    public UserService(AppDbContext context, IPasswordService password)
     {
         _context = context;
+        _password = password;
     }
 
     // get all users from the database
@@ -38,6 +40,7 @@ public class UserService : IUserService
     // add a new user and save
     public async Task<User> CreateAsync(User user)
     {
+        user.Password = _password.Hash(user.Password);
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
         return user;
@@ -77,8 +80,11 @@ public class UserService : IUserService
     // authenticate user by username and password
     public async Task<User?> LoginAsync(string username, string password)
     {
-        return await _context.Users
-            .FirstOrDefaultAsync(u => u.UserName == username && u.Password == password);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == username);
+        if (user == null) return null;
+
+        return _password.Verify(user.Password, password) ? user : null;
     }
+
 
 }
