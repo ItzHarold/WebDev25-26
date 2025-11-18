@@ -1,0 +1,51 @@
+@baseUrl = http://localhost:5079
+
+### Get all events
+GET {{baseUrl}}/Event
+Accept: application/json
+
+###
+
+### Get event by id
+GET {{baseUrl}}/Event/1
+Accept: application/json
+
+###
+
+### Create event
+POST {{baseUrl}}/Event
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "E-Sports Finals",
+  "location": "Rotterdam Ahoy",
+  "date": "2025-01-01T18:00:00",
+  "description": "Big LAN event",
+  "detail": "16 pro teams competing",
+  "status": "Upcoming",
+  "imageUrl": null
+}
+
+###
+
+### Update existing event
+PUT {{baseUrl}}/Event/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "E-Sports Finals - Updated",
+  "location": "Rotterdam Ahoy",
+  "date": "2025-01-02T18:00:00",
+  "description": "Updated description",
+  "detail": "Now 20 teams competing",
+  "status": "Updated",
+  "imageUrl": null
+}
+
+###
+
+### Delete event
+DELETE {{baseUrl}}/Event/1
+Accept: application/json
