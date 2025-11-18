@@ -29,3 +29,5 @@ Thumbs.db
 /Backend/obj/Debug/
 /Backend/bin/Debug/
 /Backend/obj
+/Backend/obj/Debug
+/Backend/obj/Debug/net8.0
