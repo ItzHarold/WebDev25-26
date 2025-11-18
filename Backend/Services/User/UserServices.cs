@@ -11,6 +11,7 @@ public interface IUserService
     Task<User> CreateAsync(User user);
     Task<bool> UpdateAsync(int id, User user);
     Task<bool> DeleteAsync(int id);
+    Task<User?> LoginAsync(string username, string password);
 }
 
 public class UserService : IUserService
@@ -72,4 +73,12 @@ public class UserService : IUserService
         await _context.SaveChangesAsync();
         return true;
     }
+    
+    // authenticate user by username and password
+    public async Task<User?> LoginAsync(string username, string password)
+    {
+        return await _context.Users
+            .FirstOrDefaultAsync(u => u.UserName == username && u.Password == password);
+    }
+
 }
