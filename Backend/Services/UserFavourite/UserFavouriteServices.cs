@@ -8,7 +8,7 @@ namespace Backend.Services;
 public interface IUserFavouriteService
 {
     Task<List<UserFavourite>> GetAllAsync();
-    Task<UserFavourite> GetByIdAsync(int id);
+    Task<UserFavourite?> GetByIdAsync(int id);
     Task<UserFavourite> CreateAsync(User user, Event ev);
     Task<bool> UpdateAsync(int id, UserFavourite UserFavourite);
     Task<bool> DeleteAsync(int id);
@@ -25,9 +25,9 @@ public interface IUserFavouriteService
         {
             return _context.UserFavourites.ToListAsync();
         }
-        public Task<UserFavourite> GetByIdAsync(int id)
+        public Task<UserFavourite?> GetByIdAsync(int id)
         {
-            return null;
+            return _context.UserFavourites.FindAsync(id).AsTask();
         }
         public Task<UserFavourite> CreateAsync(User user, Event ev)
         {
