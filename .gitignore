@@ -25,12 +25,7 @@ Thumbs.db
 *.cache
 
 #Backend Debug
-Backend/Debug/
-Backend/obj/Debug/
-Backend/bin/Debug/
-
-#Build folders
-Backend/bin/
-Backend/obj/
-
+/Backend/Debug/
+/Backend/obj/Debug/
+/Backend/bin/Debug/
 /Backend/obj
