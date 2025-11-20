@@ -34,3 +34,7 @@ Backend/bin/
 Backend/obj/
 
 /Backend/obj
+# Ignore SQLite database files
+*.db
+*.db-shm
+*.db-wal
