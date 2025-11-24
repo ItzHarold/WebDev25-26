@@ -1,39 +1,27 @@
-/* ===============================================
-   Dashboard page — Light Theme
-================================================= */
+/* Dashboard - Light Theme */
 
 .dashboard-page {
     min-height: 100vh;
-    /* Further tightened spacing below topbar */
     padding-top: 12px;
     background: #f5f7fa;
 }
 
 .dashboard-container {
-    /* Uses shared layout token */
-    max-width: var(--container-width) !important;
-    margin: 1.2rem auto !important;
-    padding: 0 1.5rem !important;
-}
-
-.dashboard-header {
-    text-align: left;
-    margin-bottom: 2rem;
+    max-width: var(--container-width);
+    margin: 1.2rem auto;
+    padding: 0 1.5rem;
 }
 
 .dashboard-header h1 {
-    font-size: 1.8em;
     color: var(--text);
     margin: 0 0 0.5rem 0;
 }
 
 .dashboard-header p {
     color: var(--muted);
-    margin: 0;
-    font-size: 0.95em;
 }
 
-/* ---------- STATS ---------- */
+/* stats */
 .dashboard-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -43,51 +31,30 @@
 
 .stat-card {
     background: var(--panel);
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(21, 30, 46, 0.08);
     padding: 1em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     text-align: center;
-    gap: 0.5rem;
-    transition: transform 0.25s ease;
-}
-
-.stat-card:hover {
-    transform: translateY(-4px);
-}
-
-.stat-icon {
-    font-size: 2em;
 }
 
 .stat-content h3 {
-    font-size: 1.3em;
     color: var(--blue);
     margin: 0;
-    font-weight: 600;
 }
 
 .stat-content p {
     color: var(--muted);
     margin: 0;
-    font-size: 0.85em;
 }
 
-/* ---------- CONTROLS ---------- */
+/* search and button */
 .dashboard-controls {
     display: flex;
     gap: 1em;
     margin-bottom: 1.5em;
-    flex-wrap: wrap;
-    align-items: center;
     justify-content: space-between;
 }
 
 .search-bar {
     flex: 1;
-    min-width: 250px;
 }
 
 .search-input {
@@ -95,9 +62,7 @@
     padding: 0.5em 1em;
     background: var(--input);
     border: 1px solid var(--border);
-    border-radius: 4px;
     color: var(--text);
-    font-size: 0.9em;
 }
 
 .search-input:focus {
@@ -110,72 +75,36 @@
     background: var(--blue);
     color: #fff;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    font-size: 0.9em;
-    transition: opacity 0.3s;
 }
 
-.btn-create:hover {
-    opacity: 0.9;
-}
-
-/* ---------- TOURNAMENT GRID ---------- */
+/* event cards */
 .tournament-grid {
     display: grid;
-    /* Refined width: compromise between 320px and 480px */
-    grid-template-columns: repeat(2, minmax(444px, 1fr));
+    grid-template-columns: repeat(2, minmax(448px, 1fr));
     gap: 1.3em;
-    max-height: 70vh; /* scroll area height */
+    max-height: 70vh;
     overflow-y: auto;
-    padding-right: 0.65rem; /* room for scrollbar */
-}
-
-/* Scrollbar styling (WebKit) */
-.tournament-grid::-webkit-scrollbar { width: 10px; }
-.tournament-grid::-webkit-scrollbar-track { background: var(--input); border-radius: 6px; }
-.tournament-grid::-webkit-scrollbar-thumb { background: var(--border); border-radius: 6px; }
-.tournament-grid::-webkit-scrollbar-thumb:hover { background: var(--muted); }
-
-@media (max-width: 700px) {
-    .tournament-grid {
-        grid-template-columns: 1fr; /* single column on small screens */
-        max-height: none; /* allow normal flow on mobile */
-        overflow: visible;
-        padding-right: 0;
-    }
 }
 
 .tournament-card {
     background: var(--panel);
-    border-radius: 12px;
-    box-shadow: 0 4px 14px rgba(21, 30, 46, 0.10);
-    padding: 1.25em 1.4em;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.25s ease;
-}
-
-.tournament-card:hover {
-    transform: translateY(-4px);
+    padding: 1.25em;
 }
 
 .tournament-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 0.6em;
 }
 
 .tournament-header h3 {
     color: var(--text);
     margin: 0;
-    font-size: 1.2em;
 }
 
 .status-badge {
     padding: 0.3em 0.8em;
-    border-radius: 12px;
     font-size: 0.85em;
 }
 
@@ -186,13 +115,6 @@
 .tournament-info p {
     margin: 0.4em 0;
     color: var(--muted);
-    font-size: 0.9em;
-}
-
-.tournament-info .desc {
-    margin-top: 0.6em;
-    color: var(--text);
-    font-size: 0.95em;
 }
 
 .tournament-actions {
@@ -275,16 +197,26 @@
     color: var(--muted);
     font-size: 2em;
     cursor: pointer;
-    line-height: 1;
-    transition: color 0.3s;
+    margin-top: 0.5em;
 }
 
-.close-btn:hover {
+.btn-action {
+    padding: 0.5em 1em;
+    background: var(--input);
     color: var(--text);
+    border: 1px solid var(--border);
+    cursor: pointer;
 }
 
-/* ---------- FORM ---------- */
-.tournament-form {
+.btn-danger {
+    background: #ef4444;
+    color: #fff;
+    border: none;
+}
+
+/* form and modal */
+.tournament-form,
+.details-content {
     padding: 1.5em;
 }
 
@@ -294,9 +226,7 @@
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5em;
     color: var(--text);
-    font-size: 0.9em;
 }
 
 .form-group input,
@@ -306,9 +236,7 @@
     padding: 0.6em 1em;
     background: var(--input);
     border: 1px solid var(--border);
-    border-radius: 4px;
     color: var(--text);
-    font-size: 0.9em;
 }
 
 .form-group input:focus,
@@ -318,156 +246,68 @@
     border-color: var(--blue);
 }
 
-.form-group textarea {
-    resize: vertical;
-}
-
-.form-actions {
+.form-actions,
+.modal-actions {
     display: flex;
     gap: 0.5em;
     justify-content: flex-end;
     padding-top: 1em;
-    border-top: 1px solid var(--border);
 }
 
 .btn-cancel,
-.btn-save,
 .btn-close {
     padding: 0.6em 1.2em;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: opacity 0.3s;
-}
-
-.btn-cancel,
-.btn-close {
     background: #6b7280;
     color: #fff;
-}
-
-.btn-cancel:hover,
-.btn-close:hover {
-    opacity: 0.9;
+    border: none;
+    cursor: pointer;
 }
 
 .btn-save {
+    padding: 0.6em 1.2em;
     background: var(--blue);
     color: #fff;
+    border: none;
+    cursor: pointer;
 }
 
-.btn-save:hover {
-    opacity: 0.9;
-}
-
-/* ---------- DETAILS ---------- */
-.details-content {
-    padding: 1.5em;
-}
-
-.details-section {
-    margin-bottom: 1.5em;
-}
-
-.details-section:last-child {
-    margin-bottom: 0;
-}
-
+/* event details */
 .details-section h3 {
     color: var(--text);
-    margin-bottom: 1em;
     border-bottom: 1px solid var(--border);
     padding-bottom: 0.5em;
-    font-size: 1.2em;
 }
 
 .info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 1em;
-    margin-bottom: 1em;
-}
-
-.info-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3em;
 }
 
 .info-item strong {
     color: var(--muted);
-    font-size: 0.85em;
 }
 
 .info-item span {
     color: var(--text);
-    font-size: 0.9em;
-}
-
-.description {
-    margin: 1em 0;
-}
-
-.description strong {
-    color: var(--text);
-    display: block;
-    margin-bottom: 0.5em;
-    font-size: 0.95em;
-}
-
-.description p {
-    color: var(--muted);
-    line-height: 1.6;
-    font-size: 0.9em;
-    margin: 0;
-}
-
-.teams-list {
-    max-height: 300px;
-    overflow-y: auto;
-    padding-right: 0.5em;
-}
-
-.teams-list::-webkit-scrollbar {
-    width: 8px;
-}
-
-.teams-list::-webkit-scrollbar-track {
-    background: var(--input);
-    border-radius: 4px;
-}
-
-.teams-list::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 4px;
-}
-
-.teams-list::-webkit-scrollbar-thumb:hover {
-    background: var(--muted);
 }
 
 .team-item {
     background: var(--input);
-    border-radius: 8px;
     padding: 0.75em;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    gap: 1em;
     margin-bottom: 0.5em;
 }
 
 .team-info h4 {
     color: var(--text);
-    margin: 0 0 0.3em;
-    font-size: 0.95em;
+    margin: 0;
 }
 
 .team-info p {
-    margin: 0.2em 0;
     color: var(--muted);
-    font-size: 0.85em;
+    margin: 0;
 }
 
 .btn-disqualify {
@@ -475,47 +315,5 @@
     background: #ef4444;
     color: #fff;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    font-size: 0.9em;
-    transition: opacity 0.3s;
-}
-
-.btn-disqualify:hover {
-    opacity: 0.9;
-}
-
-.no-teams {
-    text-align: center;
-    color: var(--muted);
-    padding: 2em;
-    font-size: 0.9em;
-}
-
-.modal-actions {
-    padding: 1em 1.5em;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: flex-end;
-}
-
-/* ---------- RESPONSIVE ---------- */
-@media (max-width: 768px) {
-    .tournament-grid,
-    .info-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .team-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .dashboard-controls {
-        flex-direction: column;
-    }
-
-    .search-input {
-        min-width: 100%;
-    }
 }
