@@ -1,16 +1,38 @@
 ﻿import React from "react";
 
+interface Tournament {
+  id: string;
+  title: string;
+  location: string;
+  date: string;
+  description: string;
+  detail: string;
+  status: string;
+  imageUrl: string;
+  maxTeams: number;
+  participatingTeams: string[];
+}
+
+interface Team {
+  id: string;
+  name: string;
+  game: string;
+  players: number;
+  imageUrl: string;
+}
+
 interface TournamentDetailsProps {
-  tournament: any;
-  teams: any[];
+  tournament: Tournament;
+  teams: Team[];
   onClose: () => void;
   onDisqualifyTeam: (teamId: string) => void;
 }
 
 const TournamentDetails: React.FC<TournamentDetailsProps> = ({ tournament, teams, onClose, onDisqualifyTeam }) => {
-  const participatingTeams = teams.filter((team) =>
-    tournament.participatingTeams?.includes(team.id)
-  );
+  // get only the teams that are in this event
+  const participatingTeams = teams.filter((team) => {
+    return tournament.participatingTeams?.includes(team.id);
+  });
 
   return (
     <div className="tournament-details-modal">

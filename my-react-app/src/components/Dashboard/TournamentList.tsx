@@ -1,9 +1,22 @@
 import React from "react";
 
+interface Tournament {
+  id: string;
+  title: string;
+  location: string;
+  date: string;
+  description: string;
+  detail: string;
+  status: string;
+  imageUrl: string;
+  maxTeams: number;
+  participatingTeams: string[];
+}
+
 interface TournamentListProps {
-  tournaments: any[];
-  onView: (event: any) => void;
-  onEdit: (event: any) => void;
+  tournaments: Tournament[];
+  onView: (event: Tournament) => void;
+  onEdit: (event: Tournament) => void;
   onDelete: (id: string) => void;
   searchTerm: string;
 }
@@ -15,22 +28,17 @@ const TournamentList: React.FC<TournamentListProps> = ({
   onDelete,
   searchTerm,
 }) => {
-  const filteredEvents = tournaments.filter((event) =>
-    event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    event.location.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredEvents = tournaments.filter((event) => {
+    const search = searchTerm.toLowerCase();
+    return event.title.toLowerCase().includes(search) || 
+           event.location.toLowerCase().includes(search);
+  });
 
   const getStatusClass = (status: string) => {
-    switch (status) {
-      case "upcoming":
-        return "status-upcoming";
-      case "live":
-        return "status-ongoing";
-      case "ended":
-        return "status-completed";
-      default:
-        return "";
-    }
+    if (status === "upcoming") return "status-upcoming";
+    if (status === "live") return "status-ongoing";
+    if (status === "ended") return "status-completed";
+    return "";
   };
 
   return (

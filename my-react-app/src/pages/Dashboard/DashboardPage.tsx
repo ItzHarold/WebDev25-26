@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import TournamentList from "../../components/Dashboard/TournamentList";
 import TournamentForm from "../../components/Dashboard/TournamentForm";
 import TournamentDetails from "../../components/Dashboard/TournamentDetails";
@@ -7,7 +7,7 @@ import mockData from "../../data/mockAdmin.json";
 import "./LightDashboard.css";
 import "./DarkDashboard.css";
 
-type Event = {
+type Tournament = {
   id: string;
   title: string;
   location: string;
@@ -20,81 +20,95 @@ type Event = {
   participatingTeams: string[];
 };
 
-type DashboardStats = {
-  totalEvents: number;
-  activeEvents: number;
-  totalTeams: number;
+type Team = {
+  id: string;
+  name: string;
+  game: string;
+  players: number;
+  imageUrl: string;
 };
 
-type ViewMode = "list" | "create" | "edit" | "details";
-
-const DashboardPage: React.FC = () => {
-  const [events, setEvents] = useState(mockData.tournaments);
-  const [teams] = useState(mockData.teams);
-  const [viewMode, setViewMode] = useState<ViewMode>("list");
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+const DashboardPage = () => {
+  // get data from json
+  const [events, setEvents] = useState<Tournament[]>(mockData.tournaments);
+  const [teams] = useState<Team[]>(mockData.teams);
+  
+  // controls for showing/hiding different parts
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<Tournament | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const stats: DashboardStats = {
-    totalEvents: events.length,
-    activeEvents: events.filter(
-      (e) => e.status === "upcoming" || e.status === "ongoing" || e.status === "live"
-    ).length,
-    totalTeams: teams.length,
-  };
-
-  const handleCreateEvent = (eventData: any) => {
-    const newEvent = {
-      ...eventData,
-      id: `T${String(events.length + 1).padStart(3, "0")}`,
-    };
+  // add new event to list
+  const handleCreateEvent = (eventData: Tournament) => {
+    // make a simple ID using timestamp
+    const newId = "T" + Date.now().toString().slice(-3);
+    const newEvent = { ...eventData, id: newId };
+    
     setEvents([...events, newEvent]);
-    setViewMode("list");
+    setShowCreateForm(false);
   };
 
-  const handleEditEvent = (eventData: Event) => {
-    setEvents(
-      events.map((e) => (e.id === eventData.id ? eventData : e))
-    );
-    setViewMode("list");
+  // update event in the list
+  const handleEditEvent = (eventData: Tournament) => {
+    // find and replace the event
+    const updatedList = events.map(event => {
+      if (event.id === eventData.id) {
+        return eventData;
+      }
+      return event;
+    });
+    setEvents(updatedList);
+    setShowEditForm(false);
     setSelectedEvent(null);
   };
 
+  // remove event from list
   const handleDeleteEvent = (id: string) => {
-    if (window.confirm("Are you sure you want to delete this event?")) {
-      setEvents(events.filter((e) => e.id !== id));
+    const confirmDelete = window.confirm("Are you sure you want to delete this event?");
+    if (confirmDelete) {
+      setEvents(events.filter(event => event.id !== id));
     }
   };
 
-  const handleViewEvent = (event: Event) => {
+  // show event details
+  const handleViewEvent = (event: Tournament) => {
     setSelectedEvent(event);
-    setViewMode("details");
+    setShowDetails(true);
   };
 
-  const handleEditClick = (event: Event) => {
+  // open edit form
+  const handleEditClick = (event: Tournament) => {
     setSelectedEvent(event);
-    setViewMode("edit");
+    setShowEditForm(true);
   };
 
+  // remove team from event
   const handleDisqualifyTeam = (teamId: string) => {
-    if (selectedEvent && window.confirm("Remove this team from the event?")) {
-      const updatedEvent = {
-        ...selectedEvent,
-        participatingTeams: selectedEvent.participatingTeams.filter(
-          (id: string) => id !== teamId
-        ),
-      };
-      setEvents(
-        events.map((e) =>
-          e.id === selectedEvent.id ? updatedEvent : e
-        )
-      );
-      setSelectedEvent(updatedEvent);
-    }
+    if (!selectedEvent) return;
+    
+    const confirmRemove = window.confirm("Remove this team?");
+    if (!confirmRemove) return;
+    
+    // filter out the team
+    const newTeamList = selectedEvent.participatingTeams.filter(id => id !== teamId);
+    const updatedEvent = { ...selectedEvent, participatingTeams: newTeamList };
+    
+    // update events list
+    const newEvents = events.map(event => {
+      if (event.id === updatedEvent.id) return updatedEvent;
+      return event;
+    });
+    setEvents(newEvents);
+    setSelectedEvent(updatedEvent);
   };
 
+  // close all modals
   const handleCancel = () => {
-    setViewMode("list");
+    setShowCreateForm(false);
+    setShowEditForm(false);
+    setShowDetails(false);
     setSelectedEvent(null);
   };
 
@@ -107,9 +121,9 @@ const DashboardPage: React.FC = () => {
             <p>Manage events, teams, and view statistics</p>
           </div>
 
-          <DashboardStats stats={stats} />
+          <DashboardStats events={events} teams={teams} />
 
-          {viewMode === "list" && (
+          {!showCreateForm && !showEditForm && !showDetails && (
             <>
               <div className="dashboard-controls">
                 <div className="search-bar">
@@ -123,7 +137,7 @@ const DashboardPage: React.FC = () => {
                 </div>
                 <button
                   className="btn-create"
-                  onClick={() => setViewMode("create")}
+                  onClick={() => setShowCreateForm(true)}
                 >
                   + Create Event
                 </button>
@@ -139,19 +153,15 @@ const DashboardPage: React.FC = () => {
             </>
           )}
 
-          {(viewMode === "create" || viewMode === "edit") && (
+          {(showCreateForm || showEditForm) && (
             <TournamentForm
               tournament={selectedEvent || undefined}
-              onSave={
-                viewMode === "create"
-                  ? handleCreateEvent
-                  : handleEditEvent
-              }
+              onSave={showCreateForm ? handleCreateEvent : handleEditEvent}
               onCancel={handleCancel}
             />
           )}
 
-          {viewMode === "details" && selectedEvent && (
+          {showDetails && selectedEvent && (
             <TournamentDetails
               tournament={selectedEvent}
               teams={teams}

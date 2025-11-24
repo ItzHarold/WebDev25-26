@@ -1,17 +1,28 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+
+interface Tournament {
+  id: string;
+  title: string;
+  location: string;
+  date: string;
+  description: string;
+  detail: string;
+  status: string;
+  imageUrl: string;
+  maxTeams: number;
+  participatingTeams: string[];
+}
 
 interface TournamentFormProps {
-  tournament?: any;
-  onSave: (event: any) => void;
+  tournament?: Tournament;
+  onSave: (event: Tournament) => void;
   onCancel: () => void;
 }
 
-const TournamentForm: React.FC<TournamentFormProps> = ({
-  tournament,
-  onSave,
-  onCancel,
-}) => {
-  const [formData, setFormData] = useState<any>({
+const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onCancel }) => {
+  // form state
+  const [formData, setFormData] = useState<Tournament>({
+    id: "",
     title: "",
     location: "",
     date: "",
@@ -29,18 +40,19 @@ const TournamentForm: React.FC<TournamentFormProps> = ({
     }
   }, [tournament]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev: any) => ({
-      ...prev,
-      [name]: name === "maxTeams" ? Number(value) : value,
-    }));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const fieldName = e.target.name;
+    const fieldValue = e.target.value;
+    
+    setFormData({
+      ...formData,
+      [fieldName]: fieldName === "maxTeams" ? Number(fieldValue) : fieldValue
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
     if (tournament) {
       onSave({ ...formData, id: tournament.id });
     } else {
