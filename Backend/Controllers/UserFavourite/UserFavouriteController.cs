@@ -6,12 +6,14 @@ namespace Backend.Controllers
 {
     [ApiController]
 [Route("[controller]")]
-public class UserFavourite : Controller
+public class UserFavourite : ControllerBase
 {
+    private readonly IUserFavouriteService _service;
     private readonly ILogger<UserFavourite> _logger;
 
-    public UserFavourite(ILogger<UserFavourite> logger)
+    public UserFavourite(IUserFavouriteService service, ILogger<UserFavourite> logger)
     {
+        _service = service;
         _logger = logger;
     }
 
