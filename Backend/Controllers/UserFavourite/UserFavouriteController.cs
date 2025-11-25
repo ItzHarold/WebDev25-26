@@ -6,26 +6,21 @@ namespace Backend.Controllers
 {
     [ApiController]
 [Route("[controller]")]
-public class UserFavourite : ControllerBase
-{
-    private readonly IUserFavouriteService _service;
-    private readonly ILogger<UserFavourite> _logger;
-
-    public UserFavourite(IUserFavouriteService service, ILogger<UserFavourite> logger)
+    public class UserFavourite : ControllerBase
     {
-        _service = service;
-        _logger = logger;
-    }
+        private readonly IUserFavouriteService _service;
+        private readonly ILogger<UserFavourite> _logger;
 
-    public IActionResult Index()
-    {
-        return View();
+        public UserFavourite(IUserFavouriteService service, ILogger<UserFavourite> logger)
+        {
+            _service = service;
+            _logger = logger;
+        }
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var list = _service.GetAllAsync();
+            return Ok(list);
+        }
     }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View("Error!");
-    }
-}
 }
