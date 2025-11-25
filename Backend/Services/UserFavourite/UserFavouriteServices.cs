@@ -70,9 +70,16 @@ public interface IUserFavouriteService
             await _context.SaveChangesAsync();
             return true;
         }
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            return default;
+            var fav = await _context.UserFavourites.FindAsync(id);
+            if (fav == null)
+            {
+                return false;
+            }
+            _context.UserFavourites.Remove(fav);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 
