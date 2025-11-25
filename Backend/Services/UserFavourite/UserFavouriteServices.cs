@@ -58,9 +58,17 @@ public interface IUserFavouriteService
 
             return fav;
 }
-        public Task<bool> UpdateAsync(int id, UserFavourite UserFavourite)
+        public async Task<bool> UpdateAsync(int id, UserFavourite UserFavourite)
         {
-            return default;
+            var existing = await _context.UserFavourites.FindAsync(id);
+            if (existing == null)
+            {
+                return false;
+            }
+            existing.UserId = UserFavourite.UserId;
+            existing.EventId = UserFavourite.EventId;
+            await _context.SaveChangesAsync();
+            return true;
         }
         public Task<bool> DeleteAsync(int id)
         {
