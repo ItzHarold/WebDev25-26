@@ -29,10 +29,35 @@ public interface IUserFavouriteService
         {
             return _context.UserFavourites.FindAsync(id).AsTask();
         }
-        public Task<UserFavourite> CreateAsync(User user, Event ev)
+        public async Task<UserFavourite> CreateAsync(User user, Event even)
         {
-            return null;
-        }
+
+            if (user == null || even == null)
+            {
+                throw new ArgumentException("User or Event not found");
+            }
+
+            var favourites = await _context.UserFavourites.ToListAsync();
+
+            foreach (var favItem in favourites)
+            {
+                if (favItem.UserId == user.Id && favItem.EventId == even.Id)
+                {
+                    throw new ArgumentException("Event Already in Favourites");
+                }
+            }
+
+            var fav = new UserFavourite
+            {
+                UserId = user.Id,
+                EventId = even.Id
+            };
+            
+            _context.UserFavourites.Add(fav);
+            await _context.SaveChangesAsync();
+
+            return fav;
+}
         public Task<bool> UpdateAsync(int id, UserFavourite UserFavourite)
         {
             return default;
