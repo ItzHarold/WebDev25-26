@@ -18,18 +18,19 @@ builder.Services.AddScoped<ITeamService, TeamService>();
 
 
 var app = builder.Build();
-
+var seeddb = true;
 // Seed database
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-
-    using (var scope = app.Services.CreateScope())
-    {
-        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        context.Database.EnsureCreated();
-        DataSeeder.Seed(context); 
+    if(seeddb == true){
+        using (var scope = app.Services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            context.Database.EnsureCreated();
+            DataSeeder.Seed(context); 
+        }
     }
 }
 
