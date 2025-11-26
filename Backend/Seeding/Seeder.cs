@@ -7,9 +7,12 @@ public static class DataSeeder
 {
     public static void Seed(AppDbContext context)
     {
+        // Check if data already exists
         if (context.Users.Any())
             return; 
+        // models to fill the database with data
 
+        //Create Teams
         var teamA = new Team
         {
             Description = "The red dragons",
@@ -27,7 +30,9 @@ public static class DataSeeder
 
         context.Teams.AddRange(teamA, teamB);
         context.SaveChanges();
-
+        
+        
+        //Create Users
         var user1 = new User
         {
             Role = "Admin",
@@ -70,7 +75,8 @@ public static class DataSeeder
         teamA.ManagerId = user1.Id;
         teamB.ManagerId = user3.Id;
         context.SaveChanges();
-
+        
+        //Create Events
         var event1 = new Event
         {
             Title = "Football Match",
@@ -88,6 +94,7 @@ public static class DataSeeder
         context.Events.AddRange(event1, event2);
         context.SaveChanges();
 
+        //Create UserFavourites
         var fav1 = new UserFavourite
         {
             UserId = user1.Id,
@@ -102,7 +109,8 @@ public static class DataSeeder
 
         context.UserFavourites.AddRange(fav1, fav2);
         context.SaveChanges();
-
+        
+        //Create EventTeams
         var et1 = new EventTeam
         {
             EventId = event1.Id,
