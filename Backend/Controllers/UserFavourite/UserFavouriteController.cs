@@ -51,4 +51,14 @@ public class UserFavourite : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var success = await _service.DeleteAsync(id);
+        if (!success)
+        {
+            return NotFound();
+        }
+        return NoContent();
+    }
 }
