@@ -8,7 +8,7 @@ public interface IUserFavouriteService
 {
     Task<List<UserFavourite>> GetAllAsync();
     Task<UserFavourite?> GetByIdAsync(int id);
-    Task<UserFavourite> CreateAsync(User user, Event ev);
+    Task<UserFavourite> CreateAsync(int userId, int eventId);
     Task<bool> UpdateAsync(int id, UserFavourite UserFavourite);
     Task<bool> DeleteAsync(int id);
 }
@@ -28,16 +28,18 @@ public class UserFavouriteService : IUserFavouriteService
     {
         return _context.UserFavourites.FindAsync(id).AsTask();
     }
-    public async Task<UserFavourite> CreateAsync(User user, Event even)
+    public async Task<UserFavourite> CreateAsync(int userId, int evenId)
     {
 
+        var user = await _context.Users.FindAsync(userId);
+        var even = await _context.Events.FindAsync(evenId);
+
+        //chekk if user or event dont exist
         if (user == null || even == null)
-        {
-            throw new ArgumentException("User or Event not found");
-        }
+        throw new ArgumentException("User or Event not found");
 
+        //Check if favourite already exists
         var favourites = await _context.UserFavourites.ToListAsync();
-
         foreach (var favItem in favourites)
         {
             if (favItem.UserId == user.Id && favItem.EventId == even.Id)
