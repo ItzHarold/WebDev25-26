@@ -1,3 +1,4 @@
+using Backend.Controllers;
 using Backend.Data;
 using Backend.Services;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEventService, EventService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
+builder.Services.AddScoped<IUserFavouriteService, UserFavouriteService>();
 
 
 var app = builder.Build();
