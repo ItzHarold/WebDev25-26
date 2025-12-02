@@ -78,13 +78,14 @@ public class UserService : IUserService
     }
     
     // authenticate user by username and password
-    public async Task<User?> LoginAsync(string username, string password)
+    public async Task<User?> LoginAsync(string email, string password)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == username);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         if (user == null) return null;
 
         return _password.Verify(user.Password, password) ? user : null;
     }
+
 
 
 }

@@ -15,17 +15,18 @@ public class AuthController : ControllerBase
         _userService = userService;
     }
 
-    [HttpPost("login")]
+    [HttpPost("login")] 
     public async Task<ActionResult<LoginResponse>> Login(LoginRequest request)
     {
-        var user = await _userService.LoginAsync(request.UserName, request.Password);
-        if (user == null) return Unauthorized("Invalid username or password");
+        var user = await _userService.LoginAsync(request.Email, request.Password);
+        if (user == null) return Unauthorized("Invalid email or password");
 
         return Ok(new LoginResponse
         {
             UserId = user.Id,
-            UserName = user.UserName,
+            Email = user.Email,
             Role = user.Role
         });
     }
+
 }

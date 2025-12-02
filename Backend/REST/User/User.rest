@@ -9,8 +9,8 @@ Accept: application/json
   "role": "Player",
   "firstName": "Harold",
   "lastName": "Ponte da Costa",
-  "userName": "ItzHarold",
-  "email": "harold@example.com",
+  "userName": "ItzHarold2",
+  "email": "harold2@example.com",
   "password": "Password123",
   "dob": "2003-01-01T00:00:00",
   "teamId": null,
@@ -23,7 +23,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "userName": "ItzHarold",
+  "userName": "harold@example.com",
   "password": "Password123"
 }
 
