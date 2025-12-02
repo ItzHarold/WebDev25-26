@@ -1,402 +1,178 @@
-import { useEffect, useMemo, useState } from "react";
-import type { Tournament, TeamEntry, Room } from "./types";
-import Modal from "../../components/Dashboard/Modal";
-import ViewTournament from "../../components/Dashboard/ViewTournament";
-import EditTournament from "../../components/Dashboard/EditTournament";
-import CreateTournament from "../../components/Dashboard/CreateTournament";
-import EditRoom from "../../components/Dashboard/EditRoom";
-import CreateRoom from "../../components/Dashboard/CreateRoom";
-import tournamentsData from "../../data/mockAdminTournaments.json";
-import teamEntriesData from "../../data/mockTeamEntries.json";
-import roomsData from "../../data/mockRooms.json";
+import { useState } from "react";
+import TournamentList from "../../components/Dashboard/TournamentList";
+import TournamentForm from "../../components/Dashboard/TournamentForm";
+import TournamentDetails from "../../components/Dashboard/TournamentDetails";
+import DashboardStats from "../../components/Dashboard/DashboardStats";
+import mockData from "../../data/mockAdmin.json";
+import "./LightDashboard.css";
+import "./DarkDashboard.css";
 
-function classForStatus(s: Tournament["status"]) {
-    const key = s.toLowerCase();
-    if (key.includes("completed")) return "status-pill status-completed";
-    if (key.includes("ongoing")) return "status-pill status-ongoing";
-    if (key.includes("cancel")) return "status-pill status-cancelled";
-    return "status-pill status-open";
-}
+type Tournament = {
+  id: string;
+  title: string;
+  location: string;
+  date: string;
+  description: string;
+  detail: string;
+  status: string;
+  imageUrl: string;
+  maxTeams: number;
+  participatingTeams: string[];
+};
 
-type TabKey = "tournaments" | "teams" | "rooms" | "settings";
+type Team = {
+  id: string;
+  name: string;
+  game: string;
+  players: number;
+  imageUrl: string;
+};
 
-export default function DashboardPage() {
-    const [tab, setTab] = useState<TabKey>("tournaments");
-    const [items, setItems] = useState<Tournament[]>(tournamentsData as unknown as Tournament[]);
-    const [query, setQuery] = useState("");
+const DashboardPage = () => {
+  // get data from json
+  const [events, setEvents] = useState<Tournament[]>(mockData.tournaments);
+  const [teams] = useState<Team[]>(mockData.teams);
+  
+  // controls for showing/hiding different parts
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<Tournament | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
-    // --- TEAM ENTRIES ---
-    const [teamQuery, setTeamQuery] = useState("");
-    const [entries, setEntries] = useState<TeamEntry[]>(teamEntriesData as unknown as TeamEntry[]);
-    const filteredEntries = useMemo<TeamEntry[]>(() => {
-        const q = teamQuery.trim().toLowerCase();
-        if (!q) return entries;
-        return entries.filter((e: TeamEntry) =>
-            [e.teamName, e.tournament, e.status].join(" ").toLowerCase().includes(q)
-        );
-    }, [entries, teamQuery]);
+  // add new event to list
+  const handleCreateEvent = (eventData: Tournament) => {
+    // make a simple ID using timestamp
+    const newId = "T" + Date.now().toString().slice(-3);
+    const newEvent = { ...eventData, id: newId };
+    
+    setEvents([...events, newEvent]);
+    setShowCreateForm(false);
+  };
 
-    const findTournamentIndexByName = (name: string) => items.findIndex(t => t.name === name);
+  // update event in the list
+  const handleEditEvent = (eventData: Tournament) => {
+    // find and replace the event
+    const updatedList = events.map(event => {
+      if (event.id === eventData.id) {
+        return eventData;
+      }
+      return event;
+    });
+    setEvents(updatedList);
+    setShowEditForm(false);
+    setSelectedEvent(null);
+  };
 
-    const incrementTeamCount = (tournamentName: string): boolean => {
-        const idx = findTournamentIndexByName(tournamentName);
-        if (idx === -1) return false;
-        const t = items[idx];
-        if (t.currentTeams >= t.maxTeams) return false;
-        const updated = { ...t, currentTeams: t.currentTeams + 1 };
-        setItems((prev) => prev.map((x, i) => i === idx ? updated : x));
-        return true;
-    };
-    const decrementTeamCount = (tournamentName: string) => {
-        const idx = findTournamentIndexByName(tournamentName);
-        if (idx === -1) return;
-        const t = items[idx];
-        const next = Math.max(0, t.currentTeams - 1);
-        if (next === t.currentTeams) return;
-        const updated = { ...t, currentTeams: next };
-        setItems((prev) => prev.map((x, i) => i === idx ? updated : x));
-    };
-
-    const approveEntry = (id: string) => {
-        setEntries((prev) => {
-            const e = prev.find(p => p.id === id);
-            if (!e) return prev;
-            if (e.status === "Approved") return prev;
-            const ok = incrementTeamCount(e.tournament);
-            if (!ok) {
-                setTeamNotice("Tournament is full. Increase Max Teams or choose another.");
-                return prev;
-            }
-            return prev.map((x) => x.id === id ? { ...x, status: "Approved" as const } : x);
-        });
-    };
-
-    const rejectEntry = (id: string) => {
-        setEntries((prev) => {
-            const e = prev.find(p => p.id === id);
-            if (!e) return prev;
-            if (e.status === "Approved") decrementTeamCount(e.tournament);
-            return prev.map((x) => x.id === id ? { ...x, status: "Rejected" as const } : x);
-        });
-    };
-
-    const resignEntry = (id: string) => {
-        setEntries((prev) => {
-            const e = prev.find(p => p.id === id);
-            if (!e) return prev;
-            if (e.status === "Approved") decrementTeamCount(e.tournament);
-            return prev.map((x) => x.id === id ? { ...x, status: "Resigned" as const } : x);
-        });
-    };
-
-    const removeEntry = (id: string) => {
-        setEntries((prev) => {
-            const e = prev.find(p => p.id === id);
-            if (e && e.status === "Approved") decrementTeamCount(e.tournament);
-            return prev.filter((x) => x.id !== id);
-        });
-    };
-
-    const bulkApprovePending = () => {
-        setEntries((prev) => {
-            let approved = 0;
-            let skipped = 0;
-            const next = prev.map((e) => {
-                if (e.status !== "Pending") return e;
-                const ok = incrementTeamCount(e.tournament);
-                if (ok) {
-                    approved++;
-                    return { ...e, status: "Approved" as const };
-                } else {
-                    skipped++;
-                    return e;
-                }
-            });
-            if (approved || skipped) setTeamNotice(`Approved ${approved} pending; ${skipped} skipped (full).`);
-            return next;
-        });
-    };
-
-    // --- ROOMS & SERVERS ---
-    const [rooms, setRooms] = useState<Room[]>(roomsData as unknown as Room[]);
-    const toggleRoom = (id: string) => setRooms((prev: Room[]) => prev.map((r: Room) => r.id === id ? { ...r, active: !r.active } : r));
-    const saveRoom = (room: Room) => setRooms((prev: Room[]) => prev.map((r: Room) => r.id === room.id ? room : r));
-    const createRoom = (room: Omit<Room, "id">) => setRooms((prev: Room[]) => [{ id: `r${Math.random().toString(36).slice(2, 9)}`, ...room }, ...prev]);
-    const deleteRoom = (id: string) => setRooms((prev: Room[]) => prev.filter((r: Room) => r.id !== id));
-
-    const [modal, setModal] = useState<
-        | null
-        | { type: "view" | "edit" | "create"; item?: Tournament }
-        | { type: "room-edit"; room: Room }
-        | { type: "room-create" }
-    >(null);
-    const [teamNotice, setTeamNotice] = useState<string>("");
-    useEffect(() => {
-        if (!teamNotice) return;
-        const id = setTimeout(() => setTeamNotice(""), 2500);
-        return () => clearTimeout(id);
-    }, [teamNotice]);
-
-    const filtered = useMemo<Tournament[]>(() => {
-        const q = query.trim().toLowerCase();
-        if (!q) return items;
-        return items.filter((t: Tournament) =>
-            [t.name, t.game, t.status].join(" ").toLowerCase().includes(q)
-        );
-    }, [items, query]);
-
-    function onCreate(newItem: Omit<Tournament, "id">) {
-        const id = `t${Math.random().toString(36).slice(2, 9)}`;
-        setItems((prev: Tournament[]) => [{ id, ...newItem }, ...prev]);
-        setModal(null);
+  // remove event from list
+  const handleDeleteEvent = (id: string) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this event?");
+    if (confirmDelete) {
+      setEvents(events.filter(event => event.id !== id));
     }
+  };
 
-    function onUpdate(updated: Tournament) {
-        setItems((prev: Tournament[]) => prev.map((t: Tournament) => (t.id === updated.id ? updated : t)));
-        setModal(null);
-    }
+  // show event details
+  const handleViewEvent = (event: Tournament) => {
+    setSelectedEvent(event);
+    setShowDetails(true);
+  };
 
-    function onDelete(id: string) {
-        setItems((prev: Tournament[]) => prev.filter((t: Tournament) => t.id !== id));
-    }
+  // open edit form
+  const handleEditClick = (event: Tournament) => {
+    setSelectedEvent(event);
+    setShowEditForm(true);
+  };
 
-    return (
-        <main className="container">
-            {/* Hero */}
-            <section className="hero hero--dash">
-                <div className="hero-content">
-                    <h1>Admin Dashboard</h1>
-                    <p>Manage tournaments, teams, and system settings</p>
+  // remove team from event
+  const handleDisqualifyTeam = (teamId: string) => {
+    if (!selectedEvent) return;
+    
+    const confirmRemove = window.confirm("Remove this team?");
+    if (!confirmRemove) return;
+    
+    // filter out the team
+    const newTeamList = selectedEvent.participatingTeams.filter(id => id !== teamId);
+    const updatedEvent = { ...selectedEvent, participatingTeams: newTeamList };
+    
+    // update events list
+    const newEvents = events.map(event => {
+      if (event.id === updatedEvent.id) return updatedEvent;
+      return event;
+    });
+    setEvents(newEvents);
+    setSelectedEvent(updatedEvent);
+  };
+
+  // close all modals
+  const handleCancel = () => {
+    setShowCreateForm(false);
+    setShowEditForm(false);
+    setShowDetails(false);
+    setSelectedEvent(null);
+  };
+
+  return (
+    <>
+      <div className="dashboard-page">
+        <div className="dashboard-container">
+          <div className="dashboard-header">
+            <h1>Admin Dashboard</h1>
+            <p>Manage events, teams, and view statistics</p>
+          </div>
+
+          <DashboardStats events={events} teams={teams} />
+
+          {!showCreateForm && !showEditForm && !showDetails && (
+            <>
+              <div className="dashboard-controls">
+                <div className="search-bar">
+                  <input
+                    type="text"
+                    placeholder="Search events..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="search-input"
+                  />
                 </div>
-            </section>
+                <button
+                  className="btn-create"
+                  onClick={() => setShowCreateForm(true)}
+                >
+                  + Create Event
+                </button>
+              </div>
 
-            {/* Stats */}
-            <section className="dashboard">
-                <div className="stat-grid">
-                    <div className="stat-card">
-                        <div className="stat-title">Active Tournaments</div>
-                        <div className="stat-value">{items.filter(i => i.status === "Ongoing" || i.status === "Registration Open").length}</div>
-                        <div className="stat-sub">Ongoing & Open</div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="stat-title">Completed</div>
-                        <div className="stat-value">{items.filter(i => i.status === "Completed").length}</div>
-                        <div className="stat-sub">Historical</div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="stat-title">Total Rooms</div>
-                        <div className="stat-value">2</div>
-                        <div className="stat-sub">LAN and Online</div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="stat-title">This Month</div>
-                        <div className="stat-value">3</div>
-                        <div className="stat-sub">scheduled events</div>
-                    </div>
-                </div>
+              <TournamentList
+                tournaments={events}
+                onView={handleViewEvent}
+                onEdit={handleEditClick}
+                onDelete={handleDeleteEvent}
+                searchTerm={searchTerm}
+              />
+            </>
+          )}
 
-                {/* Management header */}
-                <div className="management-header">
-                    <div className="tabs">
-                        <button className="tab" aria-pressed={tab === "tournaments"} onClick={() => setTab("tournaments")}>Tournaments</button>
-                        <button className="tab" aria-pressed={tab === "teams"} onClick={() => setTab("teams")}>Team Entries</button>
-                        <button className="tab" aria-pressed={tab === "rooms"} onClick={() => setTab("rooms")}>Rooms & Servers</button>
-                        <button className="tab" aria-pressed={tab === "settings"} onClick={() => setTab("settings")}>Settings</button>
-                    </div>
-                    {tab === "tournaments" && (
-                        <div className="management-actions">
-                            <input
-                                id="tournament-search"
-                                className="tournament-search"
-                                type="search"
-                                placeholder="Search tournaments, games, status..."
-                                value={query}
-                                onChange={(e) => setQuery(e.target.value)}
-                            />
-                            <button className="create-btn" onClick={() => setModal({ type: "create" })}>+ Create Tournament</button>
-                        </div>
-                    )}
-                    {tab === "teams" && (
-                        <div className="management-actions">
-                            <input
-                                className="tournament-search"
-                                type="search"
-                                placeholder="Search teams, tournaments, status..."
-                                value={teamQuery}
-                                onChange={(e) => setTeamQuery(e.target.value)}
-                            />
-                            <button className="create-btn" onClick={bulkApprovePending}>Approve All Pending</button>
-                            {teamNotice && <small>{teamNotice}</small>}
-                        </div>
-                    )}
-                    {tab === "rooms" && (
-                        <div className="management-actions">
-                            <button className="create-btn" onClick={() => setModal({ type: "room-create" })}>+ Add Room/Server</button>
-                        </div>
-                    )}
-                </div>
+          {(showCreateForm || showEditForm) && (
+            <TournamentForm
+              tournament={selectedEvent || undefined}
+              onSave={showCreateForm ? handleCreateEvent : handleEditEvent}
+              onCancel={handleCancel}
+            />
+          )}
 
-                {tab === "tournaments" && (
-                    <>
-                        <h3>Tournament Management</h3>
-                        <div className="tournaments-panel">
-                            <table className="tournaments-table">
-                                <thead>
-                                    <tr>
-                                        <th>Tournament</th>
-                                        <th>Game</th>
-                                        <th>Status</th>
-                                        <th>Teams</th>
-                                        <th>Start Date</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {filtered.map((t) => (
-                                        <tr key={t.id}>
-                                            <td>{t.name}</td>
-                                            <td>{t.game}</td>
-                                            <td>
-                                                <span className={classForStatus(t.status)}>{t.status}</span>
-                                            </td>
-                                            <td>{t.currentTeams}/{t.maxTeams}</td>
-                                            <td>{t.startDate}</td>
-                                            <td>
-                                                <button className="link-btn" onClick={() => setModal({ type: "view", item: t })}>View</button>
-                                                <span aria-hidden> · </span>
-                                                <button className="link-btn" onClick={() => setModal({ type: "edit", item: t })}>Edit</button>
-                                                <span aria-hidden> · </span>
-                                                <button className="link-btn danger" onClick={() => onDelete(t.id)}>Delete</button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </>
-                )}
+          {showDetails && selectedEvent && (
+            <TournamentDetails
+              tournament={selectedEvent}
+              teams={teams}
+              onClose={handleCancel}
+              onDisqualifyTeam={handleDisqualifyTeam}
+            />
+          )}
+        </div>
+      </div>
+    </>
+  );
+};
 
-                {tab === "teams" && (
-                    <>
-                        <h3>Team Entries</h3>
-                        <div className="tournaments-panel">
-                            <table className="tournaments-table">
-                                <thead>
-                                    <tr>
-                                        <th>Team</th>
-                                        <th>Tournament</th>
-                                        <th>Players</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {filteredEntries.map((e: TeamEntry) => (
-                                        <tr key={e.id}>
-                                            <td>{e.teamName}</td>
-                                            <td>{e.tournament}</td>
-                                            <td>{e.players}</td>
-                                            <td>
-                                                <span className={`status-pill ${
-                                                    e.status === "Approved" ? "status-approved" : e.status === "Rejected" ? "status-cancelled" : e.status === "Resigned" ? "status-resigned" : "status-ongoing"
-                                                }`}>{e.status}</span>
-                                            </td>
-                                            <td>
-                                                {e.status !== "Approved" && (
-                                                    <>
-                                                        <button className="link-btn" onClick={() => approveEntry(e.id)}>Approve</button>
-                                                        <span aria-hidden> · </span>
-                                                    </>
-                                                )}
-                                                {e.status !== "Rejected" && (
-                                                    <>
-                                                        <button className="link-btn danger" onClick={() => rejectEntry(e.id)}>Reject</button>
-                                                        <span aria-hidden> · </span>
-                                                    </>
-                                                )}
-                                                {e.status === "Approved" && (
-                                                    <>
-                                                        <button className="link-btn" onClick={() => resignEntry(e.id)}>Mark Resigned</button>
-                                                        <span aria-hidden> · </span>
-                                                    </>
-                                                )}
-                                                <button className="link-btn danger" onClick={() => removeEntry(e.id)}>Remove</button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </>
-                )}
-                {tab === "rooms" && (
-                    <>
-                        <h3>Rooms & Servers</h3>
-                        <div className="tournaments-panel">
-                            <table className="tournaments-table">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Capacity</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {rooms.map((r: Room) => (
-                                        <tr key={r.id}>
-                                            <td>{r.name}</td>
-                                            <td>{r.type}</td>
-                                            <td>{r.capacity}</td>
-                                            <td>
-                                                <span className={`status-pill ${r.active ? "status-open" : "status-completed"}`}>{r.active ? "Active" : "Disabled"}</span>
-                                            </td>
-                                            <td>
-                                                <button className="link-btn" onClick={() => toggleRoom(r.id)}>{r.active ? "Disable" : "Enable"}</button>
-                                                <span aria-hidden> · </span>
-                                                <button className="link-btn" onClick={() => setModal({ type: "room-edit", room: r })}>Edit</button>
-                                                <span aria-hidden> · </span>
-                                                <button className="link-btn danger" onClick={() => deleteRoom(r.id)}>Delete</button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </>
-                )}
-                {tab === "settings" && (
-                    <section className="placeholder">
-                        <p>To be implemented.</p>
-                    </section>
-                )}
-            </section>
-
-            {/* Simple modal */}
-            {modal && (
-                <Modal onClose={() => setModal(null)}>
-                    {modal.type === "view" && modal.item && (
-                        <ViewTournament
-                            t={modal.item}
-                            approved={entries.filter((e) => e.tournament === modal.item!.name && e.status === "Approved")}
-                            onRemove={(id) => resignEntry(id)}
-                        />
-                    )}
-                    {modal.type === "edit" && modal.item && (
-                        <EditTournament t={modal.item} onSave={onUpdate} />
-                    )}
-                    {modal.type === "create" && (
-                        <CreateTournament onCreate={onCreate} />
-                    )}
-                    {modal.type === "room-edit" && (
-                        <EditRoom room={modal.room} onSave={(r) => { saveRoom(r); setModal(null); }} />
-                    )}
-                    {modal.type === "room-create" && (
-                        <CreateRoom onCreate={(r) => { createRoom(r); setModal(null); }} />
-                    )}
-                </Modal>
-            )}
-        </main>
-    );
-}
+export default DashboardPage;

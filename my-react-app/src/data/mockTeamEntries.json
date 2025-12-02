@@ -1,6 +1,0 @@
-[
-  { "id": "e1", "teamName": "Alpha Wolves", "tournament": "CS2 Global Championship 2025", "players": 5, "status": "Pending" },
-  { "id": "e2", "teamName": "Rocket Riders", "tournament": "Rocket Rumble Invitational", "players": 3, "status": "Approved" },
-  { "id": "e3", "teamName": "Valor Vipers", "tournament": "VALORANT Champions Tour", "players": 5, "status": "Rejected" },
-  { "id": "e4", "teamName": "LAN Legends", "tournament": "LAN Heroes - Autumn League", "players": 4, "status": "Pending" }
-]
