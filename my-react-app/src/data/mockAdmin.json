@@ -1,0 +1,113 @@
+{
+  "tournaments": [
+    {
+      "id": "1",
+      "title": "Iron Fist Tournament",
+      "location": "Rotterdam",
+      "date": "June 20–22, 2025",
+      "description": "Short description for the first event.",
+      "detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porttitor mauris sed massa tristique consequat. Morbi libero risus, lacinia id rutrum malesuada, molestie a velit. Integer non accumsan felis. Aliquam eu eleifend nulla, vel efficitur nisi. Maecenas sit amet enim volutpat ligula auctor malesuada eget a erat. Praesent pharetra orci ac arcu facilisis, ut congue lorem finibus. Mauris pharetra, nibh sit amet rutrum consectetur, odio justo posuere nulla, ornare auctor lectus mi non nibh. Fusce commodo, enim ut mattis ornare, lorem nisi pellentesque leo, vitae ultrices risus tellus quis risus. Donec nec nisi scelerisque metus vulputate elementum. Pellentesque sed lectus eu ipsum ullamcorper egestas ac id libero. Nam at leo eget lacus interdum feugiat at eget sem. Quisque a augue vitae tortor posuere facilisis sed id ipsum.",
+      "status": "live",
+      "imageUrl": "/src/assets/IronFist.png",
+      "maxTeams": 16,
+      "participatingTeams": ["2", "3"]
+    },
+    {
+      "id": "2",
+      "title": "Quantum Arena Tournament",
+      "location": "Amsterdam",
+      "date": "June 20–22, 2025",
+      "description": "Short description for the Second event.",
+      "detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porttitor mauris sed massa tristique consequat. Morbi libero risus, lacinia id rutrum malesuada, molestie a velit. Integer non accumsan felis. Aliquam eu eleifend nulla, vel efficitur nisi. Maecenas sit amet enim volutpat ligula auctor malesuada eget a erat. Praesent pharetra orci ac arcu facilisis, ut congue lorem finibus. Mauris pharetra, nibh sit amet rutrum consectetur, odio justo posuere nulla, ornare auctor lectus mi non nibh. Fusce commodo, enim ut mattis ornare, lorem nisi pellentesque leo, vitae ultrices risus tellus quis risus. Donec nec nisi scelerisque metus vulputate elementum. Pellentesque sed lectus eu ipsum ullamcorper egestas ac id libero. Nam at leo eget lacus interdum feugiat at eget sem. Quisque a augue vitae tortor posuere facilisis sed id ipsum.",
+      "status": "upcoming",
+      "imageUrl": "/src/assets/QuantumArena.png",
+      "maxTeams": 8,
+      "participatingTeams": ["1", "4", "5"]
+    },
+    {
+      "id": "3",
+      "title": "Celestrial Strike Tournament",
+      "location": "Amsterdam",
+      "date": "June 20–22, 2025",
+      "description": "Short description for the Third event.",
+      "detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porttitor mauris sed massa tristique consequat. Morbi libero risus, lacinia id rutrum malesuada, molestie a velit. Integer non accumsan felis. Aliquam eu eleifend nulla, vel efficitur nisi. Maecenas sit amet enim volutpat ligula auctor malesuada eget a erat. Praesent pharetra orci ac arcu facilisis, ut congue lorem finibus. Mauris pharetra, nibh sit amet rutrum consectetur, odio justo posuere nulla, ornare auctor lectus mi non nibh. Fusce commodo, enim ut mattis ornare, lorem nisi pellentesque leo, vitae ultrices risus tellus quis risus. Donec nec nisi scelerisque metus vulputate elementum. Pellentesque sed lectus eu ipsum ullamcorper egestas ac id libero. Nam at leo eget lacus interdum feugiat at eget sem. Quisque a augue vitae tortor posuere facilisis sed id ipsum.",
+      "status": "live",
+      "imageUrl": "/src/assets/CelestialStrike.png",
+      "maxTeams": 12,
+      "participatingTeams": ["1", "2"]
+    },
+    {
+      "id": "4",
+      "title": "Super Ultimate Clash Tournament",
+      "location": "Amsterdam",
+      "date": "June 20–22, 2025",
+      "description": "Short description for the Fourth event.",
+      "detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porttitor mauris sed massa tristique consequat. Morbi libero risus, lacinia id rutrum malesuada, molestie a velit. Integer non accumsan felis. Aliquam eu eleifend nulla, vel efficitur nisi. Maecenas sit amet enim volutpat ligula auctor malesuada eget a erat. Praesent pharetra orci ac arcu facilisis, ut congue lorem finibus. Mauris pharetra, nibh sit amet rutrum consectetur, odio justo posuere nulla, ornare auctor lectus mi non nibh. Fusce commodo, enim ut mattis ornare, lorem nisi pellentesque leo, vitae ultrices risus tellus quis risus. Donec nec nisi scelerisque metus vulputate elementum. Pellentesque sed lectus eu ipsum ullamcorper egestas ac id libero. Nam at leo eget lacus interdum feugiat at eget sem. Quisque a augue vitae tortor posuere facilisis sed id ipsum.",
+      "status": "live",
+      "imageUrl": "/src/assets/UltimateClash.png",
+      "maxTeams": 16,
+      "participatingTeams": []
+    },
+    {
+      "id": "5",
+      "title": "Sample Event Five",
+      "location": "Amsterdam",
+      "date": "June 20–22, 2026",
+      "description": "Short description for the Fifth event.",
+      "detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porttitor mauris sed massa tristique consequat. Morbi libero risus, lacinia id rutrum malesuada, molestie a velit. Integer non accumsan felis. Aliquam eu eleifend nulla, vel efficitur nisi. Maecenas sit amet enim volutpat ligula auctor malesuada eget a erat. Praesent pharetra orci ac arcu facilisis, ut congue lorem finibus. Mauris pharetra, nibh sit amet rutrum consectetur, odio justo posuere nulla, ornare auctor lectus mi non nibh. Fusce commodo, enim ut mattis ornare, lorem nisi pellentesque leo, vitae ultrices risus tellus quis risus. Donec nec nisi scelerisque metus vulputate elementum. Pellentesque sed lectus eu ipsum ullamcorper egestas ac id libero. Nam at leo eget lacus interdum feugiat at eget sem. Quisque a augue vitae tortor posuere facilisis sed id ipsum.",
+      "status": "upcoming",
+      "imageUrl": "/src/assets/game.jpg",
+      "maxTeams": 32,
+      "participatingTeams": []
+    },
+    {
+      "id": "6",
+      "title": "Sample Event Six",
+      "location": "Amsterdam",
+      "date": "June 20–22, 2022",
+      "description": "Short description for the Sixth event.",
+      "detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porttitor mauris sed massa tristique consequat. Morbi libero risus, lacinia id rutrum malesuada, molestie a velit. Integer non accumsan felis. Aliquam eu eleifend nulla, vel efficitur nisi. Maecenas sit amet enim volutpat ligula auctor malesuada eget a erat. Praesent pharetra orci ac arcu facilisis, ut congue lorem finibus. Mauris pharetra, nibh sit amet rutrum consectetur, odio justo posuere nulla, ornare auctor lectus mi non nibh. Fusce commodo, enim ut mattis ornare, lorem nisi pellentesque leo, vitae ultrices risus tellus quis risus. Donec nec nisi scelerisque metus vulputate elementum. Pellentesque sed lectus eu ipsum ullamcorper egestas ac id libero. Nam at leo eget lacus interdum feugiat at eget sem. Quisque a augue vitae tortor posuere facilisis sed id ipsum.",
+      "status": "ended",
+      "imageUrl": "/src/assets/game.jpg",
+      "maxTeams": 8,
+      "participatingTeams": ["3", "4"]
+    }
+  ],
+  "teams": [
+    {
+      "id": "1",
+      "name": "Team Alpha",
+      "game": "Valorant",
+      "players": 5,
+      "imageUrl": "/src/assets/team-default.jpg"
+    },
+    {
+      "id": "2",
+      "name": "Team Beta",
+      "game": "CS:GO",
+      "players": 5,
+      "imageUrl": "/src/assets/unnamed.jpg"
+    },
+    {
+      "id": "3",
+      "name": "Team Gamma",
+      "game": "League of Legends",
+      "players": 5,
+      "imageUrl": "../../assets/team-default.jpg"
+    },
+    {
+      "id": "4",
+      "name": "Team Delta",
+      "game": "Dota 2",
+      "players": 5,
+      "imageUrl": "../../assets/team-default.jpg"
+    },
+    {
+      "id": "5",
+      "name": "Team Epsilon",
+      "game": "Overwatch",
+      "players": 6,
+      "imageUrl": "../../assets/team-default.jpg"
+    }
+  ]
+}

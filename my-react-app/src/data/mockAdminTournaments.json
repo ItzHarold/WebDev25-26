@@ -1,9 +1,0 @@
-[
-  { "id": "t1", "name": "CS2 Global Championship 2025", "game": "Counter-Strike 2", "status": "Registration Open", "currentTeams": 1, "maxTeams": 32, "startDate": "3/15/2025" },
-  { "id": "t2", "name": "VALORANT Champions Tour", "game": "VALORANT", "status": "Completed", "currentTeams": 32, "maxTeams": 32, "startDate": "4/01/2025" },
-  { "id": "t3", "name": "Arena Clash - Spring Cup", "game": "Arena FPS", "status": "Ongoing", "currentTeams": 8, "maxTeams": 64, "startDate": "9/05/2025" },
-  { "id": "t4", "name": "Rocket Rumble Invitational", "game": "Rocket League", "status": "Registration Open", "currentTeams": 3, "maxTeams": 16, "startDate": "10/12/2025" },
-  { "id": "t5", "name": "Super Smash Showdown", "game": "Super Smash Bros", "status": "Completed", "currentTeams": 16, "maxTeams": 16, "startDate": "2/20/2025" },
-  { "id": "t6", "name": "Indie Cup: Open Qualifiers", "game": "Various", "status": "Cancelled", "currentTeams": 0, "maxTeams": 64, "startDate": "5/01/2025" },
-  { "id": "t7", "name": "LAN Heroes - Autumn League", "game": "Multiple", "status": "Registration Open", "currentTeams": 12, "maxTeams": 24, "startDate": "11/18/2025" }
-]
