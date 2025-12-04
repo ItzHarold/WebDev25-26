@@ -29,7 +29,25 @@ Accept: application/json
   "imageUrl": null
 }
 
-###
+### LOGIN
+POST {{baseUrl}}/Auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "userName": "harold@example.com",
+  "password": "Password123"
+}
+
+### GET ALL USERS
+GET {{baseUrl}}/User
+Accept: application/json
+
+
+### GET USER BY ID
+GET {{baseUrl}}/User/1
+Accept: application/json
+
 
 ### Create another user for testing
 POST {{baseUrl}}/User
@@ -53,6 +71,7 @@ Accept: application/json
 ### Update existing user (Using UserRequest DTO)
 PUT {{baseUrl}}/User/4
 Content-Type: application/json
+Accept: application/json
 
 {
   "role": "Player",
@@ -66,7 +85,6 @@ Content-Type: application/json
   "imageUrl": null
 }
 
-###
 
 ### Delete user
 DELETE {{baseUrl}}/User/4

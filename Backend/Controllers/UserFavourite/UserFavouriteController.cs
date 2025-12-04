@@ -3,7 +3,7 @@ using Backend.Services;
 using Backend.Models;
 
 namespace Backend.Controllers;
-
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class UserFavouriteController : ControllerBase

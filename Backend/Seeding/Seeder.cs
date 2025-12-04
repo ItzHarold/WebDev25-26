@@ -1,11 +1,12 @@
 using Backend.Data;
 using Backend.Models;
+using Backend.Services;
 
 namespace Backend.Seeding;
 
 public static class DataSeeder
 {
-    public static void Seed(AppDbContext context)
+    public static void Seed(AppDbContext context, IPasswordService passwordService)
     {
         // Check if data already exists
         if (context.Users.Any())
@@ -36,11 +37,11 @@ public static class DataSeeder
         var user1 = new User
         {
             Role = "Admin",
-            FirstName = "John",
-            LastName = "Doe",
-            UserName = "johndoe",
-            Email = "john@test.com",
-            Password = "1234",
+            FirstName = "AdminJohn",
+            LastName = "Robot",
+            UserName = "adminjohn",
+            Email = "john@admin.com",
+            Password = passwordService.Hash("1234"),
             Dob = new DateTime(1995, 1, 1),
             Team = teamA
         };
@@ -52,7 +53,7 @@ public static class DataSeeder
             LastName = "Smith",
             UserName = "janesmith",
             Email = "jane@test.com",
-            Password = "1234",
+            Password = passwordService.Hash("1234"),
             Dob = new DateTime(1998, 5, 10),
             Team = teamA
         };
@@ -64,7 +65,7 @@ public static class DataSeeder
             LastName = "Brown",
             UserName = "bobbrown",
             Email = "bob@test.com",
-            Password = "1234",
+            Password = passwordService.Hash("1234"),
             Dob = new DateTime(2000, 3, 15),
             Team = teamB
         };
