@@ -37,10 +37,10 @@ public static class DataSeeder
         var user1 = new User
         {
             Role = "Admin",
-            FirstName = "John",
-            LastName = "Doe",
-            UserName = "johndoe",
-            Email = "john@test.com",
+            FirstName = "AdminJohn",
+            LastName = "Robot",
+            UserName = "adminjohn",
+            Email = "john@admin.com",
             Password = passwordService.Hash("1234"),
             Dob = new DateTime(1995, 1, 1),
             Team = teamA

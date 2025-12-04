@@ -51,7 +51,11 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+// Dit is om de database te seeden met data Testing doeleinden, Veranderen naar false voor deployment
 var seeddb = true;
+
+
 // Seed database
 if (app.Environment.IsDevelopment())
 {
