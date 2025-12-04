@@ -62,7 +62,8 @@ if (app.Environment.IsDevelopment())
         {
             var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             context.Database.EnsureCreated();
-            DataSeeder.Seed(context); 
+            var passwordService = scope.ServiceProvider.GetRequiredService<IPasswordService>();
+            DataSeeder.Seed(context, passwordService); 
         }
     }
 }
