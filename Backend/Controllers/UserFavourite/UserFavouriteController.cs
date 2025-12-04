@@ -1,56 +1,71 @@
 using Microsoft.AspNetCore.Mvc;
 using Backend.Services;
 using Backend.Models;
-using System.Threading.Tasks;
 
 namespace Backend.Controllers;
-public class CreateUserFavouriteDto
-{
-    public int UserId { get; set; }
-    public int EventId { get; set; }
-}
 
 [ApiController]
 [Route("[controller]")]
-
-public class UserFavourite : ControllerBase
+public class UserFavouriteController : ControllerBase
 {
     private readonly IUserFavouriteService _service;
 
-    public UserFavourite(IUserFavouriteService service)
+    public UserFavouriteController(IUserFavouriteService service)
     {
         _service = service;
     }
+    
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<ActionResult<IEnumerable<UserFavouriteResponse>>> GetAll()
     {
-        return Ok(await _service.GetAllAsync());
-
+        var favourites = await _service.GetAllAsync();
+        var response = favourites.Select(f => new UserFavouriteResponse
+        {
+            Id = f.Id,
+            UserId = f.UserId,
+            EventId = f.EventId
+        });
+        return Ok(response);
     }
+    
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<ActionResult<UserFavouriteResponse>> GetById(int id)
     {
         var item = await _service.GetByIdAsync(id);
         if (item == null)
         {
             return NotFound();
         }
-        return Ok(item);
+        
+        var response = new UserFavouriteResponse
+        {
+            Id = item.Id,
+            UserId = item.UserId,
+            EventId = item.EventId
+        };
+        return Ok(response);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateUserFavouriteDto dto)
+    public async Task<ActionResult<UserFavouriteResponse>> Create([FromBody] UserFavouriteRequest request)
     {
         try
         {
-            var created = await _service.CreateAsync(dto.UserId, dto.EventId);
-            return Ok(created);
+            var created = await _service.CreateAsync(request.UserId, request.EventId);
+            var response = new UserFavouriteResponse
+            {
+                Id = created.Id,
+                UserId = created.UserId,
+                EventId = created.EventId
+            };
+            return Ok(response);
         }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
         }
     }
+    
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
