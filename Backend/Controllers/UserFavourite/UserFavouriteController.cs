@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Backend.Services;
 using Backend.Models;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Backend.Controllers;
 public class CreateUserFavouriteDto
@@ -9,7 +10,7 @@ public class CreateUserFavouriteDto
     public int UserId { get; set; }
     public int EventId { get; set; }
 }
-
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 
