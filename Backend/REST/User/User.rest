@@ -1,6 +1,18 @@
 @baseUrl = http://localhost:5079
 
-### CREATE USER
+### Get all users (Returns UserResponse - no passwords exposed)
+GET {{baseUrl}}/User
+Accept: application/json
+
+###
+
+### Get user by id (Returns UserResponse - no password exposed)
+GET {{baseUrl}}/User/1
+Accept: application/json
+
+###
+
+### Create user (Using UserRequest DTO)
 POST {{baseUrl}}/User
 Content-Type: application/json
 Accept: application/json
@@ -9,9 +21,9 @@ Accept: application/json
   "role": "Player",
   "firstName": "Harold",
   "lastName": "Ponte da Costa",
-  "userName": "ItzHarold2",
-  "email": "harold2@example.com",
-  "password": "Password123",
+  "userName": "ItzHarold",
+  "email": "harold@example.com",
+  "password": "SecurePassword123",
   "dob": "2003-01-01T00:00:00",
   "teamId": null,
   "imageUrl": null
@@ -37,24 +49,45 @@ GET {{baseUrl}}/User/1
 Accept: application/json
 
 
-### UPDATE USER
-PUT {{baseUrl}}/User/1
+### Create another user for testing
+POST {{baseUrl}}/User
+Content-Type: application/json
+Accept: application/json
+
+{
+  "role": "Admin",
+  "firstName": "Admin",
+  "lastName": "User",
+  "userName": "AdminUser",
+  "email": "admin@example.com",
+  "password": "AdminPass123",
+  "dob": "1990-05-15T00:00:00",
+  "teamId": null,
+  "imageUrl": null
+}
+
+###
+
+### Update existing user (Using UserRequest DTO)
+PUT {{baseUrl}}/User/4
 Content-Type: application/json
 Accept: application/json
 
 {
   "role": "Player",
-  "firstName": "HaroldUPDATED",
-  "lastName": "Ponte",
+  "firstName": "HaroldUpdated",
+  "lastName": "Ponte da Costa",
   "userName": "ItzHarold",
-  "email": "harold@example.com",
-  "password": "NEWPASSWORD",
+  "email": "harold.updated@example.com",
+  "password": "NewSecurePassword456",
   "dob": "2003-01-01T00:00:00",
-  "teamId": null,
+  "teamId": 1,
   "imageUrl": null
 }
 
 
-### DELETE USER
-DELETE {{baseUrl}}/User/1
+### Delete user
+DELETE {{baseUrl}}/User/4
 Accept: application/json
+
+###

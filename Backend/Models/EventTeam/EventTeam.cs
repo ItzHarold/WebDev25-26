@@ -14,3 +14,16 @@ public class EventTeam
     [ValidateNever]
     public Team? Team { get; set; } = null!;
 }
+
+public class EventTeamRequest
+{
+    public int EventId { get; set; }
+    public int TeamId { get; set; }
+}
+
+public class EventTeamResponse
+{
+    public int Id { get; set; }
+    public EventResponse? Event { get; set; }
+    public TeamResponse? Team { get; set; }
+}

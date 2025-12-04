@@ -1,0 +1,55 @@
+@baseUrl = http://localhost:5079
+
+### Get all user favourites
+GET {{baseUrl}}/UserFavourite
+Accept: application/json
+
+###
+
+### Get user favourite by id
+GET {{baseUrl}}/UserFavourite/1
+Accept: application/json
+
+###
+
+### Create user favourite
+POST {{baseUrl}}/UserFavourite
+Content-Type: application/json
+Accept: application/json
+
+{
+  "userId": 1,
+  "eventId": 1
+}
+
+###
+
+### Create another favourite for testing
+POST {{baseUrl}}/UserFavourite
+Content-Type: application/json
+Accept: application/json
+
+{
+  "userId": 1,
+  "eventId": 2
+}
+
+###
+
+### Try to create duplicate (should fail)
+POST {{baseUrl}}/UserFavourite
+Content-Type: application/json
+Accept: application/json
+
+{
+  "userId": 1,
+  "eventId": 1
+}
+
+###
+
+### Delete user favourite
+DELETE {{baseUrl}}/UserFavourite/1
+Accept: application/json
+
+###

@@ -7,53 +7,151 @@ namespace Backend.Controllers;
 [Authorize]
 [ApiController]
 [Route("[controller]")]
-public class EventTeamContrller : ControllerBase
+public class EventTeamController : ControllerBase
 {
     private readonly IEventTeamService _service;
 
-    public EventTeamContrller(IEventTeamService service)
+    public EventTeamController(IEventTeamService service)
     {
         _service = service;
     }
 
     // GET /EventTeam
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<EventTeam>>> GetAll()
+    public async Task<ActionResult<IEnumerable<EventTeamResponse>>> GetAll()
     {
-        return Ok(await _service.GetAllAsync());
+        List<EventTeam> eventTeams = await _service.GetAllAsync();
+
+        var response = eventTeams.Select(et => new EventTeamResponse
+        {
+            Id = et.Id,
+            Event = new EventResponse
+            {
+                Id = et.Event!.Id,
+                Title = et.Event.Title,
+                Location = et.Event.Location,
+                Date = et.Event.Date,
+                Description = et.Event.Description,
+                Detail = et.Event.Detail,
+                Status = et.Event.Status,
+                ImageUrl = et.Event.ImageUrl
+            },
+            Team = new TeamResponse
+            {
+                Id = et.Team!.Id,
+                Description = et.Team.Description,
+                Points = et.Team.Points,
+                ImageUrl = et.Team.ImageUrl,
+                ManagerId = et.Team.ManagerId
+            }
+        });
+
+        return Ok(response);
     }
-    
+
     // GET /EventTeam/{id}
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<EventTeam>> GetById(int id)
+    public async Task<ActionResult<EventTeamResponse>> GetById(int id)
     {
-        var eventTeam = await _service.GetByIdAsync(id);
-        if (eventTeam == null) return NotFound();
-        return Ok(eventTeam);
+        EventTeam? et = await _service.GetByIdAsync(id);
+        if (et == null)
+        {
+            return NotFound();
+        }
+
+        EventTeamResponse response = new EventTeamResponse
+        {
+            Id = et.Id,
+            Event = new EventResponse
+            {
+                Id = et.Event!.Id,
+                Title = et.Event.Title,
+                Location = et.Event.Location,
+                Date = et.Event.Date,
+                Description = et.Event.Description,
+                Detail = et.Event.Detail,
+                Status = et.Event.Status,
+                ImageUrl = et.Event.ImageUrl
+            },
+            Team = new TeamResponse
+            {
+                Id = et.Team!.Id,
+                Description = et.Team.Description,
+                Points = et.Team.Points,
+                ImageUrl = et.Team.ImageUrl,
+                ManagerId = et.Team.ManagerId
+            }
+        };
+
+        return Ok(response);
     }
 
-    //post /EventTeam
+    // POST /EventTeam
     [HttpPost]
-    public async Task<ActionResult<EventTeam>> Create([FromBody] EventTeam eventTeam)
+    public async Task<ActionResult<EventTeamResponse>> Create([FromBody] EventTeamRequest request)
     {
-        var created = await _service.CreateAsync(eventTeam);
-        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        EventTeam entity = new EventTeam
+        {
+            EventId = request.EventId,
+            TeamId = request.TeamId
+        };
+
+        EventTeam created = await _service.CreateAsync(entity);
+
+        var et = await _service.GetByIdAsync(created.Id);
+        if (et == null)
+        {
+            return NotFound();
+        }
+
+        EventTeamResponse response = new EventTeamResponse
+        {
+            Id = et.Id,
+            Event = new EventResponse
+            {
+                Id = et.Event!.Id,
+                Title = et.Event.Title,
+                Location = et.Event.Location,
+                Date = et.Event.Date,
+                Description = et.Event.Description,
+                Detail = et.Event.Detail,
+                Status = et.Event.Status,
+                ImageUrl = et.Event.ImageUrl
+            },
+            Team = new TeamResponse
+            {
+                Id = et.Team!.Id,
+                Description = et.Team.Description,
+                Points = et.Team.Points,
+                ImageUrl = et.Team.ImageUrl,
+                ManagerId = et.Team.ManagerId
+            }
+        };
+
+        return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
     }
 
-    //put /EventTeam/{id}
+    // PUT /EventTeam/{id}
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(int id, [FromBody] EventTeam eventTeam)
+    public async Task<IActionResult> Update(int id, [FromBody] EventTeamRequest request)
     {
-        var success = await _service.UpdateAsync(id, eventTeam);
+        EventTeam data = new EventTeam
+        {
+            EventId = request.EventId,
+            TeamId = request.TeamId
+        };
+
+        bool success = await _service.UpdateAsync(id, data);
         if (!success) return NotFound();
+
         return NoContent();
     }
 
-    //delete /EventTeam/{id}
+    // DELETE /EventTeam/{id}
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var success = await _service.DeleteAsync(id);
+        bool success = await _service.DeleteAsync(id);
         if (!success) return NotFound();
         return NoContent();
     }
