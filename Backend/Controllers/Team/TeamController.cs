@@ -41,7 +41,7 @@ public class TeamController : ControllerBase
         {
             return NotFound();
         }
-        
+
         var response = new TeamResponse
         {
             Id = team.Id,
@@ -54,6 +54,7 @@ public class TeamController : ControllerBase
     }
 
     // POST /Team
+    [Authorize(Roles = "Admin,Manager")]
     [HttpPost]
     public async Task<ActionResult<TeamResponse>> Create([FromBody] TeamRequest request)
     {
@@ -90,13 +91,14 @@ public class TeamController : ControllerBase
             ImageUrl = request.ImageUrl,
             ManagerId = request.ManagerId
         };
-        
+
         var success = await _service.UpdateAsync(id, team);
         if (!success) return NotFound();
         return NoContent();
     }
 
     // DELETE /Team/{id}
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
