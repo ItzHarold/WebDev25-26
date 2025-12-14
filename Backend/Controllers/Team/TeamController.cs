@@ -91,13 +91,14 @@ public class TeamController : ControllerBase
             ImageUrl = request.ImageUrl,
             ManagerId = request.ManagerId
         };
-        
+
         var success = await _service.UpdateAsync(id, team);
         if (!success) return NotFound();
         return NoContent();
     }
 
     // DELETE /Team/{id}
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {

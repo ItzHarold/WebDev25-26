@@ -94,6 +94,7 @@ public class EventController : ControllerBase
     }
 
     // PUT /Event/{id}
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] EventRequest request)
     {
@@ -115,6 +116,7 @@ public class EventController : ControllerBase
     }
 
     // DELETE /Event/{id}
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
