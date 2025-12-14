@@ -56,6 +56,35 @@ builder.Services.AddScoped<IUserFavouriteService, UserFavouriteService>();
 builder.Services.AddScoped<JwtService>();
 
 
+// Copy the following code into your terminal with your backend running to see the cors work
+// you should see "Access-Control-Allow-Origin : http://localhost:5173" if it works
+
+// $r = Invoke-WebRequest -Method POST `
+//   -Uri "http://localhost:5079/Auth/login" `
+//   -Headers @{ Origin = "http://localhost:5173" } `
+//   -ContentType "application/json" `
+//   -Body '{ "email": "john@admin.com", "password": "1234" }'
+
+// $r.Headers
+
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:5079",
+                "http://localhost:5173"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
+
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -103,6 +132,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
