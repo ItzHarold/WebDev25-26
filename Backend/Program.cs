@@ -55,6 +55,22 @@ builder.Services.AddScoped<IEventTeamService, EventTeamService>();
 builder.Services.AddScoped<IUserFavouriteService, UserFavouriteService>();
 builder.Services.AddScoped<JwtService>();
 
+// Cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:5079",
+                "http://localhost:5173"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
+
 
 builder.Services.AddAuthentication(options =>
 {
@@ -103,6 +119,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
