@@ -55,7 +55,20 @@ builder.Services.AddScoped<IEventTeamService, EventTeamService>();
 builder.Services.AddScoped<IUserFavouriteService, UserFavouriteService>();
 builder.Services.AddScoped<JwtService>();
 
-// Cors
+
+// Copy the following code into your terminal with your backend running to see the cors work
+// you should see "Access-Control-Allow-Origin : http://localhost:5173" if it works
+
+// $r = Invoke-WebRequest -Method POST `
+//   -Uri "http://localhost:5079/Auth/login" `
+//   -Headers @{ Origin = "http://localhost:5173" } `
+//   -ContentType "application/json" `
+//   -Body '{ "email": "john@admin.com", "password": "1234" }'
+
+// $r.Headers
+
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", policy =>
