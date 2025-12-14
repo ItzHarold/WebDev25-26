@@ -115,13 +115,14 @@ public class UserController : ControllerBase
             TeamId = request.TeamId,
             ImageUrl = request.ImageUrl
         };
-        
+
         var success = await _userService.UpdateAsync(id, user);
         if (!success) return NotFound();
         return NoContent();
     }
 
     // DELETE /User/{id}
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {

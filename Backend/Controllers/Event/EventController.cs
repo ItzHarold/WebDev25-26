@@ -61,6 +61,7 @@ public class EventController : ControllerBase
     }
 
     // POST /Event
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<EventResponse>> Create([FromBody] EventRequest request)
     {
