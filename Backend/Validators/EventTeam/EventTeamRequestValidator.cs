@@ -1,4 +1,3 @@
-using Backend.Data;
 using Backend.Models;
 using FluentValidation;
 
@@ -6,7 +5,7 @@ namespace Backend.Validators.EventTeam;
 
 public class EventTeamRequestValidator : AbstractValidator<EventTeamRequest>
 {
-    public EventTeamRequestValidator(AppDbContext db)
+    public EventTeamRequestValidator()
     {
         RuleFor(x => x.EventId)
             .NotEmpty().WithMessage("EventId is required.")

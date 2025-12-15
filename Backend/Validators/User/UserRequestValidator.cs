@@ -1,12 +1,11 @@
 using Backend.Models;
-using Backend.Data;
 using FluentValidation;
 
 namespace Backend.Validators.User;
 
 public class UserRequestValidator : AbstractValidator<UserRequest>
 {
-    public UserRequestValidator(AppDbContext db)
+    public UserRequestValidator()
     {
         RuleFor(x => x.Role)
             .NotEmpty().WithMessage("Role is required.")

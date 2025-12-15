@@ -1,4 +1,3 @@
-using Backend.Data; 
 using FluentValidation;
 using Backend.Models;
 
@@ -6,7 +5,7 @@ namespace Backend.Validators.Team;
 
 public class TeamRequestValidator : AbstractValidator<TeamRequest>
 {
-    public TeamRequestValidator(AppDbContext db)
+    public TeamRequestValidator()
     {
         RuleFor(x => x.Description)
             .MaximumLength(200).WithMessage("Description cannot exceed 200 characters.");

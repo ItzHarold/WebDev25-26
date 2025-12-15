@@ -1,12 +1,11 @@
 using Backend.Models;
-using Backend.Data;
 using FluentValidation;
 
 namespace Backend.Validators.UserFavourite;
 
 public class UserFavouriteRequestValidator : AbstractValidator<UserFavouriteRequest>
 {
-    public UserFavouriteRequestValidator(AppDbContext db)
+    public UserFavouriteRequestValidator()
     {
 
         RuleFor(x => x.UserId)
