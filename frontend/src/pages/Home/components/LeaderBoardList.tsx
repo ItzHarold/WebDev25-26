@@ -12,17 +12,17 @@ interface LeaderboardProps {
 
 const Leaderboard: React.FC<LeaderboardProps> = ({ data }) => {
     return (
-        <div className="leaderboard">
-            <div className="leaderboard-list">
+        <section className="leaderboard">
+            <ol className="leaderboard-list">
                 {data.map(entry => (
-                    <div key={entry.rank} className="leaderboard-item">
-                        <span className="rank">#{entry.rank}</span>
+                    <li key={entry.rank} className="leaderboard-item">
+                        <strong className="rank">#{entry.rank}</strong>
                         <span className="team-name">{entry.teamName}</span>
                         <span className="points">{entry.points} Score</span>
-                    </div>
+                    </li>
                 ))}
-            </div>
-        </div>
+            </ol>
+        </section>
     );
 };
 
