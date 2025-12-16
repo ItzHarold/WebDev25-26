@@ -11,6 +11,7 @@ export default function AppLayout() {
           <ul className="topbar_links">
             <li> <NavLink to="/">Home</NavLink> </li>
             <li> <NavLink to="/events">Events</NavLink> </li>
+            <li> <NavLink to="/dashboard">Dashboard</NavLink> </li>
           </ul>
         </nav>
       </header>
