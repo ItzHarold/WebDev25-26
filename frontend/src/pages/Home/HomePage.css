@@ -1,0 +1,155 @@
+/* ===============================================
+   src/styles/DarkStyles/home.css
+   Home page — Dark Theme
+   ------------------------------------------------
+================================================= */
+
+:root {
+    --primary-bg: #1e293b;
+    --secondary-bg: #222;
+    --text-color: #fff;
+    --muted-color: #aaa;
+    --border-color: #444;
+    --spacing-small: 8px;
+    --spacing-medium: 16px;
+    --spacing-large: 32px;
+    --font-size-small: 12px;
+    --font-size-medium: 16px;
+    --font-size-large: 24px;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+    min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--text-color);
+    padding: var(--spacing-large);
+    position: relative;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.hero-content {
+    position: relative;
+    max-width: 900px;
+    padding: var(--spacing-small);
+}
+
+.hero-content h1 {
+    font-size: 2.5rem;
+    margin: var(--spacing-small) 0;
+}
+
+.hero-content h2 {
+    font-size: 1.2rem;
+    color: var(--muted-color);
+}
+
+/* ---------- MAIN CONTENT ---------- */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-large);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-medium);
+}
+
+/* ---------- TEAMS SIDEBAR ---------- */
+.teams-sidebar {
+    width: 100%;
+}
+
+.teams-sidebar h2 {
+    font-size: var(--font-size-large);
+    margin-bottom: var(--spacing-medium);
+}
+
+.teams-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-medium);
+}
+
+.team-card {
+    padding: var(--spacing-small);
+    background: var(--secondary-bg);
+    transition: transform 0.2s;
+}
+
+.team-card:hover {
+    transform: scale(1.02);
+}
+
+/* ---------- EVENTS SECTION ---------- */
+.events-section {
+    flex: 1;
+}
+
+.events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-medium);
+}
+
+.events-title h2 {
+    font-size: 1.5rem;
+}
+
+.event-filters {
+    display: flex;
+    gap: var(--spacing-small);
+}
+
+.filter-btn {
+    background: var(--primary-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: var(--spacing-small);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: var(--font-size-small);
+    transition: background 0.3s;
+}
+
+.filter-btn:hover {
+    background: #2a3b4c;
+}
+
+.filter-btn.active {
+    background: #007bff;
+    color: #fff;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 600px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content h2 {
+        font-size: 1rem;
+    }
+
+    .events-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-btn {
+        flex: 1 1 45%;
+        text-align: center;
+    }
+}
