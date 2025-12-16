@@ -13,7 +13,7 @@ interface TeamCardobj {
 
 const TeamCard: React.FC<TeamCardobj> = ({ team }) => {
     return (
-        <div className="team-card">
+        <article className="team-card">
             <div
                 className="team-image"
                 style={{ backgroundImage: `url(${team.imageUrl})` }}
@@ -22,7 +22,7 @@ const TeamCard: React.FC<TeamCardobj> = ({ team }) => {
                 <h3 className="team-name">{team.name}</h3>
                 <p className="team-players">{team.players} players</p>
             </div>
-        </div>
+        </article>
     );
 };
 

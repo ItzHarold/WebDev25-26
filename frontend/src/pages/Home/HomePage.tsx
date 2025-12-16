@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import EventGrid from "./components/EventGrid";
 import Leaderboard from "./components/LeaderBoardList";
 import TeamList from "./components/TeamList";
-import mockEvents from "../../../../my-react-app/src/data/mockEvents.json";
-import mockLeaderboard from "../../../../my-react-app/src/data/mockLeaderboard.json";
-import mockTeams from "../../../../my-react-app/src/data/mockTeams.json";
+import mockEvents from "../../shared/mockdata/mockEvents.json";
+import mockLeaderboard from "../../shared/mockdata/mockLeaderboard.json";
+import mockTeams from "../../shared/mockdata/mockTeams.json";
 
 const HomePage: React.FC = () => {
     const [events] = useState(mockEvents);

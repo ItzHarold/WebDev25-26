@@ -1,0 +1,37 @@
+[
+    {
+        "id": "1",
+        "name": "Team Alpha",
+        "game": "Valorant",
+        "players": 5,
+        "imageUrl": "/src/assets/team-default.jpg"
+    },
+    {
+        "id": "2",
+        "name": "Team Beta",
+        "game": "CS:GO",
+        "players": 5,
+        "imageUrl": "/src/assets/unnamed.jpg"
+    },
+    {
+        "id": "3",
+        "name": "Team Gamma",
+        "game": "League of Legends",
+        "players": 5,
+        "imageUrl": "../../assets/team-default.jpg"
+    },
+    {
+        "id": "4",
+        "name": "Team Delta",
+        "game": "Dota 2",
+        "players": 5,
+        "imageUrl": "../../assets/team-default.jpg"
+    },
+    {
+        "id": "5",
+        "name": "Team Epsilon",
+        "game": "Overwatch",
+        "players": 6,
+        "imageUrl": "../../assets/team-default.jpg"
+    }
+]
