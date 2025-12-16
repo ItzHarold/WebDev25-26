@@ -22,11 +22,13 @@ const EventGrid: React.FC<EventGridProps> = ({ events }) => {
     };
 
     return (
-        <div className="events-grid">
+        <section className="events-grid">
+            <ul>
             {events.map(event => (
                 <EventCard key={event.id} event={event} />
             ))}
-        </div>
+            </ul>
+        </section>
     );
 };
 
