@@ -1,0 +1,30 @@
+.topbar {
+  width: 100%;
+  border-bottom: 1px solid #222;
+}
+
+.topbar_nav {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.topbar_brand {
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+}
+
+.topbar_links {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+}
+
+.main {
+  padding: 24px;
+}
