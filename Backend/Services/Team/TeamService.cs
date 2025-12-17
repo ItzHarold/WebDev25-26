@@ -34,6 +34,10 @@ public class TeamService : ITeamService
 
     public async Task<Team> CreateAsync(Team team)
     {
+        var isManager = await _context.Users.AnyAsync(u => u.Id == team.ManagerId && u.Role == "Manager");
+        if (!isManager)
+            throw new InvalidOperationException($"User {team.ManagerId} is not a manager");
+
         _context.Teams.Add(team);
         await _context.SaveChangesAsync();
         return team;
@@ -43,6 +47,11 @@ public class TeamService : ITeamService
     {
         var team = await _context.Teams.FindAsync(id);
         if (team == null) return false;
+
+        var isManager = await _context.Users.AnyAsync(u => u.Id == data.ManagerId && u.Role == "Manager");
+        if (!isManager)
+            throw new InvalidOperationException($"User {data.ManagerId} is not a manager");
+
 
         team.Description = data.Description;
         team.Points = data.Points;

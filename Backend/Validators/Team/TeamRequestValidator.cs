@@ -17,6 +17,7 @@ public class TeamRequestValidator : AbstractValidator<TeamRequest>
             .MaximumLength(200).WithMessage("ImageUrl cannot exceed 200 characters.");
 
         RuleFor(x => x.ManagerId)
+            .NotEmpty().WithMessage("ManagerId is required.")
             .GreaterThan(0).WithMessage("ManagerId must be greater than 0.");
     }
 }

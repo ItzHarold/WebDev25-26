@@ -39,7 +39,22 @@ public class UserService : IUserService
     // add a new user and save
     public async Task<User> CreateAsync(User user)
     {
+        var usernameTaken = await _context.Users.AnyAsync(u => u.UserName == user.UserName);
+        var emailTaken = await _context.Users.AnyAsync(u => u.Email == user.Email);
+        
+        if (usernameTaken)
+            throw new InvalidOperationException($"Username '{user.UserName}' already exists");
+        if (emailTaken)
+            throw new InvalidOperationException($"Email '{user.Email}' already exists");
+        if (user.TeamId != null)
+        {
+            var teamExists = await _context.Teams.AnyAsync(t => t.Id == user.TeamId);
+            if (!teamExists)
+                throw new KeyNotFoundException($"Team with id {user.TeamId} not found");
+        }
+
         user.Password = _password.Hash(user.Password);
+
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
         return user;
@@ -50,6 +65,22 @@ public class UserService : IUserService
     {
         var user = await _context.Users.FindAsync(id);
         if (user == null) return false;
+
+        var emailTaken = await _context.Users
+            .AnyAsync(u => u.Id != id && u.Email == data.Email);
+        var usernameTaken = await _context.Users
+            .AnyAsync(u => u.Id != id && u.UserName == data.UserName);
+        
+        if (usernameTaken)
+            throw new InvalidOperationException($"Username '{data.UserName}' already exists");
+        if (emailTaken)
+            throw new InvalidOperationException($"Email '{data.Email}' already exists");
+        if (data.TeamId != null)
+        {
+            var teamExists = await _context.Teams.AnyAsync(t => t.Id == data.TeamId);
+            if (!teamExists)
+                throw new KeyNotFoundException($"Team with id {data.TeamId} not found");
+        }
 
         user.Role = data.Role;
         user.FirstName = data.FirstName;

@@ -9,8 +9,8 @@ public class UserRequestValidator : AbstractValidator<UserRequest>
     {
         RuleFor(x => x.Role)
             .NotEmpty().WithMessage("Role is required.")
-            .Must(role => role == "Player" || role == "Manager" || role == "Admin")
-            .WithMessage("Role must be either 'Player','Manager' or 'Admin'.");
+            .Must(role => role == "Player" || role == "Manager" || role == "Admin" || role == "User")
+            .WithMessage("Role must be either 'Player','Manager', 'Admin' or 'User'.");
 
         RuleFor(x => x.FirstName)
             .NotEmpty().WithMessage("First name is required.")
