@@ -1,8 +1,7 @@
-// components/HomePage/EventCard.tsx
 import React from "react";
 import { Link } from "react-router-dom";
-// import { useFavourites } from "../../context/FavouritesContext";
-// import { useAuth } from "../../context/AuthContext";
+import { useFavourites } from "../../../pages/Events/components/FavouritesContext";
+import { useAuth } from "../../../features/auth/AuthProvider";
 
 interface Event {
     id: string;
@@ -19,25 +18,25 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
-    // const {isLiked, toggle} = useFavourites();
-    // const { user } = useAuth();
+    const {isLiked, toggle} = useFavourites();
+    const { user } = useAuth();
     return (
         
         <article className="event-card">
-        { /*user &&*/(
+        { user &&(
             <button
             type="button"
-            // className={`fav-btn fav-bottom-right ${isLiked(event.id) ? "is-liked" : ""}`}
-            // aria-pressed={isLiked(event.id)}
-            // aria-label={isLiked(event.id) ? "Remove from favorites" : "Add to favorites"}
-            // title={isLiked(event.id) ? "Remove from favorites" : "Add to favorites"}
-            // onClick={() => toggle(event.id)}
+            className={`fav-btn fav-bottom-right ${isLiked(event.id) ? "is-liked" : ""}`}
+            aria-pressed={isLiked(event.id)}
+            aria-label={isLiked(event.id) ? "Remove from favorites" : "Add to favorites"}
+            title={isLiked(event.id) ? "Remove from favorites" : "Add to favorites"}
+            onClick={() => toggle(event.id)}
             >
             <svg
                 width="20"
                 height="20"
                 viewBox="0 0 24 20"
-                // fill={isLiked(event.id) ? "currentColor" : "none"} 
+                fill={isLiked(event.id) ? "currentColor" : "none"} 
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"

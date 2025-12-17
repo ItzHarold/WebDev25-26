@@ -6,6 +6,7 @@ import HomePage from "../pages/Home/HomePage";
 import EventsPage from "../pages/Events/EventsPage";
 import DashboardPage from "../pages/Dashboard/DashboardPage";
 import LoginPage from "../pages/Login/LoginPage";
+import { FavouritesProvider } from "../pages/Events/components/FavouritesContext";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -16,9 +17,11 @@ export const router = createBrowserRouter([
       {
         element: <AppLayout />,
         children: [
-          { index: true, element: <HomePage /> },
-          { path: "events", element: <EventsPage /> },
+          { index: true, element:(<FavouritesProvider><HomePage /></FavouritesProvider>)},
+          { path: "events/:id", element: (<FavouritesProvider><EventsPage /></FavouritesProvider>),},
           { path: "dashboard", element: <DashboardPage /> },
+          
+
         ],
       },
     ],
