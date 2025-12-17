@@ -21,16 +21,18 @@ public class LoggerController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<LoggerResponse>>> GetAll()
     {
-        var logs = await _service.GetAllAsync();
-        var response = logs.Select(l => new LoggerResponse
+        var logEntries = await _service.GetAllAsync();
+        var response = logEntries.Select(logEntry => new LoggerResponse
         {
-            Id = l.Id,
-            UserId = l.UserId,
-            Action = l.Action,
-            EntityType = l.EntityType,
-            EntityId = l.EntityId,
-            Details = l.Details,
-            CreatedAt = l.CreatedAt
+            Id = logEntry.Id,
+            UserId = logEntry.UserId,
+            UserRole = logEntry.UserRole,
+            Action = logEntry.Action,
+            EntityType = logEntry.EntityType,
+            EntityId = logEntry.EntityId,
+            EntityName = logEntry.EntityName,
+            Details = logEntry.Details,
+            CreatedAt = logEntry.CreatedAt
         });
         return Ok(response);
     }
@@ -39,18 +41,20 @@ public class LoggerController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<ActionResult<LoggerResponse>> GetById(int id)
     {
-        var log = await _service.GetByIdAsync(id);
-        if (log == null) return NotFound();
+        var logEntry = await _service.GetByIdAsync(id);
+        if (logEntry == null) return NotFound();
         
         var response = new LoggerResponse
         {
-            Id = log.Id,
-            UserId = log.UserId,
-            Action = log.Action,
-            EntityType = log.EntityType,
-            EntityId = log.EntityId,
-            Details = log.Details,
-            CreatedAt = log.CreatedAt
+            Id = logEntry.Id,
+            UserId = logEntry.UserId,
+            UserRole = logEntry.UserRole,
+            Action = logEntry.Action,
+            EntityType = logEntry.EntityType,
+            EntityId = logEntry.EntityId,
+            EntityName = logEntry.EntityName,
+            Details = logEntry.Details,
+            CreatedAt = logEntry.CreatedAt
         };
         return Ok(response);
     }
@@ -59,16 +63,18 @@ public class LoggerController : ControllerBase
     [HttpGet("user/{userId:int}")]
     public async Task<ActionResult<IEnumerable<LoggerResponse>>> GetByUserId(int userId)
     {
-        var logs = await _service.GetByUserIdAsync(userId);
-        var response = logs.Select(l => new LoggerResponse
+        var logEntries = await _service.GetByUserIdAsync(userId);
+        var response = logEntries.Select(logEntry => new LoggerResponse
         {
-            Id = l.Id,
-            UserId = l.UserId,
-            Action = l.Action,
-            EntityType = l.EntityType,
-            EntityId = l.EntityId,
-            Details = l.Details,
-            CreatedAt = l.CreatedAt
+            Id = logEntry.Id,
+            UserId = logEntry.UserId,
+            UserRole = logEntry.UserRole,
+            Action = logEntry.Action,
+            EntityType = logEntry.EntityType,
+            EntityId = logEntry.EntityId,
+            EntityName = logEntry.EntityName,
+            Details = logEntry.Details,
+            CreatedAt = logEntry.CreatedAt
         });
         return Ok(response);
     }
@@ -77,16 +83,18 @@ public class LoggerController : ControllerBase
     [HttpGet("entity/{entityType}")]
     public async Task<ActionResult<IEnumerable<LoggerResponse>>> GetByEntityType(string entityType)
     {
-        var logs = await _service.GetByEntityTypeAsync(entityType);
-        var response = logs.Select(l => new LoggerResponse
+        var logEntries = await _service.GetByEntityTypeAsync(entityType);
+        var response = logEntries.Select(logEntry => new LoggerResponse
         {
-            Id = l.Id,
-            UserId = l.UserId,
-            Action = l.Action,
-            EntityType = l.EntityType,
-            EntityId = l.EntityId,
-            Details = l.Details,
-            CreatedAt = l.CreatedAt
+            Id = logEntry.Id,
+            UserId = logEntry.UserId,
+            UserRole = logEntry.UserRole,
+            Action = logEntry.Action,
+            EntityType = logEntry.EntityType,
+            EntityId = logEntry.EntityId,
+            EntityName = logEntry.EntityName,
+            Details = logEntry.Details,
+            CreatedAt = logEntry.CreatedAt
         });
         return Ok(response);
     }

@@ -25,7 +25,7 @@ public class LoggerService : ILoggerService
     // get all logs from the database
     public Task<List<Logger>> GetAllAsync()
     {
-        return _context.Loggers.OrderByDescending(l => l.CreatedAt).ToListAsync();
+        return _context.Loggers.OrderByDescending(logEntry => logEntry.CreatedAt).ToListAsync();
     }
 
     // find a single log by id
@@ -35,19 +35,19 @@ public class LoggerService : ILoggerService
     }
 
     // add a new log and save
-    public async Task<Logger> CreateAsync(Logger log)
+    public async Task<Logger> CreateAsync(Logger logEntry)
     {
-        _context.Loggers.Add(log);
+        _context.Loggers.Add(logEntry);
         await _context.SaveChangesAsync();
-        return log;
+        return logEntry;
     }
 
     // get all logs by a specific user
     public Task<List<Logger>> GetByUserIdAsync(int userId)
     {
         return _context.Loggers
-            .Where(l => l.UserId == userId)
-            .OrderByDescending(l => l.CreatedAt)
+            .Where(logEntry => logEntry.UserId == userId)
+            .OrderByDescending(logEntry => logEntry.CreatedAt)
             .ToListAsync();
     }
 
@@ -55,8 +55,8 @@ public class LoggerService : ILoggerService
     public Task<List<Logger>> GetByEntityTypeAsync(string entityType)
     {
         return _context.Loggers
-            .Where(l => l.EntityType == entityType)
-            .OrderByDescending(l => l.CreatedAt)
+            .Where(logEntry => logEntry.EntityType == entityType)
+            .OrderByDescending(logEntry => logEntry.CreatedAt)
             .ToListAsync();
     }
 }

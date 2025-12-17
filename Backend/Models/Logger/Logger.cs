@@ -10,6 +10,9 @@ public class Logger
     public int UserId { get; set; }
 
     [Required]
+    public string UserRole { get; set; } = null!;
+
+    [Required]
     public string Action { get; set; } = null!; // CREATE, UPDATE, DELETE
 
     [Required]
@@ -17,6 +20,9 @@ public class Logger
 
     [Required]
     public int EntityId { get; set; }
+
+    [Required]
+    public string EntityName { get; set; } = null!;
 
     public string? Details { get; set; } // Additional info
 
@@ -27,9 +33,11 @@ public class LoggerResponse
 {
     public int Id { get; set; }
     public int UserId { get; set; }
+    public string UserRole { get; set; } = null!;
     public string Action { get; set; } = null!;
     public string EntityType { get; set; } = null!;
     public int EntityId { get; set; }
+    public string EntityName { get; set; } = null!;
     public string? Details { get; set; }
     public DateTime CreatedAt { get; set; }
 }
