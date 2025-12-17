@@ -20,8 +20,6 @@ export default function AppLayout() {
           <ul className="topbar_links">
             <li> <NavLink to="/">Home</NavLink> </li>
             <li className="topbar__spacer" />
-            {/* <li> <NavLink to="/events">Events</NavLink> </li> */}
-            <li className="topbar__spacer" />
             <li> <NavLink to="/dashboard">Dashboard</NavLink> </li>
             <li className="topbar__spacer" />
             <li> <button type="button" className="topbar_logout" onClick={handleLogout}>Logout</button></li>

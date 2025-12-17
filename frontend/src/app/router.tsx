@@ -5,6 +5,7 @@ import AppLayout from "../shared/ui/AppLayout";
 import HomePage from "../pages/Home/HomePage";
 import EventsPage from "../pages/Events/EventsPage";
 import DashboardPage from "../pages/Dashboard/DashboardPage";
+import ProfilePage from "../pages/Profile/ProfilePage";
 import LoginPage from "../pages/Login/LoginPage";
 import { FavouritesProvider } from "../pages/Events/components/FavouritesContext";
 
@@ -20,8 +21,7 @@ export const router = createBrowserRouter([
           { index: true, element:(<FavouritesProvider><HomePage /></FavouritesProvider>)},
           { path: "events/:id", element: (<FavouritesProvider><EventsPage /></FavouritesProvider>),},
           { path: "dashboard", element: <DashboardPage /> },
-          
-
+          { path: "profile", element: <ProfilePage /> },
         ],
       },
     ],
