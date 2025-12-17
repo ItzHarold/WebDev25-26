@@ -3,6 +3,10 @@
   border-bottom: 1px solid #222;
 }
 
+.topbar_spacer {
+  flex: 1;
+}
+
 .topbar_nav {
   height: 64px;
   display: flex;
@@ -23,6 +27,15 @@
   gap: 16px;
   padding: 0;
   margin: 0;
+}
+
+.topbar_logout {
+  background: none;
+  border: 1px solid #222;
+  border-radius: 6px;
+  color: inherit;
+  cursor: pointer;
+  padding: 6px 10px;
 }
 
 .main {
