@@ -1,0 +1,87 @@
+/* ===============================================
+   src/styles/DarkStyles/about.css
+   About page — Dark Theme
+================================================= */
+
+/* ---------- HERO ---------- */
+.hero {
+    position: relative;
+    min-height: 40vh;
+    height: auto;
+    background: url('../../assets/clouds.jpg') no-repeat center center / cover;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: #fff;
+    padding: 3.5rem 1rem;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    width: 100%;
+    padding: 0 0.5rem;
+    overflow-wrap: anywhere;
+}
+
+.hero-content h1 {
+    font-size: 3em;
+    margin: 0.2em 0;
+    line-height: 1.2;
+}
+
+.hero-content h2 {
+    font-size: 1.3em;
+    font-weight: 400;
+    margin: 0;
+    color: var(--muted);
+}
+
+/* ---------- MAIN CONTENT ---------- */
+.content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.card {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid rgba(229, 231, 235, 0.10);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.card h3 {
+    margin: 0.25rem 0 0.6rem;
+}
+
+.card p {
+    line-height: 1.6;
+}
+
+/* ---------- LIST ---------- */
+.people {
+    list-style: none;
+    padding: 0;
+    margin: 0.6rem 0 1.2rem;
+}
+
+.people li {
+    padding: 0.35rem 0;
+    border-bottom: 1px solid rgba(229, 231, 235, 0.10);
+}
+
+.people li:last-child {
+    border-bottom: 0;
+}

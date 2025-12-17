@@ -7,6 +7,7 @@ import EventsPage from "../pages/Events/EventsPage";
 import DashboardPage from "../pages/Dashboard/DashboardPage";
 import ProfilePage from "../pages/Profile/ProfilePage";
 import LoginPage from "../pages/Login/LoginPage";
+import AboutPage from "../pages/About/AboutPage";
 import { FavouritesProvider } from "../pages/Events/components/FavouritesContext";
 
 export const router = createBrowserRouter([
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
           { path: "events/:id", element: (<FavouritesProvider><EventsPage /></FavouritesProvider>),},
           { path: "dashboard", element: <DashboardPage /> },
           { path: "profile", element: <ProfilePage /> },
+          { path: "about", element: <AboutPage /> },
         ],
       },
     ],
