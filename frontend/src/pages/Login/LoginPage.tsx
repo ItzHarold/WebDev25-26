@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { login } from "../../features/auth/authApi";
 import { useAuth } from "../../features/auth/AuthProvider";
+import PageHero from "../../shared/ui/PageHero";
 import "./LoginPage.css";
+import { FavouritesProvider } from "../Events/components/FavouritesContext";
 
 export default function LoginPage() {
   const { setFromLoginResponse } = useAuth();
@@ -28,9 +30,11 @@ export default function LoginPage() {
 
   return (
     <section className="login">
-      <header className="login__hero">
-        <h1>Login</h1>
-      </header>
+      <PageHero
+        title="Login"
+        subtitle="Access your account"
+        backgroundImageUrl="../../public/IronFist.png"
+      />
 
       <div className="login__card">
         <form className="login__form" onSubmit={onSubmit}>
