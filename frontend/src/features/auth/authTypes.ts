@@ -23,3 +23,29 @@ export type AuthSession = {
     token: string;
     expiration: string;
 }
+
+export type RegisterRequest = {
+  role: string;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string;
+  password: string;
+  dob: string;
+  teamId?: number | null;
+  imageUrl?: string | null;
+};
+
+export type RegisterResponse = {
+  userId: number;
+  role: string;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string;
+  dob: string;
+  teamId?: number | null;
+  imageUrl?: string | null;
+  token: string;
+  expiration: string;
+};

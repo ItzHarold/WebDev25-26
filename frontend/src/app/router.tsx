@@ -9,9 +9,11 @@ import ProfilePage from "../pages/Profile/ProfilePage";
 import LoginPage from "../pages/Login/LoginPage";
 import AboutPage from "../pages/About/AboutPage";
 import { FavouritesProvider } from "../pages/Events/components/FavouritesContext";
+import RegisterPage from "../pages/Register/RegisterPage";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
+  { path: "/register", element: <RegisterPage /> },
 
   {
     element: <RequireAuth />,
