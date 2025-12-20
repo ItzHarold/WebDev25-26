@@ -6,6 +6,8 @@ import TeamList from "./components/TeamList";
 import mockEvents from "../../shared/mockdata/mockEvents.json";
 import mockLeaderboard from "../../shared/mockdata/mockLeaderboard.json";
 import mockTeams from "../../shared/mockdata/mockTeams.json";
+import PageHero from "../../shared/ui/PageHero";
+
 
 const HomePage: React.FC = () => {
     const [events] = useState(mockEvents);
@@ -22,6 +24,11 @@ const HomePage: React.FC = () => {
     );
     return (
         <>
+            <PageHero
+                        title="Home"
+                        subtitle="Overview of Events and Teams"
+                        backgroundImageUrl="../../public/IronFist.png"
+                      />
             <main className="main-content">
                 {/* Teams Section */}
                 <aside className="teams-sidebar">
