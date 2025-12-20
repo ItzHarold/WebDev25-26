@@ -15,6 +15,13 @@
   --radius-lg: 14px;
   --radius-xl: 18px;
   --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+
+  --spacing-small: 8px;
+    --spacing-medium: 16px;
+    --spacing-large: 32px;
+    --font-size-small: 12px;
+    --font-size-medium: 16px;
+    --font-size-large: 24px;
 }
 
 *,
