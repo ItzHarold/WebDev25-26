@@ -1,7 +1,11 @@
+import "./EventList.css";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useFavourites } from "../../../pages/Events/components/FavouritesContext";
 import { useAuth } from "../../../features/auth/AuthProvider";
+import "./EventList.css";
+import "../../../shared/styles/FavouriteButton.css";
+
 
 interface Event {
     id: string;

@@ -64,7 +64,7 @@ const HomePage: React.FC = () => {
                 </section>
 
                 {/* Leaderboard Section */}
-                <aside className="teams-sidebar">
+                <aside className="leaderboard-sidebar">
                     <h2>Leaderboard</h2>
                     <Leaderboard data={leaderboard} />
                 </aside>

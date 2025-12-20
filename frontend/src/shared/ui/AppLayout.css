@@ -41,3 +41,24 @@
 .main {
   padding: 24px;
 }
+/* Hero */
+
+.hero {
+  min-height: 220px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background:
+    radial-gradient(800px 300px at 20% 20%, rgba(96, 165, 250, 0.18), transparent 60%),
+    radial-gradient(700px 260px at 80% 30%, rgba(59, 130, 246, 0.12), transparent 55%),
+    rgba(17, 24, 39, 0.35);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 56px;
+  color: #fff;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+}

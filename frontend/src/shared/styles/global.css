@@ -2,7 +2,7 @@
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color-scheme: dark;
 
-  --bg: #0f0f0f;
+  --bg: #03050a;
   --text: #f5f5f5;
   --link: #cfcfcf;
 
@@ -14,7 +14,7 @@
 
   --radius-lg: 14px;
   --radius-xl: 18px;
-  --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 *,
@@ -43,4 +43,8 @@ button,
 input {
   font: inherit;
   color: inherit;
+}
+
+a:hover {
+  color: var(--accent-hover);
 }

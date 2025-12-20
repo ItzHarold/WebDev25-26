@@ -1,0 +1,41 @@
+/* ---------- LEADERBOARD ---------- */
+.leaderboard-sidebar {
+    width: 100%;
+}
+
+.leaderboard h2 {
+    margin: 0 0 1.5rem 0;
+    color: var(--text);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: var(--input);
+}
+
+.rank {
+    font-weight: bold;
+    color: var(--blue);
+    min-width: 30px;
+}
+
+.team-name {
+    flex: 1;
+    font-size: 0.9rem;
+}
+
+.points {
+    font-size: 0.8rem;
+    color: var(--muted);
+}

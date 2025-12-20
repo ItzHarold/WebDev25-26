@@ -1,5 +1,6 @@
 import React from "react";
 import TeamCard from "./TeamCard";
+import "./TeamList.css";
 
 interface Team {
     id: string;

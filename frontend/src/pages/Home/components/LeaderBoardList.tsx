@@ -1,4 +1,5 @@
 import React from "react";
+import "./LeaderBoard.css";
 
 interface LeaderboardEntry {
     rank: number;

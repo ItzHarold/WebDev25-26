@@ -5,6 +5,8 @@ import { useFavourites } from "../../pages/Events/components/FavouritesContext";
 import { useAuth } from "../../features/auth/AuthProvider";
 
 
+
+
 type EventItem = {
   id: string;
   title: string;

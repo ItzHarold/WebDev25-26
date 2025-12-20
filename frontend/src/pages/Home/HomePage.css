@@ -1,9 +1,4 @@
-/* ===============================================
-   src/styles/DarkStyles/home.css
-   Home page — Dark Theme
-   ------------------------------------------------
-================================================= */
-
+/* HomePage.css */
 :root {
     --primary-bg: #1e293b;
     --secondary-bg: #222;
@@ -58,79 +53,33 @@
 
 /* ---------- MAIN CONTENT ---------- */
 .main-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-large);
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* Teams, Events, Leaderboard */
+    gap: var(--spacing-large); /* Space between columns */
     max-width: 1200px;
     margin: 0 auto;
     padding: var(--spacing-medium);
+    align-items: start; /* Align items at the top */
 }
 
-/* ---------- TEAMS SIDEBAR ---------- */
-.teams-sidebar {
-    width: 100%;
-}
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+    .main-content {
+        grid-template-columns: 1fr; /* Stack sections vertically on smaller screens */
+        gap: var(--spacing-medium);
+    }
 
-.teams-sidebar h2 {
-    font-size: var(--font-size-large);
-    margin-bottom: var(--spacing-medium);
-}
+    .teams-sidebar {
+        order: 1; /* Teams section first */
+    }
 
-.teams-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-medium);
-}
+    .events-section {
+        order: 2; /* Events section second */
+    }
 
-.team-card {
-    padding: var(--spacing-small);
-    background: var(--secondary-bg);
-    transition: transform 0.2s;
-}
-
-.team-card:hover {
-    transform: scale(1.02);
-}
-
-/* ---------- EVENTS SECTION ---------- */
-.events-section {
-    flex: 1;
-}
-
-.events-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--spacing-medium);
-}
-
-.events-title h2 {
-    font-size: 1.5rem;
-}
-
-.event-filters {
-    display: flex;
-    gap: var(--spacing-small);
-}
-
-.filter-btn {
-    background: var(--primary-bg);
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
-    padding: var(--spacing-small);
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: var(--font-size-small);
-    transition: background 0.3s;
-}
-
-.filter-btn:hover {
-    background: #2a3b4c;
-}
-
-.filter-btn.active {
-    background: #007bff;
-    color: #fff;
+    .leaderboard-sidebar {
+        order: 3; /* Leaderboard section last */
+    }
 }
 
 /* ---------- RESPONSIVE ---------- */
