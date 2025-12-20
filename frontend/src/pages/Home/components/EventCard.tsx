@@ -3,7 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useFavourites } from "../../../pages/Events/components/FavouritesContext";
 import { useAuth } from "../../../features/auth/AuthProvider";
-import "./EventList.css";
 import "../../../shared/styles/FavouriteButton.css";
 
 
@@ -59,6 +58,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
                 <Link to={`/events/${event.id}`}>
                     <button className="btn">View Details</button>
                 </Link>
+                
             </div>
         </article>
     );

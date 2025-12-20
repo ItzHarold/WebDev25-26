@@ -1,3 +1,4 @@
+import "../../shared/styles/global.css"
 import "./HomePage.css";
 import React, { useState } from "react";
 import EventGrid from "./components/EventGrid";

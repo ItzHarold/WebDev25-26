@@ -1,17 +1,5 @@
 /* HomePage.css */
-:root {
-    --primary-bg: #1e293b;
-    --secondary-bg: #222;
-    --text-color: #fff;
-    --muted-color: #aaa;
-    --border-color: #444;
-    --spacing-small: 8px;
-    --spacing-medium: 16px;
-    --spacing-large: 32px;
-    --font-size-small: 12px;
-    --font-size-medium: 16px;
-    --font-size-large: 24px;
-}
+
 
 /* ---------- HERO ---------- */
 .hero {
