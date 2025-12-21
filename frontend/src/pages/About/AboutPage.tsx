@@ -1,16 +1,12 @@
 import React from "react";
 import "./LightAbout.css";
 import "./DarkAbout.css";
+import PageHero from "../../shared/ui/PageHero";
 
 const AboutPage: React.FC = () => {
     return (
         <>
-            <section className="hero">
-                <div className="hero-content">
-                    <h1>About ETM</h1>
-                    <h2>Esports Team Management — built by students of Hogeschool Rotterdam</h2>
-                </div>
-            </section>
+            <PageHero title="About ETM" subtitle="Esports Team Management — built by students of Hogeschool Rotterdam" backgroundImageUrl="../../public/IronFist.png"/>
 
             <main className="content">
                 <article className="card">
