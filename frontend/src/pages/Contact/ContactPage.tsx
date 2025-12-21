@@ -6,7 +6,7 @@ import PageHero from "../../shared/ui/PageHero";
 const ContactPage: React.FC = () => {
     return (
         <>
-            <PageHero title="Home" subtitle="Overview of Events and Teams" backgroundImageUrl="../../public/IronFist.png"/>
+            <PageHero title="Contact Page" subtitle="Get in touch with the ETM team" backgroundImageUrl="../../public/IronFist.png"/>
             <main className="content">
                 <article className="card">
                     <ul className="contacts">
