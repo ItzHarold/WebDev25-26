@@ -1,19 +1,13 @@
-// ===============================================
-// src/pages/Profile/ProfilePage.tsx
-// ===============================================
 import React from "react";
 import { useAuth } from "../../features/auth/AuthProvider";
+import PageHero from "../../shared/ui/PageHero";
 
 const ProfilePage: React.FC = () => {
     const { user } = useAuth();
 
     return (
         <>
-            <section className="hero">
-                <div className="hero-content">
-                    <h1>My Profile</h1>
-                </div>
-            </section>
+            <PageHero title="My Profile" subtitle="" backgroundImageUrl="../../public/"/>
 
             <main className="card" style={{ maxWidth: 900, margin: "2rem auto" }}>
                 <div className="profile-header">
