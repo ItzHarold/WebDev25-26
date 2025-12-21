@@ -9,15 +9,6 @@
     padding: 0 1em;
 }
 
-.events-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1em;
-    margin-bottom: 1.5em;
-}
-
 .events-title h2 {
     margin: 0;
     font-size: 1.8em;
@@ -25,6 +16,7 @@
 
 .event-filters {
     display: flex;
+    justify-content: center;
     gap: 0.5em;
 }
 
@@ -53,10 +45,10 @@
 .events-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2em; /* Increased gap for better spacing */
 }
 
 .event-card {
+    margin: 1em;
     background: var(--panel);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);

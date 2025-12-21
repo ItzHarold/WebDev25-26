@@ -39,11 +39,17 @@
     color: var(--muted-color);
 }
 
+.teams-sidebar,
+.leaderboard-sidebar,
+.events-header{
+    text-align: center;
+}
+
 /* ---------- MAIN CONTENT ---------- */
 .main-content {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr; /* Teams, Events, Leaderboard */
-    gap: var(--spacing-large); /* Space between columns */
+    gap: var(--spacing-large);
     max-width: 1200px;
     margin: 0 auto;
     padding: 24px;
@@ -53,24 +59,23 @@
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 900px) {
     .main-content {
-        grid-template-columns: 1fr; /* Stack sections vertically on smaller screens */
+        grid-template-columns: 1fr;
         gap: var(--spacing-medium);
     }
 
     .teams-sidebar {
-        order: 1; /* Teams section first */
+        order: 1; 
     }
 
     .events-section {
-        order: 2; /* Events section second */
+        order: 2; 
     }
 
     .leaderboard-sidebar {
-        order: 3; /* Leaderboard section last */
+        order: 3; 
     }
 }
 
-/* ---------- RESPONSIVE ---------- */
 @media (max-width: 600px) {
     .hero-content h1 {
         font-size: 2rem;

@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useFavourites } from "../../context/FavouritesContext";
 import { useAuth } from "../../context/AuthContext";
+import "../../shared/styles/global.css";
 
 interface Event {
     id: string;
