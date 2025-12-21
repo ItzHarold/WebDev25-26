@@ -10,6 +10,7 @@ import LoginPage from "../pages/Login/LoginPage";
 import AboutPage from "../pages/About/AboutPage";
 import { FavouritesProvider } from "../pages/Events/components/FavouritesContext";
 import RegisterPage from "../pages/Register/RegisterPage";
+import ContactPage from "../pages/Contact/ContactPage";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -25,7 +26,8 @@ export const router = createBrowserRouter([
           { path: "events/:id", element: (<FavouritesProvider><EventsPage /></FavouritesProvider>),},
           { path: "dashboard", element: <DashboardPage /> },
           { path: "profile", element: <ProfilePage /> },
-          { path: "about", element: <AboutPage /> },
+          { path: "contact", element: <ContactPage /> },
+          { path: "about", element: <AboutPage /> }, 
         ],
       },
     ],
