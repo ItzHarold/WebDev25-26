@@ -135,6 +135,7 @@ public class UserController : ControllerBase
     }
 
     // DELETE /User/{id}
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {

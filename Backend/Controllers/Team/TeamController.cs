@@ -42,7 +42,7 @@ public class TeamController : ControllerBase
         {
             return NotFound();
         }
-        
+
         var response = new TeamResponse
         {
             Id = team.Id,
@@ -55,6 +55,7 @@ public class TeamController : ControllerBase
     }
 
     // POST /Team
+    [Authorize(Roles = "Admin,Manager")]
     [HttpPost]
     public async Task<ActionResult<TeamResponse>> Create([FromBody] TeamRequest request)
     {
@@ -110,6 +111,7 @@ public class TeamController : ControllerBase
     }
 
     // DELETE /Team/{id}
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
