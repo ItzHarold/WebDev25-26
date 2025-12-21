@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
             <PageHero
                         title="Home"
                         subtitle="Overview of Events and Teams"
-                        backgroundImageUrl="../../public/IronFist.png"
+                        backgroundImageUrl="HeroStock.jpg"
                       />
             <main className="main-content">
                 {/* Teams Section */}

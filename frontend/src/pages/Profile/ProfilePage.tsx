@@ -7,7 +7,7 @@ const ProfilePage: React.FC = () => {
 
     return (
         <>
-            <PageHero title="My Profile" subtitle="" backgroundImageUrl="../../public/"/>
+            <PageHero title="My Profile" subtitle="" backgroundImageUrl="HeroStock.jpg"/>
 
             <main className="card" style={{ maxWidth: 900, margin: "2rem auto" }}>
                 <div className="profile-header">

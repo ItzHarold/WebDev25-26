@@ -53,7 +53,7 @@ export default function RegisterPage() {
 
   return (
     <section className="register">
-      <PageHero title="Register" subtitle="Create your account" />
+      <PageHero title="Register" subtitle="Create your account" backgroundImageUrl="HeroStock.jpg" />
 
       <div className="register__card">
         <form className="register__form" onSubmit={onSubmit}>

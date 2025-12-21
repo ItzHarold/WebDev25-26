@@ -33,7 +33,7 @@ export default function LoginPage() {
       <PageHero
         title="Login"
         subtitle="Access your account"
-        backgroundImageUrl="../../public/IronFist.png"
+        backgroundImageUrl="HeroStock.jpg"
       />
 
       <div className="login__card">

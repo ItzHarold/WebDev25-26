@@ -6,7 +6,7 @@ import PageHero from "../../shared/ui/PageHero";
 const AboutPage: React.FC = () => {
     return (
         <>
-            <PageHero title="About ETM" subtitle="Esports Team Management — built by students of Hogeschool Rotterdam" backgroundImageUrl=""/>
+            <PageHero title="About ETM" subtitle="Esports Team Management — built by students of Hogeschool Rotterdam" backgroundImageUrl="HeroStock.jpg"/>
 
             <main className="content">
                 <article className="card">
