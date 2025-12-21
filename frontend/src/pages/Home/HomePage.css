@@ -46,7 +46,7 @@
     gap: var(--spacing-large); /* Space between columns */
     max-width: 1200px;
     margin: 0 auto;
-    padding: var(--spacing-medium);
+    padding: 24px;
     align-items: start; /* Align items at the top */
 }
 
