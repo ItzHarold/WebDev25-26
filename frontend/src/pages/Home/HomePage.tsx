@@ -5,7 +5,6 @@ import EventGrid from "./components/EventGrid";
 import Leaderboard from "./components/LeaderBoardList";
 import TeamList from "./components/TeamList";
 import mockEvents from "../../shared/mockdata/mockEvents.json";
-import mockLeaderboard from "../../shared/mockdata/mockLeaderboard.json";
 import PageHero from "../../shared/ui/PageHero";
 import { fetchTeams } from "../../shared/api/teamApi";
 
@@ -13,6 +12,7 @@ import { fetchTeams } from "../../shared/api/teamApi";
 const HomePage: React.FC = () => {
     const [events] = useState(mockEvents);
     const [teams, setTeams] = useState([]);
+    const [leaderboard, setLeaderboard] = useState([{ rank: 0, teamName: "", points: 0 },]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     useEffect(() => {
@@ -21,16 +21,22 @@ const HomePage: React.FC = () => {
                 setLoading(true);
                 const data = await fetchTeams();
                 setTeams(data);
+                const sortedLeaderboard = [...data]
+                    .sort((a, b) => b.points - a.points)
+                    .slice(0, 5)
+                    .map((team, index) => ({
+                        rank: index + 1,
+                        teamName: team.description,
+                        points: team.points,
+                    }));
+                    setLeaderboard(sortedLeaderboard);
             } catch (err: any) {
                 setError(err.message || "Teams are still being updated try again later.");
             } finally {
                 setLoading(false);
             }
         };
-
-        loadTeams();
-    }, []);
-    const [leaderboard] = useState(mockLeaderboard);
+        loadTeams();}, []);
     const [activeFilter, setActiveFilter] = useState("all");
     const filteredEvents = events.filter(event => {
         if (activeFilter === 'all') {
@@ -93,7 +99,9 @@ const HomePage: React.FC = () => {
                 {/* Leaderboard Section */}
                 <aside className="leaderboard-sidebar">
                     <h2>Leaderboard</h2>
-                    <Leaderboard data={leaderboard} />
+                    {loading && <p>Loading leaderboard...</p>}
+                {error && <p style={{ color: "red" }}>{error}</p>}
+                {!loading && !error && <Leaderboard data={leaderboard} />}
                 </aside>
             </main>
         </>
