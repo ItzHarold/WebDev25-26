@@ -1,14 +1,4 @@
 /* ---------- EVENTS SECTION ---------- */
-.events-section {
-    flex: 1;
-}
-
-.events {
-    max-width: 1100px;
-    margin: 3em auto;
-    padding: 0 1em;
-}
-
 .events-title h2 {
     margin: 0;
     font-size: 1.8em;
@@ -45,9 +35,11 @@
 .events-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1em; /* Space between cards */
 }
 
 .event-card {
+    width: 100%;
     margin: 1em;
     background: var(--panel);
     border-radius: var(--radius-lg);
@@ -61,15 +53,18 @@
 .event-card:hover {
     transform: translateY(-4px);
 }
-
+/* ---------- EVENT CARD CONTENT ---------- */
 .card-media {
     height: 160px;
     background-size: cover;
     background-position: center;
 }
-
 .card-body {
     padding: 1em;
+    flex: 1;
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between;
 }
 
 .card-body h3 {
@@ -79,13 +74,10 @@
 
 .card-body .meta {
     font-size: 0.9em;
-    color: var(--muted);
-    margin-bottom: 0.6em;
 }
 
 .card-body .desc {
     font-size: 0.95em;
-    margin-bottom: 1em;
 }
 
 .card-body .btn {
@@ -99,6 +91,7 @@
     border-radius: var(--radius-lg);
     border: none;
     transition: opacity 0.3s;
+    
 }
 
 .card-body .btn:hover {

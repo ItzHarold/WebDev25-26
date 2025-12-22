@@ -1,44 +1,4 @@
 /* HomePage.css */
-
-
-/* ---------- HERO ---------- */
-.hero {
-    min-height: 60vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: var(--text-color);
-    padding: var(--spacing-large);
-    position: relative;
-}
-
-.hero::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.55);
-}
-
-.hero-content {
-    position: relative;
-    max-width: 900px;
-    padding: var(--spacing-small);
-}
-
-.hero-content h1 {
-    font-size: 2.5rem;
-    margin: var(--spacing-small) 0;
-}
-
-.hero-content h2 {
-    font-size: 1.2rem;
-    color: var(--muted-color);
-}
-
 .teams-sidebar,
 .leaderboard-sidebar,
 .events-header{
@@ -50,10 +10,9 @@
     display: grid;
     grid-template-columns: 1fr 2fr 1fr; /* Teams, Events, Leaderboard */
     gap: var(--spacing-large);
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
     padding: 24px;
-    align-items: start;
 }
 
 /* ---------- RESPONSIVE ---------- */
@@ -70,20 +29,13 @@
     .events-section {
         order: 2; 
     }
-
+    
     .leaderboard-sidebar {
         order: 3; 
     }
 }
 
 @media (max-width: 600px) {
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-
-    .hero-content h2 {
-        font-size: 1rem;
-    }
 
     .events-header {
         flex-direction: column;

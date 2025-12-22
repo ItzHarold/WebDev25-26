@@ -3,12 +3,6 @@
     width: 100%;
 }
 
-.leaderboard h2 {
-    margin: 0 0 1.5rem 0;
-    color: var(--text);
-    font-size: 1.5rem;
-    font-weight: 600;
-}
 
 .leaderboard-list {
     display: flex;
@@ -22,11 +16,14 @@
     gap: 1rem;
     padding: 0.75rem;
     background: var(--input);
+    transition: transform 0.2s;
+}
+.leaderboard-item:hover {
+    transform: translateY(-2px);
 }
 
 .rank {
     font-weight: bold;
-    color: var(--blue);
     min-width: 30px;
 }
 
@@ -37,5 +34,4 @@
 
 .points {
     font-size: 0.8rem;
-    color: var(--muted);
 }
