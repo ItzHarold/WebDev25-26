@@ -16,7 +16,7 @@ const HomePage: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     useEffect(() => {
-        const loadTeams = async () => {
+        const loadData = async () => {
             try {
                 setLoading(true);
                 const data = await fetchTeams();
@@ -36,7 +36,7 @@ const HomePage: React.FC = () => {
                 setLoading(false);
             }
         };
-        loadTeams();}, []);
+        loadData();}, []);
     const [activeFilter, setActiveFilter] = useState("all");
     const filteredEvents = events.filter(event => {
         if (activeFilter === 'all') {
