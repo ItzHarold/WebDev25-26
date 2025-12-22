@@ -1,9 +1,4 @@
 /* ---------- EVENTS SECTION ---------- */
-.events-title h2 {
-    margin: 0;
-    font-size: 1.8em;
-}
-
 .event-filters {
     display: flex;
     justify-content: center;
