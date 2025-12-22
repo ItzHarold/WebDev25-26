@@ -1,17 +1,21 @@
-using Backend.Controllers;
 using Backend.Data;
 using Backend.Services;
 using Backend.Seeding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Diagnostics;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -110,6 +114,30 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+// Global exception handler
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+
+        context.Response.ContentType = "application/json";
+
+        context.Response.StatusCode = exception switch
+        {
+            ArgumentException => StatusCodes.Status400BadRequest,
+            KeyNotFoundException => StatusCodes.Status404NotFound,
+            InvalidOperationException => StatusCodes.Status409Conflict,
+            _ => StatusCodes.Status500InternalServerError
+        };
+
+        await context.Response.WriteAsJsonAsync(new
+        {
+            error = exception?.Message
+        });
+    });
+});
 
 // Dit is om de database te seeden met data Testing doeleinden, Veranderen naar false voor deployment
 var seeddb = true;
