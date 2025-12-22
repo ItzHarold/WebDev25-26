@@ -1,38 +1,20 @@
 import "../../shared/styles/global.css"
 import "./HomePage.css";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import EventGrid from "./components/EventGrid";
 import Leaderboard from "./components/LeaderBoardList";
 import TeamList from "./components/TeamList";
 import mockEvents from "../../shared/mockdata/mockEvents.json";
 import mockLeaderboard from "../../shared/mockdata/mockLeaderboard.json";
+import mockTeams from "../../shared/mockdata/mockTeams.json";
 import PageHero from "../../shared/ui/PageHero";
-import { fetchTeams } from "../../shared/api/teamApi"
 
 
 const HomePage: React.FC = () => {
     const [events] = useState(mockEvents);
-    const [teams, setTeams] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const [teams] = useState(mockTeams);
     const [leaderboard] = useState(mockLeaderboard);
     const [activeFilter, setActiveFilter] = useState("all");
-
-    useEffect(() => {
-        const loadTeams = async () => {
-            try {
-                const data = await fetchTeams();
-                setTeams(data);
-            } catch (err) {
-                setError("Teams are being Updated. Please try again later.");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        loadTeams();
-    }, []);
-
     const filteredEvents = events.filter(event => {
         if (activeFilter === 'all') {
             return true;
