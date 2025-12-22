@@ -3,8 +3,7 @@ import "./TeamList.css";
 
 interface Team {
     id: string;
-    name: string;
-    players: number;
+    description: string;
     imageUrl?: string;
 }
 
@@ -20,8 +19,7 @@ const TeamCard: React.FC<TeamCardobj> = ({ team }) => {
                 style={{ backgroundImage: `url(${team.imageUrl})` }}
             ></div>
             <div className="team-info">
-                <h3 className="team-name">{team.name}</h3>
-                <p className="team-players">{team.players} players</p>
+                <h3 className="team-name">{team.description}</h3>
             </div>
         </article>
     );

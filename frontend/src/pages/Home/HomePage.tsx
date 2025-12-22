@@ -1,18 +1,35 @@
 import "../../shared/styles/global.css"
 import "./HomePage.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EventGrid from "./components/EventGrid";
 import Leaderboard from "./components/LeaderBoardList";
 import TeamList from "./components/TeamList";
 import mockEvents from "../../shared/mockdata/mockEvents.json";
 import mockLeaderboard from "../../shared/mockdata/mockLeaderboard.json";
-import mockTeams from "../../shared/mockdata/mockTeams.json";
 import PageHero from "../../shared/ui/PageHero";
+import { fetchTeams } from "../../shared/api/teamApi";
 
 
 const HomePage: React.FC = () => {
     const [events] = useState(mockEvents);
-    const [teams] = useState(mockTeams);
+    const [teams, setTeams] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    useEffect(() => {
+        const loadTeams = async () => {
+            try {
+                setLoading(true);
+                const data = await fetchTeams();
+                setTeams(data);
+            } catch (err: any) {
+                setError(err.message || "Teams are still being updated try again later.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadTeams();
+    }, []);
     const [leaderboard] = useState(mockLeaderboard);
     const [activeFilter, setActiveFilter] = useState("all");
     const filteredEvents = events.filter(event => {
@@ -34,7 +51,9 @@ const HomePage: React.FC = () => {
                 {/* Teams Section */}
                 <aside className="teams-sidebar">
                     <h2>Teams</h2>
-                    <TeamList teams={teams} />
+                    {loading && <p>Loading teams...</p>}
+                {error && <p style={{ color: "red" }}>{error}</p>}
+                {!loading && !error && <TeamList teams={teams} />}
                 </aside>
 
                 {/* Event Section */}

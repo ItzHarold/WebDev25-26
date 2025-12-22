@@ -4,8 +4,7 @@ import "./TeamList.css";
 
 interface Team {
     id: string;
-    name: string;
-    players: number;
+    description: string;
     imageUrl?: string;
 }
 
