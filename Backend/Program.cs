@@ -57,6 +57,7 @@ builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IEventTeamService, EventTeamService>();
 builder.Services.AddScoped<IUserFavouriteService, UserFavouriteService>();
+builder.Services.AddScoped<ILoggerService, LoggerService>();
 builder.Services.AddScoped<JwtService>();
 
 

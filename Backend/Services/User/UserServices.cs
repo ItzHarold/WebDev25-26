@@ -8,20 +8,22 @@ public interface IUserService
 {
     Task<List<User>> GetAllAsync();
     Task<User?> GetByIdAsync(int id);
-    Task<User> CreateAsync(User user);
-    Task<bool> UpdateAsync(int id, User user);
-    Task<bool> DeleteAsync(int id);
+    Task<User> CreateAsync(User user, int userId, string userRole);
+    Task<bool> UpdateAsync(int id, User user, int userId, string userRole);
+    Task<bool> DeleteAsync(int id, int userId, string userRole);
 }
 
 public class UserService : IUserService
 {
     private readonly AppDbContext _context;
     private readonly IPasswordService _password;
+    private readonly ILoggerService _loggerService;
 
-    public UserService(AppDbContext context, IPasswordService password)
+    public UserService(AppDbContext context, IPasswordService password, ILoggerService loggerService)
     {
         _context = context;
         _password = password;
+        _loggerService = loggerService;
     }
 
     // get all users from the database
@@ -37,7 +39,7 @@ public class UserService : IUserService
     }
 
     // add a new user and save
-    public async Task<User> CreateAsync(User user)
+    public async Task<User> CreateAsync(User user, int userId, string userRole)
     {
         var usernameTaken = await _context.Users.AnyAsync(u => u.UserName == user.UserName);
         var emailTaken = await _context.Users.AnyAsync(u => u.Email == user.Email);
@@ -57,11 +59,24 @@ public class UserService : IUserService
 
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
+
+        // Log the action
+        await _loggerService.CreateAsync(new Logger
+        {
+            UserId = userId,
+            UserRole = userRole,
+            Action = "CREATE",
+            EntityType = "User",
+            EntityId = user.Id,
+            EntityName = user.UserName,
+            Details = $"{userRole} (ID:{userId}) created user '{user.UserName}' ({user.Role})"
+        });
+
         return user;
     }
 
     // update an existing user if it exists
-    public async Task<bool> UpdateAsync(int id, User data)
+    public async Task<bool> UpdateAsync(int id, User data, int userId, string userRole)
     {
         var user = await _context.Users.FindAsync(id);
         if (user == null) return false;
@@ -93,21 +108,45 @@ public class UserService : IUserService
         user.ImageUrl = data.ImageUrl;
 
         await _context.SaveChangesAsync();
+
+        // Log the action
+        await _loggerService.CreateAsync(new Logger
+        {
+            UserId = userId,
+            UserRole = userRole,
+            Action = "UPDATE",
+            EntityType = "User",
+            EntityId = id,
+            EntityName = user.UserName,
+            Details = $"{userRole} (ID:{userId}) updated user '{user.UserName}'"
+        });
+
         return true;
     }
 
     // delete a user by id
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id, int userId, string userRole)
     {
         var user = await _context.Users.FindAsync(id);
         if (user == null) return false;
 
+        var userName = user.UserName;
+
         _context.Users.Remove(user);
         await _context.SaveChangesAsync();
+
+        // Log the action
+        await _loggerService.CreateAsync(new Logger
+        {
+            UserId = userId,
+            UserRole = userRole,
+            Action = "DELETE",
+            EntityType = "User",
+            EntityId = id,
+            EntityName = userName,
+            Details = $"{userRole} (ID:{userId}) deleted user '{userName}'"
+        });
+
         return true;
     }
-    
-
-
-
 }

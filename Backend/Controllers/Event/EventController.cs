@@ -2,6 +2,7 @@ using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Backend.Controllers;
 [Authorize]
@@ -65,6 +66,12 @@ public class EventController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<EventResponse>> Create([FromBody] EventRequest request)
     {
+        // Get user info from JWT token
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var userRole = User.FindFirst(ClaimTypes.Role)?.Value ?? "Unknown";
+        if (userIdClaim == null) return Unauthorized();
+        int userId = int.Parse(userIdClaim);
+
         Event ev = new Event
         {
             Title = request.Title,
@@ -76,7 +83,7 @@ public class EventController : ControllerBase
             ImageUrl = request.ImageUrl
         };
 
-        Event created = await _service.CreateAsync(ev);
+        Event created = await _service.CreateAsync(ev, userId, userRole);
 
         EventResponse response = new EventResponse
         {
@@ -98,6 +105,12 @@ public class EventController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] EventRequest request)
     {
+        // Get user info from JWT token
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var userRole = User.FindFirst(ClaimTypes.Role)?.Value ?? "Unknown";
+        if (userIdClaim == null) return Unauthorized();
+        int userId = int.Parse(userIdClaim);
+
         Event ev = new Event
         {
             Title = request.Title,
@@ -109,7 +122,7 @@ public class EventController : ControllerBase
             ImageUrl = request.ImageUrl
         };
 
-        bool success = await _service.UpdateAsync(id, ev);
+        bool success = await _service.UpdateAsync(id, ev, userId, userRole);
         if (!success) return NotFound();
 
         return NoContent();
@@ -120,7 +133,13 @@ public class EventController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        bool success = await _service.DeleteAsync(id);
+        // Get user info from JWT token
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var userRole = User.FindFirst(ClaimTypes.Role)?.Value ?? "Unknown";
+        if (userIdClaim == null) return Unauthorized();
+        int userId = int.Parse(userIdClaim);
+
+        bool success = await _service.DeleteAsync(id, userId, userRole);
         if (!success) return NotFound();
         return NoContent();
     }
