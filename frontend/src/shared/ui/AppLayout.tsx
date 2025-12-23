@@ -1,6 +1,7 @@
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../features/auth/AuthProvider";
 import "./AppLayout.css";
+import Footer from "./Footer";
 import "../../pages/Login/LoginPage.css";
 import UserMenu from "./UserMenu";
 
@@ -27,6 +28,7 @@ export default function AppLayout() {
         </nav>
       </header>
       <main className="main" id="main"><Outlet /></main>
+      <Footer/>
 
     </>
   )
