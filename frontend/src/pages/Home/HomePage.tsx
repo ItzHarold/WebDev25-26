@@ -1,51 +1,31 @@
-import "../../shared/styles/global.css"
-import "./HomePage.css";
 import React, { useEffect, useState } from "react";
+import { useFetchTeams } from "../../shared/hooks/useFetchTeams";
+import { useFetchEvents } from "../../shared/hooks/useFetchEvents";
 import EventGrid from "./components/EventGrid";
 import Leaderboard from "./components/LeaderBoardList";
 import TeamList from "./components/TeamList";
-import mockEvents from "../../shared/mockdata/mockEvents.json";
 import PageHero from "../../shared/ui/PageHero";
-import { fetchTeams } from "../../shared/api/teamApi";
-
+import "../../shared/styles/global.css"
+import "./HomePage.css";
 
 const HomePage: React.FC = () => {
-    const [events] = useState(mockEvents);
-    const [teams, setTeams] = useState([]);
-    const [leaderboard, setLeaderboard] = useState([{ rank: 0, teamName: "", points: 0 },]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const { teams, leaderboard, loading: teamsLoading, error: teamsError } = useFetchTeams();
+    const { events } = useFetchEvents();
+    const [filteredEvents, setFilteredEvents] = useState(events);
+    const [activeFilter, setActiveFilter] = useState("all");
+
+    // Filter events based on the active filter
     useEffect(() => {
-        const loadData = async () => {
-            try {
-                setLoading(true);
-                const data = await fetchTeams();
-                setTeams(data);
-                const sortedLeaderboard = [...data]
-                    .sort((a, b) => b.points - a.points)
-                    .slice(0, 5)
-                    .map((team, index) => ({
-                        rank: index + 1,
-                        teamName: team.description,
-                        points: team.points,
-                    }));
-                    setLeaderboard(sortedLeaderboard);
-            } catch (err: any) {
-                setError(err.message || "Teams are still being updated try again later.");
-            } finally {
-                setLoading(false);
+        const filterEvents = () => {
+            if (activeFilter === "all") {
+                setFilteredEvents(events);
+            } else {
+                setFilteredEvents(events.filter((event) => event.status === activeFilter));
             }
         };
-        loadData();}, []);
-    const [activeFilter, setActiveFilter] = useState("all");
-    const filteredEvents = events.filter(event => {
-        if (activeFilter === 'all') {
-            return true;
-        }
 
-        return event.status === activeFilter;
-    }
-    );
+        filterEvents();
+    }, [events, activeFilter]);
     return (
         <>
             <PageHero
@@ -57,9 +37,9 @@ const HomePage: React.FC = () => {
                 {/* Teams Section */}
                 <aside className="teams-sidebar">
                     <h2>Teams</h2>
-                    {loading && <p>Loading teams...</p>}
-                {error && <p style={{ color: "red" }}>{error}</p>}
-                {!loading && !error && <TeamList teams={teams} />}
+                    {teamsLoading && <p>Loading teams...</p>}
+                {teamsError && <p style={{ color: "red" }}>{teamsError}</p>}
+                {!teamsLoading && !teamsError && <TeamList teams={teams} />}
                 </aside>
 
                 {/* Event Section */}
@@ -99,9 +79,9 @@ const HomePage: React.FC = () => {
                 {/* Leaderboard Section */}
                 <aside className="leaderboard-sidebar">
                     <h2>Leaderboard</h2>
-                    {loading && <p>Loading leaderboard...</p>}
-                {error && <p style={{ color: "red" }}>{error}</p>}
-                {!loading && !error && <Leaderboard data={leaderboard} />}
+                    {teamsLoading && <p>Loading leaderboard...</p>}
+                {teamsError && <p style={{ color: "red" }}>{teamsError}</p>}
+                {!teamsLoading && !teamsError && <Leaderboard data={leaderboard} />}
                 </aside>
             </main>
         </>

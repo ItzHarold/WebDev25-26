@@ -4,17 +4,7 @@ import { Link } from "react-router-dom";
 import { useFavourites } from "../../../pages/Events/components/FavouritesContext";
 import { useAuth } from "../../../features/auth/AuthProvider";
 import "../../../shared/styles/FavouriteButton.css";
-
-
-interface Event {
-    id: string;
-    title: string;
-    location: string;
-    date: string;
-    description: string;
-    status: string;
-    imageUrl?: string;
-}
+import type { Event } from "../../../shared/types/Event";
 
 interface EventCardProps {
     event: Event;

@@ -1,16 +1,7 @@
 import React from "react";
 import EventCard from "./EventCard";
 import "./EventList.css";
-
-interface Event {
-    id: string;
-    title: string;
-    location: string;
-    date: string;
-    description: string;
-    status: string;
-    imageUrl?: string;
-}
+import type { Event } from "../../../shared/types/Event";
 
 interface EventGridProps {
     events: Event[];
