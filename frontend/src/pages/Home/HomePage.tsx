@@ -14,7 +14,6 @@ const HomePage: React.FC = () => {
     const [filteredEvents, setFilteredEvents] = useState(events);
     const [activeFilter, setActiveFilter] = useState("all");
 
-    // Filter events based on the active filter
     useEffect(() => {
         console.log("Active filter:", activeFilter);
         console.log("Events:", events);
