@@ -16,20 +16,53 @@ public static class DataSeeder
         //Create Teams
         var teamA = new Team
         {
-            Description = "The red dragons",
-            Points = 0,
-            ImageUrl = null,
-            ManagerId = 0 
-        };
-        var teamB = new Team
-        {
-            Description = "The blue sharks",
-            Points = 0,
-            ImageUrl = null,
+            Description = "The Red Dragons",
+            Points = 50,
+            ImageUrl = "https://example.com/red-dragons.jpg",
             ManagerId = 0
         };
 
-        context.Teams.AddRange(teamA, teamB);
+        var teamB = new Team
+        {
+            Description = "The Blue Sharks",
+            Points = 40,
+            ImageUrl = "https://example.com/blue-sharks.jpg",
+            ManagerId = 0
+        };
+
+        var teamC = new Team
+        {
+            Description = "The Green Tigers",
+            Points = 60,
+            ImageUrl = "https://example.com/green-tigers.jpg",
+            ManagerId = 0
+        };
+
+        var teamD = new Team
+        {
+            Description = "The Yellow Eagles",
+            Points = 30,
+            ImageUrl = "https://example.com/yellow-eagles.jpg",
+            ManagerId = 0
+        };
+
+        var teamE = new Team
+        {
+            Description = "The Purple Panthers",
+            Points = 70,
+            ImageUrl = "https://example.com/purple-panthers.jpg",
+            ManagerId = 0
+        };
+
+        var teamF = new Team
+        {
+            Description = "The Orange Foxes",
+            Points = 20,
+            ImageUrl = "https://example.com/orange-foxes.jpg",
+            ManagerId = 0
+        };
+
+        context.Teams.AddRange(teamA, teamB, teamC, teamD, teamE, teamF);
         context.SaveChanges();
         
         
