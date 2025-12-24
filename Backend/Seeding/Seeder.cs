@@ -16,49 +16,49 @@ public static class DataSeeder
         //Create Teams
         var teamA = new Team
         {
-            Description = "The Red Dragons",
+            Description = "The Tetris Titans",
             Points = 50,
-            ImageUrl = "https://example.com/red-dragons.jpg",
+            ImageUrl = "https://example.com/tetris-titans.jpg",
             ManagerId = 0
         };
 
         var teamB = new Team
         {
-            Description = "The Blue Sharks",
+            Description = "The Minecraft Miners",
             Points = 40,
-            ImageUrl = "https://example.com/blue-sharks.jpg",
+            ImageUrl = "https://example.com/minecraft-miners.jpg",
             ManagerId = 0
         };
 
         var teamC = new Team
         {
-            Description = "The Green Tigers",
+            Description = "The Fortnite Fighters",
             Points = 60,
-            ImageUrl = "https://example.com/green-tigers.jpg",
+            ImageUrl = "https://example.com/fortnite-fighters.jpg",
             ManagerId = 0
         };
 
         var teamD = new Team
         {
-            Description = "The Yellow Eagles",
+            Description = "The Overwatch Outlaws",
             Points = 30,
-            ImageUrl = "https://example.com/yellow-eagles.jpg",
+            ImageUrl = "https://example.com/overwatch-outlaws.jpg",
             ManagerId = 0
         };
 
         var teamE = new Team
         {
-            Description = "The Purple Panthers",
+            Description = "The League Legends",
             Points = 70,
-            ImageUrl = "https://example.com/purple-panthers.jpg",
+            ImageUrl = "https://example.com/league-legends.jpg",
             ManagerId = 0
         };
 
         var teamF = new Team
         {
-            Description = "The Orange Foxes",
+            Description = "The Valorant Vipers",
             Points = 20,
-            ImageUrl = "https://example.com/orange-foxes.jpg",
+            ImageUrl = "https://example.com/valorant-vipers.jpg",
             ManagerId = 0
         };
 
@@ -113,87 +113,87 @@ public static class DataSeeder
         //Create Events
         var event1 = new Event
         {
-            Title = "Football Match",
+            Title = "Tetris World Championship",
             Location = "Stadium A",
             Date = DateTime.UtcNow.AddDays(7),
-            Description = "A thrilling football match between top teams.",
-            Detail = "This match will feature the best players from Team A and Team B.",
+            Description = "The ultimate Tetris showdown.",
+            Detail = "Players from around the world compete for the Tetris crown.",
             Status = "Active",
-            ImageUrl = "https://example.com/football-match.jpg"
+            ImageUrl = "https://example.com/tetris-world-championship.jpg"
         };
 
         var event2 = new Event
         {
-            Title = "Basketball Tournament",
+            Title = "Minecraft Build Battle",
             Location = "Arena B",
             Date = DateTime.UtcNow.AddDays(14),
-            Description = "An exciting basketball tournament.",
-            Detail = "Teams will compete for the championship title.",
+            Description = "A creative Minecraft competition.",
+            Detail = "Teams compete to build the most impressive structures.",
             Status = "Active",
-            ImageUrl = "https://example.com/basketball-tournament.jpg"
+            ImageUrl = "https://example.com/minecraft-build-battle.jpg"
         };
 
         var event3 = new Event
         {
-            Title = "Tennis Championship",
+            Title = "Fortnite Battle Royale",
             Location = "Court C",
             Date = DateTime.UtcNow.AddDays(21),
-            Description = "A grand tennis championship.",
-            Detail = "Top players will compete for the title.",
+            Description = "A thrilling Fortnite tournament.",
+            Detail = "Top players battle it out in the ultimate survival game.",
             Status = "Upcoming",
-            ImageUrl = "https://example.com/tennis-championship.jpg"
+            ImageUrl = "https://example.com/fortnite-battle-royale.jpg"
         };
 
         var event4 = new Event
         {
-            Title = "Swimming Gala",
+            Title = "Overwatch League Finals",
             Location = "Pool D",
             Date = DateTime.UtcNow.AddDays(28),
-            Description = "A spectacular swimming event.",
-            Detail = "Swimmers from all over the country will participate.",
+            Description = "The grand finale of the Overwatch League.",
+            Detail = "The best teams compete for the championship title.",
             Status = "Upcoming",
-            ImageUrl = "https://example.com/swimming-gala.jpg"
+            ImageUrl = "https://example.com/overwatch-league-finals.jpg"
         };
 
         var event5 = new Event
         {
-            Title = "Marathon",
+            Title = "League of Legends Worlds",
             Location = "City Center",
             Date = DateTime.UtcNow.AddDays(-5),
-            Description = "A city-wide marathon.",
-            Detail = "Participants ran through the city streets.",
+            Description = "The biggest League of Legends tournament.",
+            Detail = "Teams from all regions compete for the Summoner's Cup.",
             Status = "Ended",
-            ImageUrl = "https://example.com/marathon.jpg"
+            ImageUrl = "https://example.com/league-worlds.jpg"
         };
 
         var event6 = new Event
         {
-            Title = "Cycling Race",
+            Title = "Valorant Champions Tour",
             Location = "Mountain Trail",
             Date = DateTime.UtcNow.AddDays(-10),
-            Description = "An adventurous cycling race.",
-            Detail = "Cyclists raced through challenging mountain trails.",
+            Description = "The premier Valorant tournament.",
+            Detail = "Top teams showcase their skills in tactical FPS gameplay.",
             Status = "Ended",
-            ImageUrl = "https://example.com/cycling-race.jpg"
+            ImageUrl = "https://example.com/valorant-champions-tour.jpg"
         };
 
         var event7 = new Event
         {
-            Title = "Chess Tournament",
+            Title = "Chess Masters Invitational",
             Location = "Hall E",
             Date = DateTime.UtcNow,
             Description = "A strategic chess tournament.",
-            Detail = "Players are competing in a knockout format.",
+            Detail = "Players compete in a knockout format.",
             Status = "Live",
-            ImageUrl = "https://example.com/chess-tournament.jpg"
+            ImageUrl = "https://example.com/chess-masters-invitational.jpg"
         };
 
         var event8 = new Event
         {
-            Title = "Music Festival",
+            Title = "Just Dance Party",
             Location = "Open Grounds",
             Date = DateTime.UtcNow,
-            Description = "A lively music festival.",
+            Description = "A fun dance competition.",
             Detail = "Bands and artists are performing live.",
             Status = "Live",
             ImageUrl = "https://example.com/music-festival.jpg"
