@@ -100,7 +100,73 @@ public static class DataSeeder
             ImageUrl = "https://example.com/basketball-tournament.jpg"
         };
 
-        context.Events.AddRange(event1, event2);
+        var event3 = new Event
+        {
+            Title = "Tennis Championship",
+            Location = "Court C",
+            Date = DateTime.UtcNow.AddDays(21),
+            Description = "A grand tennis championship.",
+            Detail = "Top players will compete for the title.",
+            Status = "Upcoming",
+            ImageUrl = "https://example.com/tennis-championship.jpg"
+        };
+
+        var event4 = new Event
+        {
+            Title = "Swimming Gala",
+            Location = "Pool D",
+            Date = DateTime.UtcNow.AddDays(28),
+            Description = "A spectacular swimming event.",
+            Detail = "Swimmers from all over the country will participate.",
+            Status = "Upcoming",
+            ImageUrl = "https://example.com/swimming-gala.jpg"
+        };
+
+        var event5 = new Event
+        {
+            Title = "Marathon",
+            Location = "City Center",
+            Date = DateTime.UtcNow.AddDays(-5),
+            Description = "A city-wide marathon.",
+            Detail = "Participants ran through the city streets.",
+            Status = "Ended",
+            ImageUrl = "https://example.com/marathon.jpg"
+        };
+
+        var event6 = new Event
+        {
+            Title = "Cycling Race",
+            Location = "Mountain Trail",
+            Date = DateTime.UtcNow.AddDays(-10),
+            Description = "An adventurous cycling race.",
+            Detail = "Cyclists raced through challenging mountain trails.",
+            Status = "Ended",
+            ImageUrl = "https://example.com/cycling-race.jpg"
+        };
+
+        var event7 = new Event
+        {
+            Title = "Chess Tournament",
+            Location = "Hall E",
+            Date = DateTime.UtcNow,
+            Description = "A strategic chess tournament.",
+            Detail = "Players are competing in a knockout format.",
+            Status = "Live",
+            ImageUrl = "https://example.com/chess-tournament.jpg"
+        };
+
+        var event8 = new Event
+        {
+            Title = "Music Festival",
+            Location = "Open Grounds",
+            Date = DateTime.UtcNow,
+            Description = "A lively music festival.",
+            Detail = "Bands and artists are performing live.",
+            Status = "Live",
+            ImageUrl = "https://example.com/music-festival.jpg"
+        };
+
+        context.Events.AddRange(event1, event2, event3, event4, event5, event6, event7, event8);
         context.SaveChanges();
 
         //Create UserFavourites

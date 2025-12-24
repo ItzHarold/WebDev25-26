@@ -16,11 +16,13 @@ const HomePage: React.FC = () => {
 
     // Filter events based on the active filter
     useEffect(() => {
+        console.log("Active filter:", activeFilter);
+        console.log("Events:", events);
         const filterEvents = () => {
             if (activeFilter === "all") {
                 setFilteredEvents(events);
             } else {
-                setFilteredEvents(events.filter((event) => event.status === activeFilter));
+                setFilteredEvents(events.filter((event) => event.status.toLowerCase() === activeFilter));
             }
         };
 
