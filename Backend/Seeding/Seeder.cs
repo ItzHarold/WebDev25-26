@@ -81,15 +81,23 @@ public static class DataSeeder
         var event1 = new Event
         {
             Title = "Football Match",
+            Location = "Stadium A",
             Date = DateTime.UtcNow.AddDays(7),
-            Status = "Active"
+            Description = "A thrilling football match between top teams.",
+            Detail = "This match will feature the best players from Team A and Team B.",
+            Status = "Active",
+            ImageUrl = "https://example.com/football-match.jpg"
         };
 
         var event2 = new Event
         {
             Title = "Basketball Tournament",
+            Location = "Arena B",
             Date = DateTime.UtcNow.AddDays(14),
-            Status = "Active"
+            Description = "An exciting basketball tournament.",
+            Detail = "Teams will compete for the championship title.",
+            Status = "Active",
+            ImageUrl = "https://example.com/basketball-tournament.jpg"
         };
 
         context.Events.AddRange(event1, event2);
