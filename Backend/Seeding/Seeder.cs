@@ -13,12 +13,15 @@ public static class DataSeeder
             return; 
         // models to fill the database with data
 
+        //Replace all ImageUrls with default event image
+        var defaultImageUrl = " /default-event.jpg";
+
         //Create Teams
         var teamA = new Team
         {
             Description = "The Tetris Titans",
             Points = 50,
-            ImageUrl = "https://example.com/tetris-titans.jpg",
+            ImageUrl = defaultImageUrl,
             ManagerId = 0
         };
 
@@ -26,7 +29,7 @@ public static class DataSeeder
         {
             Description = "The Minecraft Miners",
             Points = 40,
-            ImageUrl = "https://example.com/minecraft-miners.jpg",
+            ImageUrl = defaultImageUrl,
             ManagerId = 0
         };
 
@@ -34,7 +37,7 @@ public static class DataSeeder
         {
             Description = "The Fortnite Fighters",
             Points = 60,
-            ImageUrl = "https://example.com/fortnite-fighters.jpg",
+            ImageUrl = defaultImageUrl,
             ManagerId = 0
         };
 
@@ -42,7 +45,7 @@ public static class DataSeeder
         {
             Description = "The Overwatch Outlaws",
             Points = 30,
-            ImageUrl = "https://example.com/overwatch-outlaws.jpg",
+            ImageUrl = defaultImageUrl,
             ManagerId = 0
         };
 
@@ -50,7 +53,7 @@ public static class DataSeeder
         {
             Description = "The League Legends",
             Points = 70,
-            ImageUrl = "https://example.com/league-legends.jpg",
+            ImageUrl = defaultImageUrl,
             ManagerId = 0
         };
 
@@ -58,7 +61,7 @@ public static class DataSeeder
         {
             Description = "The Valorant Vipers",
             Points = 20,
-            ImageUrl = "https://example.com/valorant-vipers.jpg",
+            ImageUrl = defaultImageUrl,
             ManagerId = 0
         };
 
@@ -119,7 +122,7 @@ public static class DataSeeder
             Description = "The ultimate Tetris showdown.",
             Detail = "Players from around the world compete for the Tetris crown.",
             Status = "Active",
-            ImageUrl = "https://example.com/tetris-world-championship.jpg"
+            ImageUrl = defaultImageUrl
         };
 
         var event2 = new Event
@@ -130,7 +133,7 @@ public static class DataSeeder
             Description = "A creative Minecraft competition.",
             Detail = "Teams compete to build the most impressive structures.",
             Status = "Active",
-            ImageUrl = "https://example.com/minecraft-build-battle.jpg"
+            ImageUrl = defaultImageUrl
         };
 
         var event3 = new Event
@@ -141,7 +144,7 @@ public static class DataSeeder
             Description = "A thrilling Fortnite tournament.",
             Detail = "Top players battle it out in the ultimate survival game.",
             Status = "Upcoming",
-            ImageUrl = "https://example.com/fortnite-battle-royale.jpg"
+            ImageUrl = defaultImageUrl
         };
 
         var event4 = new Event
@@ -152,7 +155,7 @@ public static class DataSeeder
             Description = "The grand finale of the Overwatch League.",
             Detail = "The best teams compete for the championship title.",
             Status = "Upcoming",
-            ImageUrl = "https://example.com/overwatch-league-finals.jpg"
+            ImageUrl = defaultImageUrl
         };
 
         var event5 = new Event
@@ -163,7 +166,7 @@ public static class DataSeeder
             Description = "The biggest League of Legends tournament.",
             Detail = "Teams from all regions compete for the Summoner's Cup.",
             Status = "Ended",
-            ImageUrl = "https://example.com/league-worlds.jpg"
+            ImageUrl = defaultImageUrl
         };
 
         var event6 = new Event
@@ -174,7 +177,7 @@ public static class DataSeeder
             Description = "The premier Valorant tournament.",
             Detail = "Top teams showcase their skills in tactical FPS gameplay.",
             Status = "Ended",
-            ImageUrl = "https://example.com/valorant-champions-tour.jpg"
+            ImageUrl = defaultImageUrl
         };
 
         var event7 = new Event
@@ -185,18 +188,18 @@ public static class DataSeeder
             Description = "A strategic chess tournament.",
             Detail = "Players compete in a knockout format.",
             Status = "Live",
-            ImageUrl = "https://example.com/chess-masters-invitational.jpg"
+            ImageUrl = defaultImageUrl
         };
 
         var event8 = new Event
         {
-            Title = "Just Dance Party",
+            Title = "Music Festival",
             Location = "Open Grounds",
             Date = DateTime.UtcNow,
-            Description = "A fun dance competition.",
+            Description = "A lively music festival.",
             Detail = "Bands and artists are performing live.",
             Status = "Live",
-            ImageUrl = "https://example.com/music-festival.jpg"
+            ImageUrl = defaultImageUrl
         };
 
         context.Events.AddRange(event1, event2, event3, event4, event5, event6, event7, event8);
