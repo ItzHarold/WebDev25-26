@@ -96,7 +96,7 @@ public static class DataSeeder
 
         var user3 = new User
         {
-            Role = "Manager",
+            Role = "User",
             FirstName = "Bob",
             LastName = "Brown",
             UserName = "bobbrown",

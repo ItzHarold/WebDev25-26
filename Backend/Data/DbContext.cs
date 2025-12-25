@@ -14,6 +14,5 @@ namespace Backend.Data
         public DbSet<Event> Events { get; set; }
         public DbSet<UserFavourite> UserFavourites { get; set; }
         public DbSet<EventTeam> EventTeams { get; set; }
-        public DbSet<Logger> Loggers { get; set; }
     }
 }

@@ -2,7 +2,6 @@ using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Backend.Controllers;
 [Authorize]
@@ -91,19 +90,13 @@ public class EventTeamController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<EventTeamResponse>> Create([FromBody] EventTeamRequest request)
     {
-        // Get user info from JWT token
-        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        var userRole = User.FindFirst(ClaimTypes.Role)?.Value ?? "Unknown";
-        if (userIdClaim == null) return Unauthorized();
-        int userId = int.Parse(userIdClaim);
-
         EventTeam entity = new EventTeam
         {
             EventId = request.EventId,
             TeamId = request.TeamId
         };
 
-        EventTeam created = await _service.CreateAsync(entity, userId, userRole);
+        EventTeam created = await _service.CreateAsync(entity);
 
         var et = await _service.GetByIdAsync(created.Id);
         if (et == null)
@@ -142,19 +135,13 @@ public class EventTeamController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] EventTeamRequest request)
     {
-        // Get user info from JWT token
-        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        var userRole = User.FindFirst(ClaimTypes.Role)?.Value ?? "Unknown";
-        if (userIdClaim == null) return Unauthorized();
-        int userId = int.Parse(userIdClaim);
-
         EventTeam data = new EventTeam
         {
             EventId = request.EventId,
             TeamId = request.TeamId
         };
 
-        bool success = await _service.UpdateAsync(id, data, userId, userRole);
+        bool success = await _service.UpdateAsync(id, data);
         if (!success) return NotFound();
 
         return NoContent();
@@ -165,13 +152,7 @@ public class EventTeamController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        // Get user info from JWT token
-        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        var userRole = User.FindFirst(ClaimTypes.Role)?.Value ?? "Unknown";
-        if (userIdClaim == null) return Unauthorized();
-        int userId = int.Parse(userIdClaim);
-
-        bool success = await _service.DeleteAsync(id, userId, userRole);
+        bool success = await _service.DeleteAsync(id);
         if (!success) return NotFound();
         return NoContent();
     }
