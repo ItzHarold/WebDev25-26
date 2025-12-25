@@ -8,10 +8,10 @@ public interface IUserService
 {
     Task<List<User>> GetAllAsync();
     Task<User?> GetByIdAsync(int id);
-    Task<User> CreateAsync(User user);
+    Task<User> CreateAsync(User user, int userId, string userRole);
     Task<bool> CreateUser(RegisterRequest request);
-    Task<bool> UpdateAsync(int id, User user);
-    Task<bool> DeleteAsync(int id);
+    Task<bool> UpdateAsync(int id, User user, int userId, string userRole);
+    Task<bool> DeleteAsync(int id, int userId, string userRole);
 
     IQueryable<User> Users();
 }
@@ -24,7 +24,7 @@ public class UserService : IUserService
 
     public IQueryable<User> Users() => _context.Users.AsQueryable();
 
-    public UserService(AppDbContext context, IPasswordService password)
+    public UserService(AppDbContext context, IPasswordService password, ILoggerService loggerService)
     {
         _context = context;
         _password = password;
@@ -44,6 +44,7 @@ public class UserService : IUserService
     }
 
     // add a new user and save
+    
     public async Task<User> CreateAsync(User user, int userId, string userRole)
     {
         var usernameTaken = await _context.Users.AnyAsync(u => u.UserName == user.UserName);
