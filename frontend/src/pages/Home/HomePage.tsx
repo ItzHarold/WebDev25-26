@@ -9,7 +9,7 @@ import "../../shared/styles/global.css"
 import "./HomePage.css";
 
 const HomePage: React.FC = () => {
-    const { teams, leaderboard, loading: teamsLoading, error: teamsError } = useFetchTeams();
+    const { teams, loading: teamsLoading, error: teamsError } = useFetchTeams();
     const { events } = useFetchEvents();
     const [filteredEvents, setFilteredEvents] = useState(events);
     const [activeFilter, setActiveFilter] = useState("all");
@@ -82,7 +82,7 @@ const HomePage: React.FC = () => {
                     <h2>Leaderboard</h2>
                     {teamsLoading && <p>Loading leaderboard...</p>}
                 {teamsError && <p style={{ color: "red" }}>{teamsError}</p>}
-                {!teamsLoading && !teamsError && <Leaderboard data={leaderboard} />}
+                {!teamsLoading && !teamsError && <Leaderboard teams={teams} />}
                 </aside>
             </main>
         </>

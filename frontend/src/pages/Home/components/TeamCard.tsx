@@ -1,11 +1,6 @@
 import React from "react";
 import "./TeamList.css";
-
-interface Team {
-    id: string;
-    description: string;
-    imageUrl?: string;
-}
+import type { Team } from "../../../shared/types/Team";
 
 interface TeamCardobj {
     team: Team;
