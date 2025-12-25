@@ -28,49 +28,59 @@ public class UserFavouriteService : IUserFavouriteService
     {
         return _context.UserFavourites.FindAsync(id).AsTask();
     }
-    public async Task<UserFavourite> CreateAsync(int userId, int evenId)
+public async Task<UserFavourite> CreateAsync(int userId, int eventId)
+{
+    var userExists = await _context.Users.AnyAsync(u => u.Id == userId);
+    var eventExists = await _context.Events.AnyAsync(e => e.Id == eventId);
+    var alreadyFavourite = await _context.UserFavourites
+        .AnyAsync(f => f.UserId == userId && f.EventId == eventId);
+    
+    if (!userExists)
+        throw new KeyNotFoundException($"User with id {userId} not found");
+    if (!eventExists)
+        throw new KeyNotFoundException($"Event with id {eventId} not found");
+    if (alreadyFavourite)
+        throw new InvalidOperationException("Event already in favourites");
+
+    var fav = new UserFavourite
     {
+        UserId = userId,
+        EventId = eventId
+    };
 
-        var user = await _context.Users.FindAsync(userId);
-        var even = await _context.Events.FindAsync(evenId);
+    _context.UserFavourites.Add(fav);
+    await _context.SaveChangesAsync();
 
-        //chekk if user or event dont exist
-        if (user == null || even == null)
-        throw new ArgumentException("User or Event not found");
+    return fav;
+}
 
-        //Check if favourite already exists
-        var favourites = await _context.UserFavourites.ToListAsync();
-        foreach (var favItem in favourites)
-        {
-            if (favItem.UserId == user.Id && favItem.EventId == even.Id)
-            {
-                throw new ArgumentException("Event Already in Favourites");
-            }
-        }
+public async Task<bool> UpdateAsync(int id, UserFavourite data)
+{
+    var existing = await _context.UserFavourites.FindAsync(id);
+    if (existing == null) return false;
+    
+    var userExists = await _context.Users.AnyAsync(u => u.Id == data.UserId);
+    var eventExists = await _context.Events.AnyAsync(e => e.Id == data.EventId);
+    var alreadyFavourite = await _context.UserFavourites
+        .AnyAsync(f => f.Id != id && f.UserId == data.UserId && f.EventId == data.EventId);
+    
 
-        var fav = new UserFavourite
-        {
-            UserId = user.Id,
-            EventId = even.Id
-        };
-        
-        _context.UserFavourites.Add(fav);
-        await _context.SaveChangesAsync();
+    if (!userExists)
+        throw new KeyNotFoundException($"User with id {data.UserId} not found");
 
-        return fav;
-    }
-    public async Task<bool> UpdateAsync(int id, UserFavourite UserFavourite)
-    {
-        var existing = await _context.UserFavourites.FindAsync(id);
-        if (existing == null)
-        {
-            return false;
-        }
-        existing.UserId = UserFavourite.UserId;
-        existing.EventId = UserFavourite.EventId;
-        await _context.SaveChangesAsync();
-        return true;
-    }
+    if (!eventExists)
+        throw new KeyNotFoundException($"Event with id {data.EventId} not found");
+
+    if (alreadyFavourite)
+        throw new InvalidOperationException("Event already in favourites");
+
+    existing.UserId = data.UserId;
+    existing.EventId = data.EventId;
+
+    await _context.SaveChangesAsync();
+    return true;
+}
+
     public async Task<bool> DeleteAsync(int id)
     {
         var fav = await _context.UserFavourites.FindAsync(id);
