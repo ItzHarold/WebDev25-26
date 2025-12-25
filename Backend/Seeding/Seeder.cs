@@ -13,23 +13,59 @@ public static class DataSeeder
             return; 
         // models to fill the database with data
 
+        //Replace all ImageUrls with default event image
+        var defaultImageUrl = " /default-event.jpg";
+
         //Create Teams
         var teamA = new Team
         {
-            Description = "The red dragons",
-            Points = 0,
-            ImageUrl = null,
-            ManagerId = 0 
-        };
-        var teamB = new Team
-        {
-            Description = "The blue sharks",
-            Points = 0,
-            ImageUrl = null,
+            Description = "The Tetris Titans",
+            Points = 50,
+            ImageUrl = defaultImageUrl,
             ManagerId = 0
         };
 
-        context.Teams.AddRange(teamA, teamB);
+        var teamB = new Team
+        {
+            Description = "The Minecraft Miners",
+            Points = 40,
+            ImageUrl = defaultImageUrl,
+            ManagerId = 0
+        };
+
+        var teamC = new Team
+        {
+            Description = "The Fortnite Fighters",
+            Points = 60,
+            ImageUrl = defaultImageUrl,
+            ManagerId = 0
+        };
+
+        var teamD = new Team
+        {
+            Description = "The Overwatch Outlaws",
+            Points = 30,
+            ImageUrl = defaultImageUrl,
+            ManagerId = 0
+        };
+
+        var teamE = new Team
+        {
+            Description = "The League Legends",
+            Points = 70,
+            ImageUrl = defaultImageUrl,
+            ManagerId = 0
+        };
+
+        var teamF = new Team
+        {
+            Description = "The Valorant Vipers",
+            Points = 20,
+            ImageUrl = defaultImageUrl,
+            ManagerId = 0
+        };
+
+        context.Teams.AddRange(teamA, teamB, teamC, teamD, teamE, teamF);
         context.SaveChanges();
         
         
@@ -80,19 +116,93 @@ public static class DataSeeder
         //Create Events
         var event1 = new Event
         {
-            Title = "Football Match",
+            Title = "Tetris World Championship",
+            Location = "Stadium A",
             Date = DateTime.UtcNow.AddDays(7),
-            Status = "Active"
+            Description = "The ultimate Tetris showdown.",
+            Detail = "Players from around the world compete for the Tetris crown.",
+            Status = "Active",
+            ImageUrl = defaultImageUrl
         };
 
         var event2 = new Event
         {
-            Title = "Basketball Tournament",
+            Title = "Minecraft Build Battle",
+            Location = "Arena B",
             Date = DateTime.UtcNow.AddDays(14),
-            Status = "Active"
+            Description = "A creative Minecraft competition.",
+            Detail = "Teams compete to build the most impressive structures.",
+            Status = "Active",
+            ImageUrl = defaultImageUrl
         };
 
-        context.Events.AddRange(event1, event2);
+        var event3 = new Event
+        {
+            Title = "Fortnite Battle Royale",
+            Location = "Court C",
+            Date = DateTime.UtcNow.AddDays(21),
+            Description = "A thrilling Fortnite tournament.",
+            Detail = "Top players battle it out in the ultimate survival game.",
+            Status = "Upcoming",
+            ImageUrl = defaultImageUrl
+        };
+
+        var event4 = new Event
+        {
+            Title = "Overwatch League Finals",
+            Location = "Pool D",
+            Date = DateTime.UtcNow.AddDays(28),
+            Description = "The grand finale of the Overwatch League.",
+            Detail = "The best teams compete for the championship title.",
+            Status = "Upcoming",
+            ImageUrl = defaultImageUrl
+        };
+
+        var event5 = new Event
+        {
+            Title = "League of Legends Worlds",
+            Location = "City Center",
+            Date = DateTime.UtcNow.AddDays(-5),
+            Description = "The biggest League of Legends tournament.",
+            Detail = "Teams from all regions compete for the Summoner's Cup.",
+            Status = "Ended",
+            ImageUrl = defaultImageUrl
+        };
+
+        var event6 = new Event
+        {
+            Title = "Valorant Champions Tour",
+            Location = "Mountain Trail",
+            Date = DateTime.UtcNow.AddDays(-10),
+            Description = "The premier Valorant tournament.",
+            Detail = "Top teams showcase their skills in tactical FPS gameplay.",
+            Status = "Ended",
+            ImageUrl = defaultImageUrl
+        };
+
+        var event7 = new Event
+        {
+            Title = "Chess Masters Invitational",
+            Location = "Hall E",
+            Date = DateTime.UtcNow,
+            Description = "A strategic chess tournament.",
+            Detail = "Players compete in a knockout format.",
+            Status = "Live",
+            ImageUrl = defaultImageUrl
+        };
+
+        var event8 = new Event
+        {
+            Title = "Music Festival",
+            Location = "Open Grounds",
+            Date = DateTime.UtcNow,
+            Description = "A lively music festival.",
+            Detail = "Bands and artists are performing live.",
+            Status = "Live",
+            ImageUrl = defaultImageUrl
+        };
+
+        context.Events.AddRange(event1, event2, event3, event4, event5, event6, event7, event8);
         context.SaveChanges();
 
         //Create UserFavourites

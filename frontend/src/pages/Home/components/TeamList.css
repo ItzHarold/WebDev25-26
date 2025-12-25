@@ -1,0 +1,54 @@
+/* ---------- TEAMS SIDEBAR ---------- */
+.teams-sidebar {
+    width: 100%;
+}
+
+
+.teams-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.team-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--input);
+    transition: transform 0.2s;
+}
+
+.team-card:hover {
+    transform: translateY(-2px);
+}
+
+.team-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    background-size: cover;
+    background-position: center;
+    background-color: darkgray;
+    flex-shrink: 0;
+}
+
+.team-info {
+    flex: 1;
+}
+
+.team-name {
+    margin: 0 0 0.2rem 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.team-game {
+    margin: 0 0 0.2rem 0;
+    font-size: 0.8rem;
+}
+
+.team-players {
+    margin: 0;
+    font-size: 0.75rem;
+}

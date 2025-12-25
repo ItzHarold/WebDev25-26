@@ -1,19 +1,10 @@
-// components/HomePage/EventCard.tsx
+import "./EventList.css";
 import React from "react";
 import { Link } from "react-router-dom";
-import { useFavourites } from "../../context/FavouritesContext";
-import { useAuth } from "../../context/AuthContext";
-import "../../shared/styles/global.css";
-
-interface Event {
-    id: string;
-    title: string;
-    location: string;
-    date: string;
-    description: string;
-    status: string;
-    imageUrl?: string;
-}
+import { useFavourites } from "../../../pages/Events/components/FavouritesContext";
+import { useAuth } from "../../../features/auth/AuthProvider";
+import "../../../shared/styles/FavouriteButton.css";
+import type { Event } from "../../../shared/types/Event";
 
 interface EventCardProps {
     event: Event;
@@ -57,6 +48,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
                 <Link to={`/events/${event.id}`}>
                     <button className="btn">View Details</button>
                 </Link>
+                
             </div>
         </article>
     );

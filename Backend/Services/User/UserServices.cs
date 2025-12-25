@@ -9,8 +9,11 @@ public interface IUserService
     Task<List<User>> GetAllAsync();
     Task<User?> GetByIdAsync(int id);
     Task<User> CreateAsync(User user, int userId, string userRole);
+    Task<bool> CreateUser(RegisterRequest request);
     Task<bool> UpdateAsync(int id, User user, int userId, string userRole);
     Task<bool> DeleteAsync(int id, int userId, string userRole);
+
+    IQueryable<User> Users();
 }
 
 public class UserService : IUserService
@@ -18,6 +21,8 @@ public class UserService : IUserService
     private readonly AppDbContext _context;
     private readonly IPasswordService _password;
     private readonly ILoggerService _loggerService;
+
+    public IQueryable<User> Users() => _context.Users.AsQueryable();
 
     public UserService(AppDbContext context, IPasswordService password, ILoggerService loggerService)
     {
@@ -39,6 +44,7 @@ public class UserService : IUserService
     }
 
     // add a new user and save
+    
     public async Task<User> CreateAsync(User user, int userId, string userRole)
     {
         var usernameTaken = await _context.Users.AnyAsync(u => u.UserName == user.UserName);
@@ -74,6 +80,28 @@ public class UserService : IUserService
 
         return user;
     }
+
+    // create a new user from a register request
+    public async Task<bool> CreateUser(RegisterRequest request)
+    {
+        var user = new User
+        {
+            Role = request.Role.Trim(),
+            FirstName = request.FirstName.Trim(),
+            LastName = request.LastName.Trim(),
+            UserName = request.UserName.Trim(),
+            Email = request.Email.Trim().ToLowerInvariant(),
+            Password = _password.Hash(request.Password),
+            Dob = request.Dob,
+            TeamId = request.TeamId,
+            ImageUrl = request.ImageUrl
+        };
+
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
 
     // update an existing user if it exists
     public async Task<bool> UpdateAsync(int id, User data, int userId, string userRole)

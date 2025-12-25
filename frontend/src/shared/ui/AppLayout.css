@@ -1,0 +1,64 @@
+.topbar {
+  width: 100%;
+  border-bottom: 1px solid #222;
+}
+
+.topbar_spacer {
+  flex: 1;
+}
+
+.topbar_nav {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.topbar_brand {
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+}
+
+.topbar_links {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+}
+
+.topbar_logout {
+  background: none;
+  border: 1px solid #222;
+  border-radius: 6px;
+  color: inherit;
+  cursor: pointer;
+  padding: 6px 10px;
+}
+
+.main {
+  padding: 0;
+}
+/* Hero */
+
+.hero {
+  min-height: 220px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background:
+    radial-gradient(800px 300px at 20% 20%, rgba(96, 165, 250, 0.18), transparent 60%),
+    radial-gradient(700px 260px at 80% 30%, rgba(59, 130, 246, 0.12), transparent 55%),
+    rgba(17, 24, 39, 0.35);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 56px;
+  color: #fff;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+}
