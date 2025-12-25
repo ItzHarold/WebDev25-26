@@ -2,6 +2,7 @@ using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Backend.Controllers;
 [Authorize]
@@ -58,6 +59,12 @@ public class TeamController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<TeamResponse>> Create([FromBody] TeamRequest request)
     {
+        // Get user info from JWT token
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var userRole = User.FindFirst(ClaimTypes.Role)?.Value ?? "Unknown";
+        if (userIdClaim == null) return Unauthorized();
+        int userId = int.Parse(userIdClaim);
+
         var team = new Team
         {
             Description = request.Description,
@@ -66,7 +73,7 @@ public class TeamController : ControllerBase
             ManagerId = request.ManagerId
         };
         
-        var created = await _service.CreateAsync(team);
+        var created = await _service.CreateAsync(team, userId, userRole);
         
         var response = new TeamResponse
         {
@@ -84,6 +91,12 @@ public class TeamController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] TeamRequest request)
     {
+        // Get user info from JWT token
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var userRole = User.FindFirst(ClaimTypes.Role)?.Value ?? "Unknown";
+        if (userIdClaim == null) return Unauthorized();
+        int userId = int.Parse(userIdClaim);
+
         var team = new Team
         {
             Description = request.Description,
@@ -91,8 +104,8 @@ public class TeamController : ControllerBase
             ImageUrl = request.ImageUrl,
             ManagerId = request.ManagerId
         };
-
-        var success = await _service.UpdateAsync(id, team);
+        
+        var success = await _service.UpdateAsync(id, team, userId, userRole);
         if (!success) return NotFound();
         return NoContent();
     }
@@ -102,7 +115,13 @@ public class TeamController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var success = await _service.DeleteAsync(id);
+        // Get user info from JWT token
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var userRole = User.FindFirst(ClaimTypes.Role)?.Value ?? "Unknown";
+        if (userIdClaim == null) return Unauthorized();
+        int userId = int.Parse(userIdClaim);
+
+        var success = await _service.DeleteAsync(id, userId, userRole);
         if (!success) return NotFound();
         return NoContent();
     }
