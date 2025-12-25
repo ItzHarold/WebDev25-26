@@ -14,7 +14,7 @@ public static class DataSeeder
         // models to fill the database with data
 
         //Replace all ImageUrls with default event image
-        var defaultImageUrl = " /default-event.jpg";
+        var defaultImageUrl = "/default-event.jpg";
 
         //Create Teams
         var teamA = new Team
