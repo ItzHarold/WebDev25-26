@@ -1,21 +1,27 @@
 import React from "react";
 import "./LeaderBoard.css";
-
-interface LeaderboardEntry {
-    rank: number;
-    teamName: string;
-    points: number;
-}
+import type { Team } from "../../../shared/types/Team";
 
 interface LeaderboardProps {
-    data: LeaderboardEntry[];
+    teams: Team[];
 }
-
-const Leaderboard: React.FC<LeaderboardProps> = ({ data }) => {
+                    
+const Leaderboard: React.FC<LeaderboardProps> = ({ teams }) => {
+    const leaderboard = [...teams]
+                    .sort((a, b) => b.points - a.points)
+                    .slice(0, 5)
+                    .map((team, index) => ({
+                        rank: index + 1,
+                        teamName: team.description,
+                        points: team.points,
+                    }));
+                    if (leaderboard.length === 0) {
+        return <p>No leaderboard data available.</p>;
+    }
     return (
         <section className="leaderboard">
             <ol className="leaderboard-list">
-                {data.map(entry => (
+                {leaderboard.map(entry => (
                     <li key={entry.rank} className="leaderboard-item">
                         <strong className="rank">#{entry.rank}</strong>
                         <span className="team-name">{entry.teamName}</span>

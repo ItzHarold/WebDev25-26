@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { fetchTeams } from "../../shared/api/teamApi";
+import type { Team } from "../../shared/types/Team";
 
 export const useFetchTeams = () => {
-    const [teams, setTeams] = useState([]);
-    const [leaderboard, setLeaderboard] = useState([]);
+    const [teams, setTeams] = useState<Team[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -13,15 +13,6 @@ export const useFetchTeams = () => {
                 setLoading(true);
                 const data = await fetchTeams();
                 setTeams(data);
-                const sortedLeaderboard = [...data]
-                    .sort((a, b) => b.points - a.points)
-                    .slice(0, 5)
-                    .map((team, index) => ({
-                        rank: index + 1,
-                        teamName: team.description,
-                        points: team.points,
-                    }));
-                setLeaderboard(sortedLeaderboard);
             } catch (err: any) {
                 setError(err.message || "Failed to fetch teams.");
             } finally {
@@ -32,5 +23,5 @@ export const useFetchTeams = () => {
         loadTeams();
     }, []);
 
-    return { teams, leaderboard, loading, error };
+    return { teams, loading, error };
 };
