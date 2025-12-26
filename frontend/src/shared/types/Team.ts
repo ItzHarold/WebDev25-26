@@ -1,6 +1,7 @@
 export interface Team {
-    id: string;
-    description: string;
+    id: number;
+    description?: string;
     imageUrl?: string;
     points: number;
+    managerId: number;
 }
