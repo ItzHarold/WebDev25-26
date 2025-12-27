@@ -64,7 +64,8 @@ export default function UserMenu() {
           </Link>
 
           {/* Player only */}
-          {role === "player" && (
+          {(role === "player" || role === "User" || role === "Admin") && (
+            
             <Link to="/favourites" role="menuitem" className="user-menu__item" onClick={close}>
               Favourites
             </Link>
