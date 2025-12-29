@@ -1,8 +1,9 @@
 import { getToken } from "../../features/auth/authStorage";
+import type { Team } from "../types/Team";
 
 const API_BASE_URL = "http://localhost:5079";
 
-export const fetchTeams = async () => {
+export const fetchTeams = async (): Promise<Team[]> => {
     const token = getToken();
 
     const response = await fetch(`${API_BASE_URL}/team`, {
