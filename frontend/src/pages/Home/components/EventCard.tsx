@@ -7,9 +7,10 @@ import FavouriteButton from "../../Favourites/components/FavouriteButton";
 
 interface EventCardProps {
   event: Event;
+  onFavouriteChanged?: () => void;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event }) => {
+const EventCard: React.FC<EventCardProps> = ({ event, onFavouriteChanged }) => {
   const fav = useFavouritesBackend();
   const eventId = Number(event.id);
   
@@ -20,7 +21,11 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         <FavouriteButton
           liked={fav.isFavourite(eventId)}
           disabled={fav.isBusy(eventId)}
-          onToggle={() => fav.toggleFavourite(eventId)}
+          onToggle={async () => {
+            await fav.toggleFavourite(eventId);
+            onFavouriteChanged?.();
+}}
+
         />
       )}
 

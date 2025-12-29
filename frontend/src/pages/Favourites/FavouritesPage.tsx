@@ -14,6 +14,7 @@ const FavouritesPage: React.FC = () => {
     favourites,
     loading: favLoading,
     error: favError,
+    reload
   } = useFetchUserFavourites(userId);
 
   const loading = eventsLoading || favLoading;
@@ -35,7 +36,7 @@ const FavouritesPage: React.FC = () => {
         {favouriteEvents.length === 0 ? (
           <p>No favourites yet.</p>
         ) : (
-          <EventGrid events={favouriteEvents} />
+          <EventGrid events={favouriteEvents} onFavouriteChanged={reload}/>
         )}
       </section>
     </div>

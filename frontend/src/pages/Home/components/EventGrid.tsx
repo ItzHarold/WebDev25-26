@@ -5,9 +5,10 @@ import type { Event } from "../../../shared/types/Event";
 
 interface EventGridProps {
     events: Event[];
+    onFavouriteChanged?: () => void;
 }
 
-const EventGrid: React.FC<EventGridProps> = ({ events }) => {
+const EventGrid: React.FC<EventGridProps> = ({ events, onFavouriteChanged }) => {
     if (events.length === 0) {
         return (<p>No events available.</p>)
     };
@@ -15,7 +16,7 @@ const EventGrid: React.FC<EventGridProps> = ({ events }) => {
     return (
         <section className="events-grid">
             {events.map(event => (
-                <EventCard key={event.id} event={event} />
+                <EventCard key={event.id} event={event} onFavouriteChanged={onFavouriteChanged} />
             ))}
         </section>
     );
