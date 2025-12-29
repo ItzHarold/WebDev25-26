@@ -2,43 +2,37 @@ import "./EventList.css";
 import React from "react";
 import { Link } from "react-router-dom";
 import type { Event } from "../../../shared/types/Event";
-import { useFavouritesBackend } from "../../Favourites/components/useFavouritesBackend";
 import FavouriteButton from "../../Favourites/components/FavouriteButton";
 
 interface EventCardProps {
   event: Event;
-  onFavouriteChanged?: () => void;
+  showFavouriteButton?: boolean;
+  liked?: boolean;
+  disabled?: boolean;
+  onToggleFavourite?: () => void;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event, onFavouriteChanged }) => {
-  const fav = useFavouritesBackend();
-  const eventId = Number(event.id);
-  
+const EventCard: React.FC<EventCardProps> = ({event, showFavouriteButton, liked = false, disabled = false,
+  onToggleFavourite,}) => { const eventId = Number(event.id);
 
   return (
     <article className="event-card">
-      {fav.user && !Number.isNaN(eventId) && (
+      {showFavouriteButton && !Number.isNaN(eventId) && (
         <FavouriteButton
-          liked={fav.isFavourite(eventId)}
-          disabled={fav.isBusy(eventId)}
-          onToggle={async () => {
-            await fav.toggleFavourite(eventId);
-            onFavouriteChanged?.();
-}}
-
+          liked={liked}
+          disabled={disabled}
+          onToggle={onToggleFavourite ?? (() => {})}
         />
       )}
-
       <div
         className="card-media"
         style={{ backgroundImage: `url(${event.imageUrl})` }}
-      ></div>
-
+      />
       <div className="card-body">
         <h3>{event.title}</h3>
         <p className="meta">
           {event.location} • {event.date}{" "}
-          <span className={`status ${event.status?.toLowerCase()}`}>
+          <span className={`status ${event.status?.toLowerCase?.() ?? ""}`}>
             {event.status}
           </span>
         </p>
