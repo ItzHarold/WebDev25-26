@@ -1,10 +1,34 @@
 export interface Event {
-    id: string;
+    id: number;
     title: string;
-    location: string | null;
+    location?: string;
     date: string;
-    description: string | null;
-    detail: string | null;
+    description?: string;
+    detail?: string;
     status: string;
-    imageUrl: string | null;
+    imageUrl?: string;
 }
+
+export interface EventRequest {
+    title: string;
+    location?: string;
+    date: string;
+    description?: string;
+    detail?: string;
+    status: string;
+    imageUrl?: string;
+}
+
+export interface EventTeam {
+    id: number;
+    event: Event;
+    team: Team;
+}
+
+export interface EventTeamRequest {
+    eventId: number;
+    teamId: number;
+}
+
+// Import Team type
+import type { Team } from "./Team";
