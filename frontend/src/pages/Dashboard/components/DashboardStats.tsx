@@ -1,25 +1,10 @@
 import React from "react";
+import type { Event } from "../../../shared/types/Event";
+import type { Team } from "../../../shared/types/Team";
 
-interface Tournament {
-  id: string;
-  title: string;
-  location: string;
-  date: string;
-  description: string;
-  detail: string;
-  status: string;
-  imageUrl: string;
-  maxTeams: number;
-  participatingTeams: string[];
-}
-
-interface Team {
-  id: string;
-  name: string;
-  game: string;
-  players: number;
-  imageUrl: string;
-}
+type Tournament = Event & {
+  participatingTeams: number[];
+};
 
 interface DashboardStatsProps {
   events: Tournament[];
