@@ -98,12 +98,14 @@ const EventsPage: React.FC = () => {
             <button className="btn">Attend</button>
             <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="btn">Get Directions</a>
             <Link to="/" className="btn">Back to Home</Link>
-            <FavouriteButton
-              liked={fav.isFavourite(event.id)}
-              disabled={fav.isBusy(event.id)}
-              onToggle={() => fav.toggleFavourite(event.id)}
-            />
           </section>
+          <div style={{ position: 'relative' }}>
+              <FavouriteButton
+                liked={fav.isFavourite(event.id)}
+                disabled={fav.isBusy(event.id)}
+                onToggle={() => fav.toggleFavourite(event.id)}
+              />
+            </div>
           
         </article>
       </main>
