@@ -1,0 +1,58 @@
+.avatars {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.more-avatars {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner {
+  width: 100%;
+  height: auto;
+  max-width: 800px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.btn {
+    display: inline-block;
+    color: var(--text);
+    font-size: 0.9em;
+    cursor: pointer;
+    padding: 0.6em 1.2em;
+    background: var(--accent);
+    text-decoration: none;
+    border-radius: var(--radius-lg);
+    border: none;
+    transition: opacity 0.3s;
+    
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+.actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
