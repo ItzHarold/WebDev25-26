@@ -7,7 +7,7 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
 
   const res = await fetch(`${base}${path}`, {
     headers: { "Content-Type": "application/json",
-      ...(token ? {Authorization: 'Bearer ${token}'} : {}),
+      ...(token ? {Authorization: `Bearer ${token}`} : {}),
       ...(init?.headers ?? {}) },
     ...init,
   });
@@ -15,6 +15,10 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   if (!res.ok) {
     const text = await res.text();
     throw new Error(text || 'Request failed: ${res.status}');
+  }
+
+  if (res.status === 204) {
+    return undefined as T;
   }
 
   return res.json() as Promise<T>;
