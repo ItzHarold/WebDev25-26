@@ -1,31 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import mockEvents from "../../shared/mockdata/mockEvents.json";
-import { useFavourites } from "../../pages/Events/components/FavouritesContext";
-import { useAuth } from "../../features/auth/AuthProvider";
-
-
-
-
-type EventItem = {
-  id: string;
-  title: string;
-  date?: string;
-  startTime?: string;
-  endTime?: string;
-  location?: string;
-  imageUrl?: string;
-  description?: string;
-  detail?: string;
-  status?: "live" | "upcoming" | "ended" | string;
-};
+import PageHero from "../../shared/ui/PageHero";
+import { fetchEventById } from "../../shared/api/eventApi";
+import "./EventsPage.css";
+import FavouriteButton from "../Favourites/components/FavouriteButton";
+import { useFavouritesBackend } from "../Favourites/components/useFavouritesBackend";
 
 const EventsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const event = (mockEvents as EventItem[]).find(e => String(e.id) === String(id));
-  const {isLiked, toggle} = useFavourites();
-  const liked = isLiked(String(event?.id));
-  const { user } = useAuth()
+  const [event, setEvent] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const fav = useFavouritesBackend();
+   useEffect(() => {
+    const loadEvent = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchEventById(Number(id));
+        setEvent(data);
+      } catch (err: any) {
+        setError(err.message || "Failed to fetch event.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadEvent();
+  }, [id]);
+
+  if (loading) {
+    return <p>Loading event...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   if (!event) {
     return (
@@ -33,85 +42,71 @@ const EventsPage: React.FC = () => {
         <article className="card">
           <h2>Event not found</h2>
           <p>We couldn't find this event.</p>
-          <Link className="backlink" to="/Home">← Back to home</Link>
+          <Link to="/">← Back to home</Link>
         </article>
       </main>
     );
   }
 
+  const googleMapsUrl = `https://www.google.com/maps?q=${encodeURIComponent(event.location || "")}`;
+
+//mock Attendees
+  const attendees = [
+  { id: "1", name: "John Doe" },
+  { id: "2", name: "Jane Smith" },
+  { id: "3", name: "Alice Johnson" },
+  { id: "4", name: "Bob Brown" },
+  { id: "5", name: "Charlie White" },
+];
+
   return (
     <>
-      <section className="hero">
-        <div className="hero-content">
-          <h1>{event.title}</h1>
-          <h2>All details of this event</h2>
-        </div>
-      </section>
+      <PageHero
+        title={event.title}
+        subtitle="Event Details"
+        backgroundImageUrl="HeroStock.jpg"
+      />
 
       <main className="content">
-        <article className="card event-detail">
+        <article className="card">
           {event.imageUrl && (
-            <img
-              className="banner"
-              src={event.imageUrl}
-              alt={event.title}
-              loading="lazy"
-            />
+            <img className="banner" src={event.imageUrl} alt={event.title} />
           )}
+          <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</p>
+          <p><strong>Location:</strong> {event.location}</p>
+          <p><strong>Status:</strong> {event.status}</p>
+          <p>{event.description}</p>
+          
+          {/* Attendees Section */}
+          <section>
+            <h3>Attendees</h3>
+            <p>{attendees.length - 1} others are going:</p>
+            <div className="avatars">
+              {attendees.slice(0, 5).map(attendee => (
+                <div key={attendee.id} className="avatar" title={attendee.name}>
+                  {attendee.name[0].toUpperCase()}
+                </div>
+              ))}
+              {attendees.length > 5 && (
+                <div className="more-avatars">+{attendees.length - 5}</div>
+              )}
+            </div>
+          </section>
 
-          <div className="meta">
-            {event.date && (
-              <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</p>
-            )}
-            {(event.startTime || event.endTime) && (
-              <p><strong>Time:</strong> {event.startTime}–{event.endTime}</p>
-            )}
-            {event.location && (
-              <p><strong>Location:</strong> {event.location}</p>
-            )}
-            {event.status && (
-              <p><strong>Status:</strong> {event.status}</p>
-            )}
-          </div>
-
-          {event.description && (
-            <>
-              <h3>Description</h3>
-              <p>{event.detail}</p>
-            </>
-          )}
-          <div className="actions">
-              <Link to="/register">
-                <button type="button">{user ? "sign up" : "Login"}</button>
-              </Link>
-            <Link to="/Home">
-              <button type="button">Cancel</button>
-            </Link>
-          </div>
-          { user && ( 
-            <button
-                type="button"
-                className={`fav-btn fav-bottom-right ${liked ? "is-liked" : ""}`}
-                aria-pressed={isLiked(event.id)}
-                aria-label={isLiked(event.id) ? "Remove from favorites" : "Add to favorites"}
-                title={isLiked(event.id) ? "Remove from favorites" : "Add to favorites"}
-                onClick={() => toggle(event.id)}
-                >
-                <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 20"
-                fill={liked ? "currentColor" : "none"}
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-                >
-                <path d="M12 21s-6.7-4.35-10-9.33C-1.1 6.74 2.13 2 6.5 2 8.87 2 10.5 3.5 12 5.09 13.5 3.5 15.13 2 17.5 2 21.87 2 25.1 6.74 22 11.67 18.7 16.65 12 21 12 21z" />
-                </svg>
-            </button>
-          )}
+          {/* Buttons */}
+          <section className="actions">
+            <button className="btn">Attend</button>
+            <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="btn">Get Directions</a>
+            <Link to="/" className="btn">Back to Home</Link>
+          </section>
+          <div style={{ position: 'relative' }}>
+              <FavouriteButton
+                liked={fav.isFavourite(event.id)}
+                disabled={fav.isBusy(event.id)}
+                onToggle={() => fav.toggleFavourite(event.id)}
+              />
+            </div>
+          
         </article>
       </main>
     </>
