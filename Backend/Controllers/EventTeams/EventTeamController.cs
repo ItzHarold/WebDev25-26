@@ -161,7 +161,7 @@ public class EventTeamController : ControllerBase
     }
 
     // DELETE /EventTeam/{id}
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {

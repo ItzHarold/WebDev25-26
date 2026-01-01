@@ -62,7 +62,7 @@ public class EventController : ControllerBase
     }
 
     // POST /Event
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     [HttpPost]
     public async Task<ActionResult<EventResponse>> Create([FromBody] EventRequest request)
     {
@@ -101,7 +101,7 @@ public class EventController : ControllerBase
     }
 
     // PUT /Event/{id}
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] EventRequest request)
     {
@@ -129,7 +129,7 @@ public class EventController : ControllerBase
     }
 
     // DELETE /Event/{id}
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {

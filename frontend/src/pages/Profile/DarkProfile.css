@@ -1,7 +1,3 @@
-/* ===============================================
-   src/pages/Profile/DarkProfile.css
-================================================= */
-
 .profile-header{
     display:flex;
     align-items:center;
@@ -67,3 +63,19 @@
 }
 
 .hero .hero-content h1{ color:#fff; }
+
+.form-error {
+    background: #fee2e2;
+    color: #dc2626;
+    padding: 0.75em 1em;
+    margin-bottom: 1em;
+    border-radius: 4px;
+}
+
+.form-success {
+    background: #d1fae5;
+    color: #059669;
+    padding: 0.75em 1em;
+    margin-bottom: 1em;
+    border-radius: 4px;
+}

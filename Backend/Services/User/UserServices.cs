@@ -110,6 +110,9 @@ public class UserService : IUserService
         var user = await _context.Users.FindAsync(id);
         if (user == null) return false;
 
+        if (!_password.Verify(user.Password, data.Password))
+            throw new InvalidOperationException("Invalid password");
+
         var emailTaken = await _context.Users
             .AnyAsync(u => u.Id != id && u.Email == data.Email);
         var usernameTaken = await _context.Users
@@ -131,7 +134,6 @@ public class UserService : IUserService
         user.LastName = data.LastName;
         user.UserName = data.UserName;
         user.Email = data.Email;
-        user.Password = data.Password;
         user.Dob = data.Dob;
         user.TeamId = data.TeamId;
         user.ImageUrl = data.ImageUrl;
