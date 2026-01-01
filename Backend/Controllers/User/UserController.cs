@@ -80,7 +80,7 @@ public class UserController : ControllerBase
             LastName = request.LastName,
             UserName = request.UserName,
             Email = request.Email,
-            Password = request.Password, // TODO: Hash password before saving
+            Password = request.Password,
             Dob = request.Dob,
             TeamId = request.TeamId,
             ImageUrl = request.ImageUrl
@@ -123,7 +123,7 @@ public class UserController : ControllerBase
             LastName = request.LastName,
             UserName = request.UserName,
             Email = request.Email,
-            Password = request.Password, // TODO: Hash password before saving
+            Password = request.Password,
             Dob = request.Dob,
             TeamId = request.TeamId,
             ImageUrl = request.ImageUrl
@@ -147,6 +147,31 @@ public class UserController : ControllerBase
 
         var success = await _userService.DeleteAsync(id, userId, userRole);
         if (!success) return NotFound();
+        return NoContent();
+    }
+
+    // PUT /User/ChangePassword
+    [HttpPut("ChangePassword")]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+    {
+        // Get user ID from JWT token
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdClaim == null) return Unauthorized();
+        int tokenUserId = int.Parse(userIdClaim);
+
+        // Security check: users can only change their own password
+        if (tokenUserId != request.UserId)
+            return Forbid();
+
+        var success = await _userService.ChangePasswordAsync(
+            request.UserId, 
+            request.CurrentPassword, 
+            request.NewPassword
+        );
+
+        if (!success) 
+            return BadRequest("Current password is incorrect or user not found");
+
         return NoContent();
     }
 }
