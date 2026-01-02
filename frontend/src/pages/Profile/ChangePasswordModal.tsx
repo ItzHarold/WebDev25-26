@@ -45,27 +45,28 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ userId, onClo
     };
 
     return (
-        <div className="modal-overlay">
-            <div className="modal">
-                <div className="modal__header">
-                    <h2 className="modal__title">Change Password</h2>
-                    <button className="modal__close" onClick={onClose}>×</button>
-                </div>
-                <div className="modal__body">
+        <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="change-password-title">
+            <article className="modal">
+                <header className="modal__header">
+                    <h2 className="modal__title" id="change-password-title">Change Password</h2>
+                    <button className="modal__close" onClick={onClose} aria-label="Close modal">×</button>
+                </header>
+
+                <section className="modal__body">
                     {success ? (
                         <>
-                            <div className="form-success">Password changed successfully!</div>
-                            <div className="form-actions">
+                            <p className="form-success" role="status">Password changed successfully!</p>
+                            <footer className="form-actions">
                                 <button type="button" className="btn btn--primary" onClick={onClose}>
                                     Close
                                 </button>
-                            </div>
+                            </footer>
                         </>
                     ) : (
                         <form onSubmit={handleSubmit}>
-                            {error && <div className="form-error">{error}</div>}
+                            {error && <p className="form-error" role="alert">{error}</p>}
 
-                            <div className="form-group">
+                            <fieldset className="form-group">
                                 <label className="form-label" htmlFor="currentPassword">Current Password *</label>
                                 <input
                                     className="form-input"
@@ -75,9 +76,9 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ userId, onClo
                                     onChange={(e) => setCurrentPassword(e.target.value)}
                                     required
                                 />
-                            </div>
+                            </fieldset>
 
-                            <div className="form-group">
+                            <fieldset className="form-group">
                                 <label className="form-label" htmlFor="newPassword">New Password *</label>
                                 <input
                                     className="form-input"
@@ -87,9 +88,9 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ userId, onClo
                                     onChange={(e) => setNewPassword(e.target.value)}
                                     required
                                 />
-                            </div>
+                            </fieldset>
 
-                            <div className="form-group">
+                            <fieldset className="form-group">
                                 <label className="form-label" htmlFor="confirmPassword">Confirm New Password *</label>
                                 <input
                                     className="form-input"
@@ -99,20 +100,20 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ userId, onClo
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     required
                                 />
-                            </div>
+                            </fieldset>
 
-                            <div className="form-actions">
+                            <footer className="form-actions">
                                 <button type="button" className="btn btn--secondary" onClick={onClose}>
                                     Cancel
                                 </button>
                                 <button type="submit" className="btn btn--primary" disabled={saving}>
                                     {saving ? "Changing..." : "Change Password"}
                                 </button>
-                            </div>
+                            </footer>
                         </form>
                     )}
-                </div>
-            </div>
+                </section>
+            </article>
         </div>
     );
 };

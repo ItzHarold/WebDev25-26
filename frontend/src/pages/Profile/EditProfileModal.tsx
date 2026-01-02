@@ -67,118 +67,117 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ profile, onClose, o
     };
 
     return (
-        <div className="modal-overlay">
-            <div className="modal">
-                <div className="modal__header">
-                    <h2 className="modal__title">Edit Profile</h2>
-                    <button className="modal__close" onClick={onClose}>×</button>
-                </div>
-                <div className="modal__body">
-                    <form onSubmit={handleSubmit}>
-                        {error && <div className="form-error">{error}</div>}
+        <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="edit-profile-title">
+            <article className="modal">
+                <header className="modal__header">
+                    <h2 className="modal__title" id="edit-profile-title">Edit Profile</h2>
+                    <button className="modal__close" onClick={onClose} aria-label="Close modal">×</button>
+                </header>
 
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="firstName">First Name *</label>
-                            <input
-                                className="form-input"
-                                type="text"
-                                id="firstName"
-                                name="firstName"
-                                value={formData.firstName}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
+                <form onSubmit={handleSubmit} className="modal__body">
+                    {error && <p className="form-error" role="alert">{error}</p>}
 
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="lastName">Last Name *</label>
-                            <input
-                                className="form-input"
-                                type="text"
-                                id="lastName"
-                                name="lastName"
-                                value={formData.lastName}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
+                    <fieldset className="form-group">
+                        <label className="form-label" htmlFor="firstName">First Name *</label>
+                        <input
+                            className="form-input"
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleChange}
+                            required
+                        />
+                    </fieldset>
 
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="userName">Username *</label>
-                            <input
-                                className="form-input"
-                                type="text"
-                                id="userName"
-                                name="userName"
-                                value={formData.userName}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
+                    <fieldset className="form-group">
+                        <label className="form-label" htmlFor="lastName">Last Name *</label>
+                        <input
+                            className="form-input"
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                            required
+                        />
+                    </fieldset>
 
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="email">Email *</label>
-                            <input
-                                className="form-input"
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
+                    <fieldset className="form-group">
+                        <label className="form-label" htmlFor="userName">Username *</label>
+                        <input
+                            className="form-input"
+                            type="text"
+                            id="userName"
+                            name="userName"
+                            value={formData.userName}
+                            onChange={handleChange}
+                            required
+                        />
+                    </fieldset>
 
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="dob">Date of Birth *</label>
-                            <input
-                                className="form-input"
-                                type="date"
-                                id="dob"
-                                name="dob"
-                                value={formData.dob}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
+                    <fieldset className="form-group">
+                        <label className="form-label" htmlFor="email">Email *</label>
+                        <input
+                            className="form-input"
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </fieldset>
 
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="imageUrl">Profile Image URL</label>
-                            <input
-                                className="form-input"
-                                type="text"
-                                id="imageUrl"
-                                name="imageUrl"
-                                value={formData.imageUrl || ""}
-                                onChange={handleChange}
-                                placeholder="https://example.com/image.jpg"
-                            />
-                        </div>
+                    <fieldset className="form-group">
+                        <label className="form-label" htmlFor="dob">Date of Birth *</label>
+                        <input
+                            className="form-input"
+                            type="date"
+                            id="dob"
+                            name="dob"
+                            value={formData.dob}
+                            onChange={handleChange}
+                            required
+                        />
+                    </fieldset>
 
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="password">Current Password (required to save) *</label>
-                            <input
-                                className="form-input"
-                                type="password"
-                                id="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
+                    <fieldset className="form-group">
+                        <label className="form-label" htmlFor="imageUrl">Profile Image URL</label>
+                        <input
+                            className="form-input"
+                            type="text"
+                            id="imageUrl"
+                            name="imageUrl"
+                            value={formData.imageUrl || ""}
+                            onChange={handleChange}
+                            placeholder="https://example.com/image.jpg"
+                        />
+                    </fieldset>
 
-                        <div className="form-actions">
-                            <button type="button" className="btn btn--secondary" onClick={onClose}>
-                                Cancel
-                            </button>
-                            <button type="submit" className="btn btn--primary" disabled={saving}>
-                                {saving ? "Saving..." : "Save Changes"}
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                    <fieldset className="form-group">
+                        <label className="form-label" htmlFor="password">Current Password (required to save) *</label>
+                        <input
+                            className="form-input"
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+                    </fieldset>
+
+                    <footer className="form-actions">
+                        <button type="button" className="btn btn--secondary" onClick={onClose}>
+                            Cancel
+                        </button>
+                        <button type="submit" className="btn btn--primary" disabled={saving}>
+                            {saving ? "Saving..." : "Save Changes"}
+                        </button>
+                    </footer>
+                </form>
+            </article>
         </div>
     );
 };
