@@ -55,3 +55,7 @@ input {
 a:hover {
   color: var(--accent-hover);
 }
+
+.topbar_brand img {
+  filter: invert(1);
+}
