@@ -64,7 +64,7 @@ export default function UserMenu() {
           </Link>
 
           {/* Player only */}
-          {role === "player" && (
+          {(role === "player" || role === "User") && (        
             <Link to="/favourites" role="menuitem" className="user-menu__item" onClick={close}>
               Favourites
             </Link>
@@ -82,9 +82,15 @@ export default function UserMenu() {
 
           {/* Admin only */}
           {role === "Admin" && (
-            <Link to="/dashboard" role="menuitem" className="user-menu__item" onClick={close}>
-              Dashboard
-            </Link>
+            <>
+              <Link to="/dashboard" role="menuitem" className="user-menu__item" onClick={close}>
+                Dashboard  
+              </Link>
+              
+              <Link to="/favourites" role="menuitem" className="user-menu__item" onClick={close}>
+                Favourites
+              </Link>
+            </> 
           )}
 
           <div className="user-menu__sep" />

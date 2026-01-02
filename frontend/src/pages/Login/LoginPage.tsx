@@ -4,7 +4,6 @@ import { login } from "../../features/auth/authApi";
 import { useAuth } from "../../features/auth/AuthProvider";
 import PageHero from "../../shared/ui/PageHero";
 import "./LoginPage.css";
-import { FavouritesProvider } from "../Events/components/FavouritesContext";
 
 export default function LoginPage() {
   const { setFromLoginResponse } = useAuth();
