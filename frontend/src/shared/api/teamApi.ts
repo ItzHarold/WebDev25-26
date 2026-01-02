@@ -1,4 +1,6 @@
 import { getToken } from "../../features/auth/authStorage";
+import type { Team } from "../types/Team";
+
 
 const API_BASE_URL = "http://localhost:5079";
 
@@ -19,4 +21,29 @@ export const fetchTeams = async () => {
     }
 
     return response.json();
+};
+
+export const createTeam = async (
+  payload: Omit<Team, "id" | "points">
+): Promise<Team> => {
+  const token = getToken();
+
+  const response = await fetch(`${API_BASE_URL}/team`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      ...payload,
+      points: 0,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || `Request failed with status ${response.status}`);
+  }
+
+  return response.json();
 };

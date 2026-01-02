@@ -1,0 +1,40 @@
+.create-team-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.create-team-form label {
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.create-team-form input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #1f1f1f;
+  color: white;
+}
+
+.create-team-form button {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background: #3b82f6;
+  color: white;
+  cursor: pointer;
+}
+
+.create-team-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.create-team-form .error {
+  color: #ef4444;
+  font-size: 0.85rem;
+}

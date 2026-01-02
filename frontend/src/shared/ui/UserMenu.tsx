@@ -80,6 +80,19 @@ export default function UserMenu() {
             Contact
           </Link>
 
+          {/* Manager */}
+          {role === "manager" && (
+            <> 
+              <Link to="/team" role="menuitem" className="user-menu__item" onClick={close}>
+                Team
+              </Link>
+              <Link to="/favourites" role="menuitem" className="user-menu__item" onClick={close}>
+              Favourites
+            </Link>
+            </>
+            
+          )}
+
           {/* Admin only */}
           {role === "Admin" && (
             <>
@@ -90,6 +103,9 @@ export default function UserMenu() {
               <Link to="/favourites" role="menuitem" className="user-menu__item" onClick={close}>
                 Favourites
               </Link>
+              <Link to="/team" role="menuitem" className="user-menu__item" onClick={close}>
+              Team
+            </Link>
             </> 
           )}
 
