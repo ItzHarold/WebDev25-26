@@ -29,7 +29,6 @@ public class LoggerController : ControllerBase
             UserRole = logEntry.UserRole,
             Action = logEntry.Action,
             EntityType = logEntry.EntityType,
-            EntityId = logEntry.EntityId,
             EntityName = logEntry.EntityName,
             Details = logEntry.Details,
             CreatedAt = logEntry.CreatedAt
@@ -51,7 +50,6 @@ public class LoggerController : ControllerBase
             UserRole = logEntry.UserRole,
             Action = logEntry.Action,
             EntityType = logEntry.EntityType,
-            EntityId = logEntry.EntityId,
             EntityName = logEntry.EntityName,
             Details = logEntry.Details,
             CreatedAt = logEntry.CreatedAt
@@ -71,7 +69,6 @@ public class LoggerController : ControllerBase
             UserRole = logEntry.UserRole,
             Action = logEntry.Action,
             EntityType = logEntry.EntityType,
-            EntityId = logEntry.EntityId,
             EntityName = logEntry.EntityName,
             Details = logEntry.Details,
             CreatedAt = logEntry.CreatedAt
@@ -91,7 +88,6 @@ public class LoggerController : ControllerBase
             UserRole = logEntry.UserRole,
             Action = logEntry.Action,
             EntityType = logEntry.EntityType,
-            EntityId = logEntry.EntityId,
             EntityName = logEntry.EntityName,
             Details = logEntry.Details,
             CreatedAt = logEntry.CreatedAt

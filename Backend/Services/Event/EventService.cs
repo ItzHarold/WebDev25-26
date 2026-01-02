@@ -49,7 +49,6 @@ public class EventService : IEventService
             UserRole = userRole,
             Action = "CREATE",
             EntityType = "Event",
-            EntityId = ev.Id,
             EntityName = ev.Title,
             Details = $"{userRole} (ID:{userId}) created event '{ev.Title}'"
         });
@@ -80,7 +79,6 @@ public class EventService : IEventService
             UserRole = userRole,
             Action = "UPDATE",
             EntityType = "Event",
-            EntityId = id,
             EntityName = ev.Title,
             Details = $"{userRole} (ID:{userId}) updated event '{ev.Title}'"
         });
@@ -106,7 +104,6 @@ public class EventService : IEventService
             UserRole = userRole,
             Action = "DELETE",
             EntityType = "Event",
-            EntityId = id,
             EntityName = eventTitle,
             Details = $"{userRole} (ID:{userId}) deleted event '{eventTitle}'"
         });
