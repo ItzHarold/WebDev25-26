@@ -1,41 +1,97 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../features/auth/AuthProvider";
 import PageHero from "../../shared/ui/PageHero";
+import { useFetchUser } from "../../shared/hooks/useFetchUser";
+import EditProfileModal from "./EditProfileModal";
+import ChangePasswordModal from "./ChangePasswordModal";
+import "./ProfilePage.css";
 
 const ProfilePage: React.FC = () => {
-    const { user } = useAuth();
+    const { user: authUser } = useAuth();
+    const { user: profile, loading, error, refetch } = useFetchUser(authUser?.userId ?? null);
+    
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [showPasswordModal, setShowPasswordModal] = useState(false);
+
+    if (loading) return <p className="loading">Loading...</p>;
+    if (error) return <p className="error">{error}</p>;
+    if (!profile) return <p className="error">No profile found</p>;
 
     return (
         <>
-            <PageHero title="My Profile" subtitle="" backgroundImageUrl="HeroStock.jpg"/>
+            <PageHero title="My Profile" subtitle="" backgroundImageUrl="HeroStock.jpg" />
 
-            <main className="card" style={{ maxWidth: 900, margin: "2rem auto" }}>
-                <div className="profile-header">
-                    <div className="avatar" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" width="44" height="44">
-                            <circle cx="12" cy="8" r="4" fill="currentColor" />
-                            <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                        </svg>
-                    </div>
+            <section className="card" style={{ maxWidth: 900, margin: "2rem auto" }} aria-label="Profile information">
+                <header className="profile-header">
+                    <figure className="avatar" aria-hidden="true">
+                        {profile.imageUrl ? (
+                            <img src={profile.imageUrl} alt="" />
+                        ) : (
+                            <svg viewBox="0 0 24 24" width="44" height="44">
+                                <circle cx="12" cy="8" r="4" fill="currentColor" />
+                                <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                            </svg>
+                        )}
+                    </figure>
                     <div className="identity">
-                        <div className="email">{user?.email ?? "—"}</div>
-                        <span className="role-badge" data-role={user?.role ?? "player"}>
-              {user?.role?.toUpperCase() ?? "PLAYER"}
-            </span>
+                        <h2 className="name">{profile.firstName} {profile.lastName}</h2>
+                        <p className="email">{profile.email}</p>
+                        <span className="role-badge" data-role={profile.role.toLowerCase()}>
+                            {profile.role.toUpperCase()}
+                        </span>
                     </div>
-                </div>
+                </header>
 
-                <div className="profile-grid">
+                <dl className="profile-grid">
                     <div className="field">
-                        <div className="label">User ID</div>
-                        <div className="value mono">{user?.userId ?? "—"}</div>
+                        <dt className="label">Username</dt>
+                        <dd className="value">@{profile.userName}</dd>
                     </div>
                     <div className="field">
-                        <div className="label">Role</div>
-                        <div className="value">{user?.role ?? "player"}</div>
+                        <dt className="label">Date of Birth</dt>
+                        <dd className="value">{new Date(profile.dob).toLocaleDateString()}</dd>
                     </div>
-                </div>
-            </main>
+                    <div className="field">
+                        <dt className="label">Member Since</dt>
+                        <dd className="value">{new Date(profile.createdAt).toLocaleDateString()}</dd>
+                    </div>
+                    <div className="field">
+                        <dt className="label">Last Login</dt>
+                        <dd className="value">
+                            {profile.lastLoginAt 
+                                ? new Date(profile.lastLoginAt).toLocaleDateString() 
+                                : "—"}
+                        </dd>
+                    </div>
+                </dl>
+
+                <footer className="profile-actions">
+                    <button className="btn-primary" onClick={() => setShowEditModal(true)}>
+                        Edit Profile
+                    </button>
+                    <button className="btn-secondary" onClick={() => setShowPasswordModal(true)}>
+                        Change Password
+                    </button>
+                </footer>
+            </section>
+
+            {showEditModal && (
+                <EditProfileModal
+                    profile={profile}
+                    onClose={() => setShowEditModal(false)}
+                    onSave={() => {
+                        setShowEditModal(false);
+                        refetch();
+                    }}
+                />
+            )}
+
+            {showPasswordModal && (
+                <ChangePasswordModal
+                    userId={profile.id}
+                    onClose={() => setShowPasswordModal(false)}
+                />
+            )}
         </>
     );
 };

@@ -12,7 +12,8 @@ public interface IUserService
     Task<bool> CreateUser(RegisterRequest request);
     Task<bool> UpdateAsync(int id, User user, int userId, string userRole);
     Task<bool> DeleteAsync(int id, int userId, string userRole);
-    
+    Task<bool> ChangePasswordAsync(int userId, string currentPassword, string newPassword);
+
     IQueryable<User> Users();
 }
 
@@ -108,6 +109,9 @@ public class UserService : IUserService
         var user = await _context.Users.FindAsync(id);
         if (user == null) return false;
 
+        if (!_password.Verify(user.Password, data.Password))
+            throw new InvalidOperationException("Invalid password");
+
         var emailTaken = await _context.Users
             .AnyAsync(u => u.Id != id && u.Email == data.Email);
         var usernameTaken = await _context.Users
@@ -129,7 +133,6 @@ public class UserService : IUserService
         user.LastName = data.LastName;
         user.UserName = data.UserName;
         user.Email = data.Email;
-        user.Password = data.Password;
         user.Dob = data.Dob;
         user.TeamId = data.TeamId;
         user.ImageUrl = data.ImageUrl;
@@ -174,4 +177,21 @@ public class UserService : IUserService
 
         return true;
     }
+    
+    public async Task<bool> ChangePasswordAsync(int userId, string currentPassword, string newPassword)
+    {
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null) return false;
+
+        // verify the current password is correct
+        if (!_password.Verify(user.Password, currentPassword))
+            return false;
+
+        // Hhash and save the new password
+        user.Password = _password.Hash(newPassword);
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
+
 }
