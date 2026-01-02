@@ -35,8 +35,7 @@ public class User
 
     public int? TeamId { get; set; }
     public Team? Team { get; set; }
-
-    public string? ImageUrl { get; set; }
+    public byte[]? ImageUrl { get; set; }
 
     public ICollection<UserFavourite> Favourites { get; set; } = new List<UserFavourite>();
 
@@ -54,7 +53,7 @@ public class UserRequest
     public string Password { get; set; } = null!;
     public DateTime Dob { get; set; }
     public int? TeamId { get; set; }
-    public string? ImageUrl { get; set; }
+    public byte[]? ImageUrl { get; set; }
 }
 
 public class UserResponse

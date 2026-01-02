@@ -32,7 +32,7 @@ public class UserController : ControllerBase
             Email = u.Email,
             Dob = u.Dob,
             TeamId = u.TeamId,
-            ImageUrl = u.ImageUrl,
+            ImageUrl = u.ImageUrl != null ? Convert.ToBase64String(u.ImageUrl) : null,
             CreatedAt = u.CreatedAt,
             LastLoginAt = u.LastLoginAt
         });
@@ -56,7 +56,7 @@ public class UserController : ControllerBase
             Email = user.Email,
             Dob = user.Dob,
             TeamId = user.TeamId,
-            ImageUrl = user.ImageUrl,
+            ImageUrl = user.ImageUrl != null ? Convert.ToBase64String(user.ImageUrl) : null,
             CreatedAt = user.CreatedAt,
             LastLoginAt = user.LastLoginAt
         };
@@ -98,7 +98,7 @@ public class UserController : ControllerBase
             Email = created.Email,
             Dob = created.Dob,
             TeamId = created.TeamId,
-            ImageUrl = created.ImageUrl,
+            ImageUrl = created.ImageUrl != null ? Convert.ToBase64String(created.ImageUrl) : null,
             CreatedAt = created.CreatedAt,
             LastLoginAt = created.LastLoginAt
         };
@@ -133,6 +133,8 @@ public class UserController : ControllerBase
         if (!success) return NotFound();
         return NoContent();
     }
+
+    
 
     // DELETE /User/{id}
     [Authorize(Roles = "admin")]
