@@ -4,6 +4,7 @@ import PageHero from "../../shared/ui/PageHero";
 import { useFetchUser } from "../../shared/hooks/useFetchUser";
 import EditProfileModal from "./EditProfileModal";
 import ChangePasswordModal from "./ChangePasswordModal";
+import "./ProfilePage.css";
 
 const ProfilePage: React.FC = () => {
     const { user: authUser } = useAuth();
