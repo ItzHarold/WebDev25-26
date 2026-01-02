@@ -20,7 +20,9 @@ export default function AppLayout() {
     <>
       <header className="topbar">
         <nav className="topbar_nav" aria-label="Main navigation">
-          <a className="topbar_brand" href="/">WebDev25Logo</a>
+          <a className="topbar_brand" href="/" aria-label="Home">
+            <img src="/trophy.svg" alt="" width="28" height="28" />
+          </a>
           <ul className="topbar_links">
             <li className="topbar__spacer" />
             <li><UserMenu /></li>
