@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { updateUser } from "../../shared/api/userApi";
-import type { User, UpdateUserRequest } from "../../shared/types/User";
-import "../../shared/ui/Modal.css";
+import { updateUser } from "../../../shared/api/userApi";
+import type { User, UpdateUserRequest } from "../../../shared/types/User";
+import "../../../shared/ui/Modal.css";
 
 interface EditProfileModalProps {
     profile: User;

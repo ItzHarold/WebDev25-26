@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { changePassword } from "../../shared/api/userApi";
-import "../../shared/ui/Modal.css";
+import { changePassword } from "../../../shared/api/userApi";
+import "../../../shared/ui/Modal.css";
 
 interface ChangePasswordModalProps {
     userId: number;
