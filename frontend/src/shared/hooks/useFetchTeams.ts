@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { fetchTeams } from "../../shared/api/teamApi";
-import type { Team } from "../../shared/types/Team";
+import { fetchTeams } from "../api/teamApi";
+import type { Team } from "../types/Team";
 
 export const useFetchTeams = () => {
     const [teams, setTeams] = useState<Team[]>([]);

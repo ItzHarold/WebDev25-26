@@ -32,20 +32,16 @@ public class UserService : IUserService
         _loggerService = loggerService;
     }
 
-    // get all users from the database
     public Task<List<User>> GetAllAsync()
     {
         return _context.Users.ToListAsync();
     }
 
-    // find a single user by id
     public Task<User?> GetByIdAsync(int id)
     {
         return _context.Users.FindAsync(id).AsTask();
     }
 
-    // add a new user and save
-    
     public async Task<User> CreateAsync(User user, int userId, string userRole)
     {
         var usernameTaken = await _context.Users.AnyAsync(u => u.UserName == user.UserName);
@@ -67,21 +63,26 @@ public class UserService : IUserService
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        // Log the action
-        await _loggerService.CreateAsync(new Logger
+        try
         {
-            UserId = userId,
-            UserRole = userRole,
-            Action = "CREATE",
-            EntityType = "User",
-            EntityName = user.UserName,
-            Details = $"{userRole} (ID:{userId}) created user '{user.UserName}' ({user.Role})"
-        });
+            await _loggerService.CreateAsync(new Logger
+            {
+                UserId = userId,
+                UserRole = userRole,
+                Action = "CREATE",
+                EntityType = "User",
+                EntityName = user.UserName,
+                Details = $"{userRole} (ID:{userId}) created user '{user.UserName}' ({user.Role})"
+            });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Warning: Failed to log user creation: {ex.Message}");
+        }
 
         return user;
     }
 
-    // create a new user from a register request
     public async Task<bool> CreateUser(RegisterRequest request)
     {
         var user = new User
@@ -102,8 +103,6 @@ public class UserService : IUserService
         return true;
     }
 
-
-    // update an existing user if it exists
     public async Task<bool> UpdateAsync(int id, User data, int userId, string userRole)
     {
         var user = await _context.Users.FindAsync(id);
@@ -139,21 +138,26 @@ public class UserService : IUserService
 
         await _context.SaveChangesAsync();
 
-        // Log the action
-        await _loggerService.CreateAsync(new Logger
+        try
         {
-            UserId = userId,
-            UserRole = userRole,
-            Action = "UPDATE",
-            EntityType = "User",
-            EntityName = user.UserName,
-            Details = $"{userRole} (ID:{userId}) updated user '{user.UserName}'"
-        });
+            await _loggerService.CreateAsync(new Logger
+            {
+                UserId = userId,
+                UserRole = userRole,
+                Action = "UPDATE",
+                EntityType = "User",
+                EntityName = user.UserName,
+                Details = $"{userRole} (ID:{userId}) updated user '{user.UserName}'"
+            });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Warning: Failed to log user update: {ex.Message}");
+        }
 
         return true;
     }
 
-    // delete a user by id
     public async Task<bool> DeleteAsync(int id, int userId, string userRole)
     {
         var user = await _context.Users.FindAsync(id);
@@ -164,16 +168,22 @@ public class UserService : IUserService
         _context.Users.Remove(user);
         await _context.SaveChangesAsync();
 
-        // Log the action
-        await _loggerService.CreateAsync(new Logger
+        try
         {
-            UserId = userId,
-            UserRole = userRole,
-            Action = "DELETE",
-            EntityType = "User",
-            EntityName = userName,
-            Details = $"{userRole} (ID:{userId}) deleted user '{userName}'"
-        });
+            await _loggerService.CreateAsync(new Logger
+            {
+                UserId = userId,
+                UserRole = userRole,
+                Action = "DELETE",
+                EntityType = "User",
+                EntityName = userName,
+                Details = $"{userRole} (ID:{userId}) deleted user '{userName}'"
+            });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Warning: Failed to log user deletion: {ex.Message}");
+        }
 
         return true;
     }
@@ -183,15 +193,12 @@ public class UserService : IUserService
         var user = await _context.Users.FindAsync(userId);
         if (user == null) return false;
 
-        // verify the current password is correct
         if (!_password.Verify(user.Password, currentPassword))
             return false;
 
-        // Hhash and save the new password
         user.Password = _password.Hash(newPassword);
         await _context.SaveChangesAsync();
 
         return true;
     }
-
 }

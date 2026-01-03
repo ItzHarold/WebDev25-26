@@ -1,98 +1,25 @@
-import { getToken } from "../../features/auth/authStorage";
+import { api } from "./http";
 import type { Event, EventRequest } from "../types/Event";
 
-export const fetchEvents = () => 
+export const fetchEvents = (): Promise<Event[]> => 
     api<Event[]>("/event");
 
-export const fetchEvents = async (): Promise<Event[]> => {
-    const token = getToken();
+export const fetchEventById = (id: number): Promise<Event> => 
+    api<Event>(`/event/${id}`);
 
-    const response = await fetch(`${API_BASE_URL}/event`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    });
-
-    if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || `Request failed with status ${response.status}`);
-    }
-
-    return response.json();
-};
-
-export const fetchEventById = async (id: number): Promise<Event> => {
-    const token = getToken();
-
-    const response = await fetch(`${API_BASE_URL}/event/${id}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    });
-
-    if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || `Request failed with status ${response.status}`);
-    }
-
-    return response.json();
-};
-
-export const createEvent = async (event: EventRequest): Promise<Event> => {
-    const token = getToken();
-
-    const response = await fetch(`${API_BASE_URL}/event`, {
+export const createEvent = (event: EventRequest): Promise<Event> =>
+    api<Event>("/event", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
         body: JSON.stringify(event),
     });
 
-    if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || `Request failed with status ${response.status}`);
-    }
-
-    return response.json();
-};
-
-export const updateEvent = async (id: number, event: EventRequest): Promise<void> => {
-    const token = getToken();
-
-    const response = await fetch(`${API_BASE_URL}/event/${id}`, {
+export const updateEvent = (id: number, event: EventRequest): Promise<void> =>
+    api<void>(`/event/${id}`, {
         method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
         body: JSON.stringify(event),
     });
 
-    if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || `Request failed with status ${response.status}`);
-    }
-};
-
-export const deleteEvent = async (id: number): Promise<void> => {
-    const token = getToken();
-
-    const response = await fetch(`${API_BASE_URL}/event/${id}`, {
+export const deleteEvent = (id: number): Promise<void> =>
+    api<void>(`/event/${id}`, {
         method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
     });
-
-    if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || `Request failed with status ${response.status}`);
-    }
-};

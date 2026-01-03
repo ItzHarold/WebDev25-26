@@ -63,18 +63,30 @@ export default function UserMenu() {
             Profile
           </Link>
 
+          <div className="user-menu__sep" />
+
+
+          {/* admin only */}
+          {role === "admin" && (
+            <>
+              <Link to="/dashboard" role="menuitem" className="user-menu__item" onClick={close}>
+                Dashboard  
+              </Link>
+            </> 
+          )}
+
           {/* player only */}
-          {(role === "player") && (        
+          {(role === "player" || role === "manager") && (        
             <>
               <Link to="/team" role="menuitem" className="user-menu__item" onClick={close}>
                 Team
               </Link>
-
-              <Link to="/favourites" role="menuitem" className="user-menu__item" onClick={close}>
-                Favourites
-              </Link>
             </>
           )}
+
+          <Link to="/favourites" role="menuitem" className="user-menu__item" onClick={close}>
+            Favourites
+          </Link>
 
           <div className="user-menu__sep" />
 
@@ -85,32 +97,6 @@ export default function UserMenu() {
           <Link to="/contact" role="menuitem" className="user-menu__item" onClick={close}>
             Contact
           </Link>
-
-          {/* Manager */}
-          {role === "manager" && (
-            <> 
-              <Link to="/team" role="menuitem" className="user-menu__item" onClick={close}>
-                Team
-              </Link>
-              <Link to="/favourites" role="menuitem" className="user-menu__item" onClick={close}>
-              Favourites
-            </Link>
-            </>
-            
-          )}
-
-          {/* admin only */}
-          {role === "admin" && (
-            <>
-              <Link to="/dashboard" role="menuitem" className="user-menu__item" onClick={close}>
-                Dashboard  
-              </Link>
-              
-              <Link to="/favourites" role="menuitem" className="user-menu__item" onClick={close}>
-                Favourites
-              </Link>
-            </> 
-          )}
 
           <div className="user-menu__sep" />
 

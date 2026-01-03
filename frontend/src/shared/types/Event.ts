@@ -1,3 +1,5 @@
+import type { Team } from "./Team";
+
 export interface Event {
     id: number;
     title: string;
@@ -29,6 +31,3 @@ export interface EventTeamRequest {
     eventId: number;
     teamId: number;
 }
-
-// Import Team type
-import type { Team } from "./Team";
