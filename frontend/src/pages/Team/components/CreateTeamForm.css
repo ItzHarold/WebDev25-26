@@ -1,9 +1,3 @@
-.create-team-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
 .create-team-form label {
   font-size: 0.9rem;
   display: flex;
@@ -20,8 +14,8 @@
 }
 
 .create-team-form button {
-  margin-top: 12px;
   padding: 10px;
+  margin-top: 12px;
   border-radius: 6px;
   border: none;
   background: #3b82f6;
@@ -29,12 +23,7 @@
   cursor: pointer;
 }
 
-.create-team-form button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.create-team-form .error {
+.create-team-form .error {    
   color: #ef4444;
   font-size: 0.85rem;
 }

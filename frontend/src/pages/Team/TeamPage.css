@@ -1,0 +1,34 @@
+.team-page {
+    padding: var(--spacing-large) var(--spacing-medium);
+    display: flex;
+    justify-content: center;
+}
+
+.team-box {
+    width: min(820px, 100%);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+    padding: 22px;
+}
+
+.team-title {
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.team-subtitle {
+    margin: 8px 0 18px;
+    color: var(--link);
+}
+
+.team-muted {
+    color: var(--link);
+    margin: 10px 0;
+}
+
+.team-error {
+    color: #f87171;
+    margin: 10px 0;
+}
