@@ -1,5 +1,6 @@
 using Backend.Data;
 using Backend.Models;
+using Backend.Services.Image;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services;
@@ -23,14 +24,16 @@ public class UserService : IUserService
     private readonly AppDbContext _context;
     private readonly IPasswordService _password;
     private readonly ILoggerService _loggerService;
+    private readonly IImageService _imageService;
 
     public IQueryable<User> Users() => _context.Users.AsQueryable();
 
-    public UserService(AppDbContext context, IPasswordService password, ILoggerService loggerService)
+    public UserService(AppDbContext context, IPasswordService password, ILoggerService loggerService, IImageService imageService)
     {
         _context = context;
         _password = password;
         _loggerService = loggerService;
+        _imageService = imageService;
     }
 
     // get all users from the database
@@ -187,27 +190,10 @@ public class UserService : IUserService
         var user = await _context.Users.FindAsync(userId);
         if (user == null)
             return null;
-
-        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
-        var extension = Path.GetExtension(file.FileName).ToLower();
-        if (!allowedExtensions.Contains(extension))
-            throw new InvalidOperationException("Invalid file type.");
-
-        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/profile-pictures");
-        if (!Directory.Exists(uploadsFolder))
-            Directory.CreateDirectory(uploadsFolder);
-
-        var fileName = $"{Guid.NewGuid()}{extension}";
-        var filePath = Path.Combine(uploadsFolder, fileName);
-
-        using (var stream = new FileStream(filePath, FileMode.Create))
-        {
-            await file.CopyToAsync(stream);
-        }
-
-        user.ImageUrl = $"/profile-pictures/{fileName}";
+            
+        var newImageUrl = await _imageService.SaveImageAsync(file, "profile-pictures", user.ImageUrl);
+        user.ImageUrl = newImageUrl;
         await _context.SaveChangesAsync();
-
         return user.ImageUrl;
     }
 

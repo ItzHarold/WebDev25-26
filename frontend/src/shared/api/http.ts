@@ -7,9 +7,9 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
 
   const res = await fetch(`${base}${path}`, {
     headers: {
-      "Content-Type": "application/json",
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(init?.headers ?? {}),
+      ...(!(init?.body instanceof FormData) ? { "Content-Type": "application/json" } : {}),
     },
     ...init,
   });
@@ -22,28 +22,6 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
 
   if (res.status === 204) {
     return undefined as T;
-  }
-
-  return res.json() as Promise<T>;
-}
-
-export async function uploadApi<T>(path: string, formData: FormData, init?: RequestInit): Promise<T> {
-  const token = getToken();
-
-  const res = await fetch(`${base}${path}`, {
-    method: "POST",
-    body: formData,
-    headers: {
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...(init?.headers ?? {}),
-    },
-    ...init,
-  });
-
-  if (!res.ok) {
-    const errorData = await res.json().catch(() => null);
-    const message = errorData?.error || errorData?.message || `Request failed with status ${res.status}`;
-    throw new Error(message);
   }
 
   return res.json() as Promise<T>;

@@ -36,3 +36,8 @@ public class EventResponse
     public string Status { get; set; } = null!;
     public string? ImageUrl { get; set; }
 }
+public class EventImageUploadRequest
+{
+    public int EventId { get; set; }
+    public IFormFile? ImageUrl { get; set; }
+}

@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Diagnostics;
+using Backend.Services.Image;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -57,6 +58,7 @@ builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IEventTeamService, EventTeamService>();
 builder.Services.AddScoped<IUserFavouriteService, UserFavouriteService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<ILoggerService, LoggerService>();
 builder.Services.AddScoped<JwtService>();
 

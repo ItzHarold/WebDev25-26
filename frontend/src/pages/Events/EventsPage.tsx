@@ -5,6 +5,7 @@ import { useFetchEventByID } from "../../shared/hooks/useFetchEvents";
 import "./EventsPage.css";
 import FavouriteButton from "../Favourites/components/FavouriteButton";
 import { useFavouritesBackend } from "../Favourites/components/useFavouritesBackend";
+import ImageBackground from "../../shared/ui/ImageBackground";
 
 const EventsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,7 +14,7 @@ const EventsPage: React.FC = () => {
 
 
   const googleMapsUrl = `https://www.google.com/maps?q=${encodeURIComponent(event?.location || "")}`;
-
+  
 //mock Attendees
   const attendees = [
   { id: "1", name: "John Doe" },
@@ -30,7 +31,7 @@ const EventsPage: React.FC = () => {
         subtitle="Event Details"
         backgroundImageUrl= "/HeroStock.jpg"
       />
-
+      
       <main className="content">
         <article className="card">
           {loading && <p>Loading event...</p>}
@@ -44,14 +45,15 @@ const EventsPage: React.FC = () => {
           )}
           {!loading && !error && event && (
             <>
-              {event.imageUrl && (
-                <img className="banner" src={event.imageUrl} alt={event.title} />
-              )}
+              <ImageBackground
+                imageUrl={event.imageUrl}
+                defaultImage="/default-event.jpg"
+                className="banner"
+              />
               <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</p>
               <p><strong>Location:</strong> {event.location}</p>
-              <p><strong>Status:</strong> {event.status}</p>
+              <p><strong>Status:</strong> {event.status}</p> 
               <p>{event.description}</p>
-              
               {/* Attendees Section */}
               <section>
                 <h3>Attendees</h3>

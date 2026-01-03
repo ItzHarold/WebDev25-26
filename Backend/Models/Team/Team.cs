@@ -27,3 +27,9 @@ public class TeamResponse
     public string? ImageUrl { get; set; }
     public int ManagerId { get; set; }
 }
+
+public class TeamImageUploadRequest
+{
+    public int TeamId { get; set; }
+    public IFormFile? ImageUrl { get; set; }
+}
