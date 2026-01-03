@@ -6,15 +6,18 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const token = getToken();
 
   const res = await fetch(`${base}${path}`, {
-    headers: { "Content-Type": "application/json",
-      ...(token ? {Authorization: `Bearer ${token}`} : {}),
-      ...(init?.headers ?? {}) },
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(init?.headers ?? {}),
+    },
     ...init,
   });
 
   if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || 'Request failed: ${res.status}');
+    const errorData = await res.json().catch(() => null);
+    const message = errorData?.error || errorData?.message || `Request failed with status ${res.status}`;
+    throw new Error(message);
   }
 
   if (res.status === 204) {

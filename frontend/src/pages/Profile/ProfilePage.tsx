@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useAuth } from "../../features/auth/AuthProvider";
 import PageHero from "../../shared/ui/PageHero";
 import { useFetchUser } from "../../shared/hooks/useFetchUser";
-import EditProfileModal from "./EditProfileModal";
-import ChangePasswordModal from "./ChangePasswordModal";
+import EditProfileModal from "./components/EditProfileModal";
+import ChangePasswordModal from "./components/ChangePasswordModal";
 import "./ProfilePage.css";
 
 const ProfilePage: React.FC = () => {
