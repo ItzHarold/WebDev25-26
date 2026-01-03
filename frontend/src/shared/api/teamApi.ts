@@ -2,7 +2,7 @@ import { getToken } from "../../features/auth/authStorage";
 import type { Team } from "../types/Team";
 
 
-const API_BASE_URL = "http://localhost:5079";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export const fetchTeams = async () => {
     const token = getToken();

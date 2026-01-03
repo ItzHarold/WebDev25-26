@@ -55,7 +55,7 @@ public class TeamController : ControllerBase
     }
 
     // POST /Team
-    [Authorize(Roles = "Admin,Manager")]
+    [Authorize(Roles = "admin,manager")]
     [HttpPost]
     public async Task<ActionResult<TeamResponse>> Create([FromBody] TeamRequest request)
     {
@@ -111,7 +111,7 @@ public class TeamController : ControllerBase
     }
 
     // DELETE /Team/{id}
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {

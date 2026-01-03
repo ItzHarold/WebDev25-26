@@ -4,6 +4,7 @@ import { useFetchEvents } from "../../shared/hooks/useFetchEvents";
 import { useFetchUserFavourites } from "../../shared/hooks/useFetchUserFavourites";
 import EventGrid from "../Home/components/EventGrid";
 import { getFavouriteEvents } from "./components/getFavouriteEvents";
+import PageHero from "../../shared/ui/PageHero";
 
 const FavouritesPage: React.FC = () => {
   const { user } = useAuth();
@@ -29,17 +30,25 @@ const FavouritesPage: React.FC = () => {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
-    <div className="main-content">
-      <section className="event-section">
-        <h1>My favourites</h1>
+    <>
 
-        {favouriteEvents.length === 0 ? (
-          <p>No favourites yet.</p>
-        ) : (
-          <EventGrid events={favouriteEvents} onFavouriteChanged={reload}/>
-        )}
-      </section>
-    </div>
+      <PageHero
+        title="Favourites"
+        subtitle="Overview of your favourite events"
+        backgroundImageUrl="HeroStock.jpg"
+      />
+      <div className="main-content">
+        <section className="event-section">
+          <h1>My favourites</h1>
+
+          {favouriteEvents.length === 0 ? (
+            <p>No favourites yet.</p>
+          ) : (
+            <EventGrid events={favouriteEvents} onFavouriteChanged={reload}/>
+          )}
+        </section>
+      </div>
+    </>
   );
 };
 
