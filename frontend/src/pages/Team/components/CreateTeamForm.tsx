@@ -49,7 +49,7 @@ return (
     <h2>Create Team</h2>
 
     <label>
-      Description
+      Team Name:
       <input
         value={description}
         onChange={(e) => setDescription(e.target.value)}
