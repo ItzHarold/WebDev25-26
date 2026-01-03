@@ -71,6 +71,11 @@ public class UserResponse
     public DateTime CreatedAt { get; set; }
     public DateTime? LastLoginAt { get; set; }
 }
+public class UserProfilePictureUploadRequest
+{
+    public int UserId { get; set; }
+    public IFormFile? ImageFile { get; set; }
+}
 
 public class ChangePasswordRequest
 {

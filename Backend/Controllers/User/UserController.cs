@@ -134,6 +134,8 @@ public class UserController : ControllerBase
         return NoContent();
     }
 
+    
+
     // DELETE /User/{id}
     [Authorize(Roles = "admin")]
     [HttpDelete("{id:int}")]
@@ -150,6 +152,20 @@ public class UserController : ControllerBase
         return NoContent();
     }
 
+    [HttpPost("upload-profile-picture")]
+    public async Task<IActionResult> UploadProfilePicture([FromForm] UserProfilePictureUploadRequest request)
+    {
+        if (request.ImageFile == null || request.ImageFile.Length == 0)
+            return BadRequest("No file uploaded.");
+
+        var result = await _userService.UploadProfilePictureAsync(request.UserId, request.ImageFile);
+        if (result == null)
+            return NotFound("User not found.");
+
+        return Ok(new { imageUrl = result });
+    }
+
+    
     // PUT /User/ChangePassword
     [HttpPut("ChangePassword")]
     public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
