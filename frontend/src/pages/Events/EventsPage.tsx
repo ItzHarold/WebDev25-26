@@ -5,6 +5,7 @@ import { useFetchEventByID } from "../../shared/hooks/useFetchEvents";
 import "./EventsPage.css";
 import FavouriteButton from "../Favourites/components/FavouriteButton";
 import { useFavouritesBackend } from "../Favourites/components/useFavouritesBackend";
+import EventAttendance from "./components/EventAttendance";
 
 const EventsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,15 +14,6 @@ const EventsPage: React.FC = () => {
 
 
   const googleMapsUrl = `https://www.google.com/maps?q=${encodeURIComponent(event?.location || "")}`;
-
-//mock Attendees
-  const attendees = [
-  { id: "1", name: "John Doe" },
-  { id: "2", name: "Jane Smith" },
-  { id: "3", name: "Alice Johnson" },
-  { id: "4", name: "Bob Brown" },
-  { id: "5", name: "Charlie White" },
-];
 
   return (
     <>
@@ -52,25 +44,11 @@ const EventsPage: React.FC = () => {
               <p><strong>Status:</strong> {event.status}</p>
               <p>{event.description}</p>
               
-              {/* Attendees Section */}
-              <section>
-                <h3>Attendees</h3>
-                <p>{attendees.length - 1} others are going:</p>
-                <div className="avatars">
-                  {attendees.slice(0, 5).map(attendee => (
-                    <div key={attendee.id} className="avatar" title={attendee.name}>
-                      {attendee.name[0].toUpperCase()}
-                    </div>
-                  ))}
-                  {attendees.length > 5 && (
-                    <div className="more-avatars">+{attendees.length - 5}</div>
-                  )}
-                </div>
-              </section>
+              {/* Teams Attendees  */}
+              <EventAttendance eventId={event.id} />
 
               {/* Buttons */}
               <section className="actions">
-                <button className="btn">Attend</button>
                 <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="btn">Get Directions</a>
                 <Link to="/" className="btn">Back to Home</Link>
               </section>
