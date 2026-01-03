@@ -1,6 +1,5 @@
 import React from "react";
-import "./LightAbout.css";
-import "./DarkAbout.css";
+import "./AboutPage.css";
 import PageHero from "../../shared/ui/PageHero";
 
 const AboutPage: React.FC = () => {

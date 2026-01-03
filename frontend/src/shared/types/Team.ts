@@ -1,5 +1,5 @@
 export interface Team {
-    id: string;
+    id: number;
     description: string;
     imageUrl?: string;
     points: number;

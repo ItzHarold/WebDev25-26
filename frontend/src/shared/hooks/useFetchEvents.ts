@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchEvents } from "../api/eventApi";
+import { fetchEventById, fetchEvents } from "../api/eventApi";
 import type { Event } from "../types/Event";
 
 export const useFetchEvents = () => {
@@ -24,4 +24,28 @@ export const useFetchEvents = () => {
     }, []);
 
     return { events, loading, error };
+};
+
+export const useFetchEventByID = (id: number) => {
+    const [event, setEvent] = useState<Event | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const loadEvent = async () => {
+            try {
+                setLoading(true);
+                const data = await fetchEventById(id);
+                setEvent(data);
+            } catch (err: any) {
+                setError(err.message || "Failed to fetch event");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadEvent();
+    }, []);
+
+    return { event, loading, error };
 };
