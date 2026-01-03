@@ -50,7 +50,6 @@ public class TeamService : ITeamService
             UserRole = userRole,
             Action = "CREATE",
             EntityType = "Team",
-            EntityId = team.Id,
             EntityName = team.Description ?? "Unnamed Team",
             Details = $"{userRole} (ID:{userId}) created team '{team.Description}'"
         });
@@ -82,7 +81,6 @@ public class TeamService : ITeamService
             UserRole = userRole,
             Action = "UPDATE",
             EntityType = "Team",
-            EntityId = id,
             EntityName = team.Description ?? "Unnamed Team",
             Details = $"{userRole} (ID:{userId}) updated team '{team.Description}'"
         });
@@ -107,7 +105,6 @@ public class TeamService : ITeamService
             UserRole = userRole,
             Action = "DELETE",
             EntityType = "Team",
-            EntityId = id,
             EntityName = teamDescription,
             Details = $"{userRole} (ID:{userId}) deleted team '{teamDescription}'"
         });

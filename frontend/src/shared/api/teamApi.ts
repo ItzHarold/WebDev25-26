@@ -1,4 +1,4 @@
-import { api } from "./http";
+import { getToken } from "../../features/auth/authStorage";
 import type { Team } from "../types/Team";
 
 export const fetchTeams = (): Promise<Team[]> => {

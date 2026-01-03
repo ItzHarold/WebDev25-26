@@ -19,9 +19,7 @@ public class Logger
     public string EntityType { get; set; } = null!; // User, Team, Event
 
     [Required]
-    public int EntityId { get; set; }
 
-    [Required]
     public string EntityName { get; set; } = null!;
 
     public string? Details { get; set; } // Additional info
@@ -36,7 +34,6 @@ public class LoggerResponse
     public string UserRole { get; set; } = null!;
     public string Action { get; set; } = null!;
     public string EntityType { get; set; } = null!;
-    public int EntityId { get; set; }
     public string EntityName { get; set; } = null!;
     public string? Details { get; set; }
     public DateTime CreatedAt { get; set; }

@@ -74,7 +74,6 @@ public class UserService : IUserService
             UserRole = userRole,
             Action = "CREATE",
             EntityType = "User",
-            EntityId = user.Id,
             EntityName = user.UserName,
             Details = $"{userRole} (ID:{userId}) created user '{user.UserName}' ({user.Role})"
         });
@@ -147,7 +146,6 @@ public class UserService : IUserService
             UserRole = userRole,
             Action = "UPDATE",
             EntityType = "User",
-            EntityId = id,
             EntityName = user.UserName,
             Details = $"{userRole} (ID:{userId}) updated user '{user.UserName}'"
         });
@@ -173,7 +171,6 @@ public class UserService : IUserService
             UserRole = userRole,
             Action = "DELETE",
             EntityType = "User",
-            EntityId = id,
             EntityName = userName,
             Details = $"{userRole} (ID:{userId}) deleted user '{userName}'"
         });

@@ -67,7 +67,6 @@ public class EventTeamService : IEventTeamService
             UserRole = userRole,
             Action = "CREATE",
             EntityType = "EventTeam",
-            EntityId = eventTeam.Id,
             EntityName = $"Event '{eventTeam.Event?.Title}' + Team '{eventTeam.Team?.Description}'",
             Details = $"{userRole} (ID:{userId}) added team '{eventTeam.Team?.Description}' to event '{eventTeam.Event?.Title}'"
         });
@@ -106,7 +105,6 @@ public class EventTeamService : IEventTeamService
             UserRole = userRole,
             Action = "UPDATE",
             EntityType = "EventTeam",
-            EntityId = id,
             EntityName = $"Event '{eventTeam.Event?.Title}' + Team '{eventTeam.Team?.Description}'",
             Details = $"{userRole} (ID:{userId}) updated event-team relationship"
         });
@@ -135,7 +133,6 @@ public class EventTeamService : IEventTeamService
             UserRole = userRole,
             Action = "DELETE",
             EntityType = "EventTeam",
-            EntityId = id,
             EntityName = $"Event '{eventName}' + Team '{teamName}'",
             Details = $"{userRole} (ID:{userId}) removed team '{teamName}' from event '{eventName}'"
         });

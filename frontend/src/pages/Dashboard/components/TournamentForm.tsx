@@ -1,17 +1,9 @@
 import { useState, useEffect } from "react";
+import type { Event } from "../../../shared/types/Event";
 
-interface Tournament {
-  id: string;
-  title: string;
-  location: string;
-  date: string;
-  description: string;
-  detail: string;
-  status: string;
-  imageUrl: string;
-  maxTeams: number;
-  participatingTeams: string[];
-}
+type Tournament = Event & {
+  participatingTeams: number[];
+};
 
 interface TournamentFormProps {
   tournament?: Tournament;
@@ -22,15 +14,14 @@ interface TournamentFormProps {
 const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onCancel }) => {
   // form state
   const [formData, setFormData] = useState<Tournament>({
-    id: "",
+    id: 0,
     title: "",
     location: "",
     date: "",
-    maxTeams: 8,
     status: "upcoming",
-    description: "",
-    detail: "",
-    imageUrl: "",
+    description: null,
+    detail: null,
+    imageUrl: null,
     participatingTeams: [],
   });
 
@@ -46,7 +37,7 @@ const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onC
     
     setFormData({
       ...formData,
-      [fieldName]: fieldName === "maxTeams" ? Number(fieldValue) : fieldValue
+      [fieldName]: fieldValue
     });
   };
 
@@ -97,25 +88,11 @@ const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onC
           <div className="form-group">
             <label htmlFor="date">Date *</label>
             <input
-              type="text"
+              type="date"
               id="date"
               name="date"
               value={formData.date}
               onChange={handleChange}
-              placeholder="e.g., June 20–22, 2025"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="maxTeams">Max Teams *</label>
-            <input
-              type="number"
-              id="maxTeams"
-              name="maxTeams"
-              value={formData.maxTeams}
-              onChange={handleChange}
-              min="2"
               required
             />
           </div>
@@ -136,39 +113,36 @@ const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onC
           </div>
 
           <div className="form-group">
-            <label htmlFor="description">Short Description *</label>
+            <label htmlFor="description">Short Description</label>
             <textarea
               id="description"
               name="description"
-              value={formData.description}
+              value={formData.description || ""}
               onChange={handleChange}
               rows={2}
-              required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="detail">Full Details *</label>
+            <label htmlFor="detail">Full Details</label>
             <textarea
               id="detail"
               name="detail"
-              value={formData.detail}
+              value={formData.detail || ""}
               onChange={handleChange}
               rows={4}
-              required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="imageUrl">Image URL *</label>
+            <label htmlFor="imageUrl">Image URL</label>
             <input
               type="text"
               id="imageUrl"
               name="imageUrl"
-              value={formData.imageUrl}
+              value={formData.imageUrl || ""}
               onChange={handleChange}
               placeholder="/src/assets/tournament-image.png"
-              required
             />
           </div>
 

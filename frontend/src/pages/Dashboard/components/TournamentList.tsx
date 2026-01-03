@@ -1,23 +1,15 @@
 import React from "react";
+import type { Event } from "../../../shared/types/Event";
 
-interface Tournament {
-  id: string;
-  title: string;
-  location: string;
-  date: string;
-  description: string;
-  detail: string;
-  status: string;
-  imageUrl: string;
-  maxTeams: number;
-  participatingTeams: string[];
-}
+type Tournament = Event & {
+  participatingTeams: number[];
+};
 
 interface TournamentListProps {
   tournaments: Tournament[];
   onView: (event: Tournament) => void;
   onEdit: (event: Tournament) => void;
-  onDelete: (id: string) => void;
+  onDelete: (id: number) => void;
   searchTerm: string;
 }
 
@@ -31,7 +23,7 @@ const TournamentList: React.FC<TournamentListProps> = ({
   const filteredEvents = tournaments.filter((event) => {
     const search = searchTerm.toLowerCase();
     return event.title.toLowerCase().includes(search) || 
-           event.location.toLowerCase().includes(search);
+           (event.location?.toLowerCase().includes(search) ?? false);
   });
 
   const getStatusClass = (status: string) => {
@@ -58,7 +50,7 @@ const TournamentList: React.FC<TournamentListProps> = ({
               <div className="tournament-info">
                 <p><strong>Location:</strong> {event.location}</p>
                 <p><strong>Date:</strong> {event.date}</p>
-                <p><strong>Teams:</strong> {event.participatingTeams?.length || 0}/{event.maxTeams}</p>
+                <p><strong>Teams:</strong> {event.participatingTeams?.length || 0}</p>
                 <p className="desc">{event.description}</p>
               </div>
               <div className="tournament-actions">

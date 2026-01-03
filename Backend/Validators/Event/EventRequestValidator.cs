@@ -16,11 +16,9 @@ public class EventRequestValidator : AbstractValidator<EventRequest>
             .MaximumLength(200).WithMessage("Location cannot exceed 200 characters.");
 
         RuleFor(e => e.Date)
-            .NotEmpty().WithMessage("Date is required.")
-            .GreaterThan(DateTime.Now).WithMessage("Date must be in the future.");
+            .NotEmpty().WithMessage("Date is required.");
 
         RuleFor(e => e.Description)
-        .NotEmpty().WithMessage("Description is required.")
             .MaximumLength(500).WithMessage("Description cannot exceed 500 characters.");
 
         RuleFor(e => e.Detail)
