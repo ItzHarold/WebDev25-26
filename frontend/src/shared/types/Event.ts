@@ -1,22 +1,22 @@
 export interface Event {
     id: number;
     title: string;
-    location?: string;
+    location: string;
     date: string;
-    description?: string;
-    detail?: string;
+    description: string | null;
+    detail: string | null;
     status: string;
-    imageUrl?: string;
+    imageUrl: string | null;
 }
 
 export interface EventRequest {
     title: string;
-    location?: string;
+    location: string;
     date: string;
-    description?: string;
-    detail?: string;
+    description: string | null;
+    detail: string | null;
     status: string;
-    imageUrl?: string;
+    imageUrl: string | null;
 }
 
 export interface EventTeam {

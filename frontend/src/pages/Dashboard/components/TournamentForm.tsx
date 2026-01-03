@@ -19,9 +19,9 @@ const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onC
     location: "",
     date: "",
     status: "upcoming",
-    description: "",
-    detail: "",
-    imageUrl: "",
+    description: null,
+    detail: null,
+    imageUrl: null,
     participatingTeams: [],
   });
 
@@ -74,13 +74,14 @@ const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onC
           </div>
 
           <div className="form-group">
-            <label htmlFor="location">Location</label>
+            <label htmlFor="location">Location *</label>
             <input
               type="text"
               id="location"
               name="location"
               value={formData.location}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -116,7 +117,7 @@ const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onC
             <textarea
               id="description"
               name="description"
-              value={formData.description}
+              value={formData.description || ""}
               onChange={handleChange}
               rows={2}
             />
@@ -127,7 +128,7 @@ const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onC
             <textarea
               id="detail"
               name="detail"
-              value={formData.detail}
+              value={formData.detail || ""}
               onChange={handleChange}
               rows={4}
             />
@@ -139,7 +140,7 @@ const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onC
               type="text"
               id="imageUrl"
               name="imageUrl"
-              value={formData.imageUrl}
+              value={formData.imageUrl || ""}
               onChange={handleChange}
               placeholder="/src/assets/tournament-image.png"
             />
