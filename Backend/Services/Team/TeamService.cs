@@ -43,16 +43,22 @@ public class TeamService : ITeamService
         _context.Teams.Add(team);
         await _context.SaveChangesAsync();
 
-        // Log the action
-        await _loggerService.CreateAsync(new Logger
+        try
         {
-            UserId = userId,
-            UserRole = userRole,
-            Action = "CREATE",
-            EntityType = "Team",
-            EntityName = team.Description ?? "Unnamed Team",
-            Details = $"{userRole} (ID:{userId}) created team '{team.Description}'"
-        });
+            await _loggerService.CreateAsync(new Logger
+            {
+                UserId = userId,
+                UserRole = userRole,
+                Action = "CREATE",
+                EntityType = "Team",
+                EntityName = team.Description ?? "Unnamed Team",
+                Details = $"{userRole} (ID:{userId}) created team '{team.Description}'"
+            });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Warning: Failed to log team creation: {ex.Message}");
+        }
 
         return team;
     }
@@ -66,7 +72,6 @@ public class TeamService : ITeamService
         if (!isManager)
             throw new InvalidOperationException($"User {data.ManagerId} is not a manager");
 
-
         team.Description = data.Description;
         team.Points = data.Points;
         team.ImageUrl = data.ImageUrl;
@@ -74,16 +79,22 @@ public class TeamService : ITeamService
 
         await _context.SaveChangesAsync();
 
-        // Log the action
-        await _loggerService.CreateAsync(new Logger
+        try
         {
-            UserId = userId,
-            UserRole = userRole,
-            Action = "UPDATE",
-            EntityType = "Team",
-            EntityName = team.Description ?? "Unnamed Team",
-            Details = $"{userRole} (ID:{userId}) updated team '{team.Description}'"
-        });
+            await _loggerService.CreateAsync(new Logger
+            {
+                UserId = userId,
+                UserRole = userRole,
+                Action = "UPDATE",
+                EntityType = "Team",
+                EntityName = team.Description ?? "Unnamed Team",
+                Details = $"{userRole} (ID:{userId}) updated team '{team.Description}'"
+            });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Warning: Failed to log team update: {ex.Message}");
+        }
 
         return true;
     }
@@ -98,16 +109,22 @@ public class TeamService : ITeamService
         _context.Teams.Remove(team);
         await _context.SaveChangesAsync();
 
-        // Log the action
-        await _loggerService.CreateAsync(new Logger
+        try
         {
-            UserId = userId,
-            UserRole = userRole,
-            Action = "DELETE",
-            EntityType = "Team",
-            EntityName = teamDescription,
-            Details = $"{userRole} (ID:{userId}) deleted team '{teamDescription}'"
-        });
+            await _loggerService.CreateAsync(new Logger
+            {
+                UserId = userId,
+                UserRole = userRole,
+                Action = "DELETE",
+                EntityType = "Team",
+                EntityName = teamDescription,
+                Details = $"{userRole} (ID:{userId}) deleted team '{teamDescription}'"
+            });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Warning: Failed to log team deletion: {ex.Message}");
+        }
 
         return true;
     }
