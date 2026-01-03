@@ -1,7 +1,7 @@
 import { getToken } from "../../features/auth/authStorage";
 import type { Event, EventRequest } from "../types/Event";
 
-const API_BASE_URL = "http://localhost:5079";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export const fetchEvents = async (): Promise<Event[]> => {
     const token = getToken();

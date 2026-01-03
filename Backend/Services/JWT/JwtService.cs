@@ -32,6 +32,10 @@ public class JwtService
         if (User is null || !_passwordService.Verify(User.Password, request.Password))
             return null;
 
+        // Update LastLoginAt timestamp
+        User.LastLoginAt = DateTime.UtcNow;
+        await _dbContext.SaveChangesAsync();
+
         // JWT Configuratie ophalen
         var issuer = _configuration["JwtConfig:Issuer"];
         var audience = _configuration["JwtConfig:Audience"];

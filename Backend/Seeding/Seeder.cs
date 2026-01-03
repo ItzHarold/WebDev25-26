@@ -72,7 +72,7 @@ public static class DataSeeder
         //Create Users
         var user1 = new User
         {
-            Role = "Admin",
+            Role = "admin",
             FirstName = "AdminJohn",
             LastName = "Robot",
             UserName = "adminjohn",
