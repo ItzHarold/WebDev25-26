@@ -36,7 +36,7 @@ public class TeamService : ITeamService
 
     public async Task<Team> CreateAsync(Team team, int userId, string userRole)
     {
-        var isManager = await _context.Users.AnyAsync(u => u.Id == team.ManagerId && u.Role == "Manager");
+        var isManager = await _context.Users.AnyAsync(u => u.Id == team.ManagerId && u.Role == "manager");
         if (!isManager)
             throw new InvalidOperationException($"User {team.ManagerId} is not a manager");
 
@@ -62,7 +62,7 @@ public class TeamService : ITeamService
         var team = await _context.Teams.FindAsync(id);
         if (team == null) return false;
 
-        var isManager = await _context.Users.AnyAsync(u => u.Id == data.ManagerId && u.Role == "Manager");
+        var isManager = await _context.Users.AnyAsync(u => u.Id == data.ManagerId && u.Role == "manager");
         if (!isManager)
             throw new InvalidOperationException($"User {data.ManagerId} is not a manager");
 

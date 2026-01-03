@@ -11,6 +11,8 @@ import AboutPage from "../pages/About/AboutPage";
 import RegisterPage from "../pages/Register/RegisterPage";
 import ContactPage from "../pages/Contact/ContactPage";
 import FavouritesPage from "../pages/Favourites/FavouritesPage";
+import TeamPage from "../pages/Team/TeamPage";
+
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -29,6 +31,7 @@ export const router = createBrowserRouter([
           { path: "profile", element: <ProfilePage /> },
           { path: "contact", element: <ContactPage /> },
           { path: "about", element: <AboutPage /> },
+          { path: "team", element: <TeamPage />}
         ],
       },
     ],
