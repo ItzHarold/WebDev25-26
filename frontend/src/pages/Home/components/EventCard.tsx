@@ -15,15 +15,6 @@ interface EventCardProps {
 
 const EventCard: React.FC<EventCardProps> = ({event, showFavouriteButton, liked = false, disabled = false,
   onToggleFavourite,}) => { const eventId = Number(event.id);
-const backendUrl = import.meta.env.VITE_API_URL;
-    const getEventImageUrl = (imageUrl?: string | null) => {
-    if (!imageUrl) return undefined;
-    if (imageUrl.startsWith("http")) return imageUrl;
-    return backendUrl + imageUrl;
-    };
-
-  const defaultEventImage = '/default-event.jpg'; // Place this image in your public folder
-  const imageUrl = event.imageUrl ? getEventImageUrl(event.imageUrl) : defaultEventImage;
   return (
     <article className="event-card">
       {showFavouriteButton && !Number.isNaN(eventId) && (
@@ -41,7 +32,7 @@ const backendUrl = import.meta.env.VITE_API_URL;
       <div className="card-body">
         <h3>{event.title}</h3>
         <p className="meta">
-          {event.location} • {event.date}{" "}
+          {event.location} • {new Date(event.date).toLocaleDateString()}{" "}
           <span className={`status ${event.status?.toLowerCase?.() ?? ""}`}>
             {event.status}
           </span>
