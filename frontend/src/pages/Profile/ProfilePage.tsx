@@ -1,3 +1,10 @@
+const backendUrl = import.meta.env.VITE_API_URL || "http://localhost:5079";
+
+const getProfileImageUrl = (imageUrl?: string | null) => {
+    if (!imageUrl) return undefined;
+    if (imageUrl.startsWith("http")) return imageUrl;
+    return backendUrl + imageUrl;
+};
 import React, { useState } from "react";
 import { useAuth } from "../../features/auth/AuthProvider";
 import PageHero from "../../shared/ui/PageHero";
@@ -25,7 +32,7 @@ const ProfilePage: React.FC = () => {
                 <header className="profile-header">
                     <figure className="avatar" aria-hidden="true">
                         {profile.imageUrl ? (
-                            <img src={profile.imageUrl} alt="" />
+                            <img src={getProfileImageUrl(profile.imageUrl)} alt="" />
                         ) : (
                             <svg viewBox="0 0 24 24" width="44" height="44">
                                 <circle cx="12" cy="8" r="4" fill="currentColor" />

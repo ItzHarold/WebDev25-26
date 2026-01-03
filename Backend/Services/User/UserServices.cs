@@ -13,6 +13,7 @@ public interface IUserService
     Task<bool> UpdateAsync(int id, User user, int userId, string userRole);
     Task<bool> DeleteAsync(int id, int userId, string userRole);
     Task<bool> ChangePasswordAsync(int userId, string currentPassword, string newPassword);
+    Task<string?> UploadProfilePictureAsync(int userId, IFormFile file);
 
     IQueryable<User> Users();
 }
@@ -196,5 +197,34 @@ public class UserService : IUserService
 
         return true;
     }
+
+    public async Task<string?> UploadProfilePictureAsync(int userId, IFormFile file)
+    {
+    var user = await _context.Users.FindAsync(userId);
+    if (user == null)
+        return null;
+
+    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+    var extension = Path.GetExtension(file.FileName).ToLower();
+    if (!allowedExtensions.Contains(extension))
+        throw new InvalidOperationException("Invalid file type.");
+
+    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/profile-pictures");
+    if (!Directory.Exists(uploadsFolder))
+        Directory.CreateDirectory(uploadsFolder);
+
+    var fileName = $"{Guid.NewGuid()}{extension}";
+    var filePath = Path.Combine(uploadsFolder, fileName);
+
+    using (var stream = new FileStream(filePath, FileMode.Create))
+    {
+        await file.CopyToAsync(stream);
+    }
+
+    user.ImageUrl = $"/profile-pictures/{fileName}";
+    await _context.SaveChangesAsync();
+
+    return user.ImageUrl;
+}
 
 }

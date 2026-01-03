@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { updateUser } from "../../../shared/api/userApi";
+import { updateUser, uploadProfilePicture } from "../../../shared/api/userApi";
+
 import type { User, UpdateUserRequest } from "../../../shared/types/User";
 import "../../../shared/ui/Modal.css";
 
@@ -23,6 +24,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ profile, onClose, o
     });
     const [error, setError] = useState<string | null>(null);
     const [saving, setSaving] = useState(false);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     useEffect(() => {
         setFormData({
@@ -57,7 +59,12 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ profile, onClose, o
 
         try {
             setSaving(true);
-            await updateUser(profile.id, formData);
+            let imageUrl = formData.imageUrl;
+            if (selectedFile) {
+                const result = await uploadProfilePicture(profile.id, selectedFile);
+                imageUrl = result.imageUrl;
+            }
+            await updateUser(profile.id, { ...formData, imageUrl });
             onSave();
         } catch (err: any) {
             setError(err.message || "Failed to update profile");
@@ -143,15 +150,13 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ profile, onClose, o
                     </fieldset>
 
                     <fieldset className="form-group">
-                        <label className="form-label" htmlFor="imageUrl">Profile Image URL</label>
+                        <label className="form-label" htmlFor="profilePicture">Profile Picture</label>
                         <input
                             className="form-input"
-                            type="text"
-                            id="imageUrl"
-                            name="imageUrl"
-                            value={formData.imageUrl || ""}
-                            onChange={handleChange}
-                            placeholder="https://example.com/image.jpg"
+                            type="file"
+                            id="profilePicture"
+                            accept="image/*"
+                            onChange={e => setSelectedFile(e.target.files?.[0] || null)}
                         />
                     </fieldset>
 

@@ -1,4 +1,4 @@
-import { api } from "./http";
+import { api, uploadApi } from "./http";
 import type { User, UpdateUserRequest, ChangePasswordRequest } from "../types/User";
 
 export const fetchUserById = (id: number) => 
@@ -15,3 +15,10 @@ export const changePassword = (data: ChangePasswordRequest) =>
         method: "PUT",
         body: JSON.stringify(data),
     });
+    
+export const uploadProfilePicture = (userId: number, file: File) => {
+  const formData = new FormData();
+  formData.append("userId", userId.toString());
+  formData.append("imageFile", file);
+  return uploadApi<{ imageUrl: string }>("/User/upload-profile-picture", formData);
+};

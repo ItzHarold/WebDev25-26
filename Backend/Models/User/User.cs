@@ -1,3 +1,4 @@
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +36,7 @@ public class User
 
     public int? TeamId { get; set; }
     public Team? Team { get; set; }
-    public byte[]? ImageUrl { get; set; }
+    public string? ImageUrl { get; set; }
 
     public ICollection<UserFavourite> Favourites { get; set; } = new List<UserFavourite>();
 
@@ -53,9 +54,13 @@ public class UserRequest
     public string Password { get; set; } = null!;
     public DateTime Dob { get; set; }
     public int? TeamId { get; set; }
-    public byte[]? ImageUrl { get; set; }
+    public string? ImageUrl { get; set; }
 }
-
+public class UserProfilePictureUploadRequest
+{
+    public int UserId { get; set; }
+    public IFormFile? ImageFile { get; set; }
+}
 public class UserResponse
 { 
     public int Id { get; set; }

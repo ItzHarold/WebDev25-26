@@ -32,7 +32,7 @@ public class UserController : ControllerBase
             Email = u.Email,
             Dob = u.Dob,
             TeamId = u.TeamId,
-            ImageUrl = u.ImageUrl != null ? Convert.ToBase64String(u.ImageUrl) : null,
+            ImageUrl = u.ImageUrl,
             CreatedAt = u.CreatedAt,
             LastLoginAt = u.LastLoginAt
         });
@@ -56,7 +56,7 @@ public class UserController : ControllerBase
             Email = user.Email,
             Dob = user.Dob,
             TeamId = user.TeamId,
-            ImageUrl = user.ImageUrl != null ? Convert.ToBase64String(user.ImageUrl) : null,
+            ImageUrl = user.ImageUrl,
             CreatedAt = user.CreatedAt,
             LastLoginAt = user.LastLoginAt
         };
@@ -98,7 +98,7 @@ public class UserController : ControllerBase
             Email = created.Email,
             Dob = created.Dob,
             TeamId = created.TeamId,
-            ImageUrl = created.ImageUrl != null ? Convert.ToBase64String(created.ImageUrl) : null,
+            ImageUrl = created.ImageUrl,
             CreatedAt = created.CreatedAt,
             LastLoginAt = created.LastLoginAt
         };
@@ -152,6 +152,20 @@ public class UserController : ControllerBase
         return NoContent();
     }
 
+    [HttpPost("upload-profile-picture")]
+    public async Task<IActionResult> UploadProfilePicture([FromForm] UserProfilePictureUploadRequest request)
+    {
+        if (request.ImageFile == null || request.ImageFile.Length == 0)
+            return BadRequest("No file uploaded.");
+
+        var result = await _userService.UploadProfilePictureAsync(request.UserId, request.ImageFile);
+        if (result == null)
+            return NotFound("User not found.");
+
+        return Ok(new { imageUrl = result });
+    }
+
+    
     // PUT /User/ChangePassword
     [HttpPut("ChangePassword")]
     public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)

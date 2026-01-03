@@ -164,7 +164,7 @@ app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseStaticFiles();
 app.MapControllers();
 
 app.Run();
