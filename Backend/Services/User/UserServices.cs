@@ -1,5 +1,6 @@
 using Backend.Data;
 using Backend.Models;
+using Backend.Services.Image;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services;
@@ -13,6 +14,7 @@ public interface IUserService
     Task<bool> UpdateAsync(int id, User user, int userId, string userRole);
     Task<bool> DeleteAsync(int id, int userId, string userRole);
     Task<bool> ChangePasswordAsync(int userId, string currentPassword, string newPassword);
+    Task<string?> UploadProfilePictureAsync(int userId, IFormFile file);
 
     IQueryable<User> Users();
 }
@@ -22,14 +24,16 @@ public class UserService : IUserService
     private readonly AppDbContext _context;
     private readonly IPasswordService _password;
     private readonly ILoggerService _loggerService;
+    private readonly IImageService _imageService;
 
     public IQueryable<User> Users() => _context.Users.AsQueryable();
 
-    public UserService(AppDbContext context, IPasswordService password, ILoggerService loggerService)
+    public UserService(AppDbContext context, IPasswordService password, ILoggerService loggerService, IImageService imageService)
     {
         _context = context;
         _password = password;
         _loggerService = loggerService;
+        _imageService = imageService;
     }
 
     public Task<List<User>> GetAllAsync()
@@ -187,6 +191,19 @@ public class UserService : IUserService
 
         return true;
     }
+
+    public async Task<string?> UploadProfilePictureAsync(int userId, IFormFile file)
+    {
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null)
+            return null;
+            
+        var newImageUrl = await _imageService.SaveImageAsync(file, "profile-pictures", user.ImageUrl);
+        user.ImageUrl = newImageUrl;
+        await _context.SaveChangesAsync();
+        return user.ImageUrl;
+    }
+
     
     public async Task<bool> ChangePasswordAsync(int userId, string currentPassword, string newPassword)
     {

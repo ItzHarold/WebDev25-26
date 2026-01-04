@@ -5,7 +5,7 @@ import { useFetchEventByID } from "../../shared/hooks/useFetchEvents";
 import "./EventsPage.css";
 import FavouriteButton from "../Favourites/components/FavouriteButton";
 import { useFavouritesBackend } from "../Favourites/components/useFavouritesBackend";
-import EventAttendance from "./components/EventAttendance";
+import ImageBackground from "../../shared/ui/ImageBackground";
 
 const EventsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,6 +14,15 @@ const EventsPage: React.FC = () => {
 
 
   const googleMapsUrl = `https://www.google.com/maps?q=${encodeURIComponent(event?.location || "")}`;
+  
+//mock Attendees
+  const attendees = [
+  { id: "1", name: "John Doe" },
+  { id: "2", name: "Jane Smith" },
+  { id: "3", name: "Alice Johnson" },
+  { id: "4", name: "Bob Brown" },
+  { id: "5", name: "Charlie White" },
+];
 
   return (
     <>
@@ -22,7 +31,7 @@ const EventsPage: React.FC = () => {
         subtitle="Event Details"
         backgroundImageUrl= "/HeroStock.jpg"
       />
-
+      
       <main className="content">
         <article className="card">
           {loading && <p>Loading event...</p>}
@@ -36,16 +45,30 @@ const EventsPage: React.FC = () => {
           )}
           {!loading && !error && event && (
             <>
-              {event.imageUrl && (
-                <img className="banner" src={event.imageUrl} alt={event.title} />
-              )}
+              <ImageBackground
+                imageUrl={event.imageUrl}
+                defaultImage="/default-event.jpg"
+                className="banner"
+              />
               <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</p>
               <p><strong>Location:</strong> {event.location}</p>
-              <p><strong>Status:</strong> {event.status}</p>
+              <p><strong>Status:</strong> {event.status}</p> 
               <p>{event.description}</p>
-              
-              {/* Teams Attendees  */}
-              <EventAttendance eventId={event.id} />
+              {/* Attendees Section */}
+              <section>
+                <h3>Attendees</h3>
+                <p>{attendees.length - 1} others are going:</p>
+                <div className="avatars">
+                  {attendees.slice(0, 5).map(attendee => (
+                    <div key={attendee.id} className="avatar" title={attendee.name}>
+                      {attendee.name[0].toUpperCase()}
+                    </div>
+                  ))}
+                  {attendees.length > 5 && (
+                    <div className="more-avatars">+{attendees.length - 5}</div>
+                  )}
+                </div>
+              </section>
 
               {/* Buttons */}
               <section className="actions">
