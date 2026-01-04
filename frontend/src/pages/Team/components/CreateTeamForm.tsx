@@ -2,7 +2,8 @@ import { useState } from "react";
 import "./CreateTeamForm.css";
 import { useAuth } from "../../../features/auth/AuthProvider";
 import { createTeam } from "../../../shared/api/teamApi";
-
+import { uploadTeamImage } from "../../../shared/api/teamApi";
+import ImageUploadForm from "../../../shared/ui/ImageUploadForm";
 
 type Props = {
   onCreated: () => void;
@@ -13,6 +14,7 @@ export default function CreateTeamForm({ onCreated }: Props) {
 
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,11 +33,16 @@ export default function CreateTeamForm({ onCreated }: Props) {
 
     try {
       setLoading(true);
-      await createTeam({
+      const newTeam = await createTeam({
         description,
-        imageUrl: imageUrl.trim() ? imageUrl : undefined,
+        imageUrl: null,
+        points: 0,
         managerId: user.userId,
       });
+      if (selectedFile) {
+        await uploadTeamImage(newTeam.id, selectedFile);
+      }
+
       onCreated();
     } catch (err: any) {
       setError(err.message || "Failed to create team");
@@ -58,9 +65,10 @@ return (
 
     <label>
       Image URL (optional)
-      <input
-        value={imageUrl}
-        onChange={(e) => setImageUrl(e.target.value)}
+      <ImageUploadForm
+        label="Team Image"
+        imageUrl={imageUrl}
+        onFileChange={setSelectedFile}
       />
     </label>
 

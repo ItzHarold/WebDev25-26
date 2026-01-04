@@ -23,3 +23,13 @@ export const deleteEvent = (id: number): Promise<void> =>
     api<void>(`/event/${id}`, {
         method: "DELETE",
     });
+
+export const uploadEventImage = (Id: number, file: File) => {
+    const formData = new FormData();
+    formData.append("id", Id.toString());
+    formData.append("imageFile", file);
+    return api<{ imageUrl: string }>("/event/upload-image", {
+        method: "POST",
+        body: formData,
+    });
+};
