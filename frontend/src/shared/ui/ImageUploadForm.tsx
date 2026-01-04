@@ -6,7 +6,7 @@ interface ImageUploadFormProps {
   onFileChange: (file: File | null) => void;
 }
 
-const ImageUploadForm: React.FC<ImageUploadFormProps> = ({ label, imageUrl, onFileChange }) => (
+const ImageUploadForm: React.FC<ImageUploadFormProps> = ({ label, onFileChange }) => (
   <div className="form-group">
     <label className="form-label">{label}</label>
     <input
@@ -15,11 +15,6 @@ const ImageUploadForm: React.FC<ImageUploadFormProps> = ({ label, imageUrl, onFi
       accept="image/*"
       onChange={e => onFileChange(e.target.files?.[0] || null)}
     />
-    {imageUrl && (
-      <div style={{ marginTop: 8 }}>
-        <img src={imageUrl} alt="Preview" style={{ maxWidth: 120, maxHeight: 80, borderRadius: 4 }} />
-      </div>
-    )}
   </div>
 );
 

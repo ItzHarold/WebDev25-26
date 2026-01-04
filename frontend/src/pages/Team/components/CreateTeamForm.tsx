@@ -13,7 +13,7 @@ export default function CreateTeamForm({ onCreated }: Props) {
   const { user } = useAuth();
 
   const [description, setDescription] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
