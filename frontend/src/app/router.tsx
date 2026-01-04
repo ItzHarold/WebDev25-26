@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import RequireAuth from "../features/auth/requireAuth";
+import RequireRole from "../features/auth/RequireRole";
 import AppLayout from "../shared/ui/AppLayout";
 
 import HomePage from "../pages/Home/HomePage";
@@ -27,11 +28,21 @@ export const router = createBrowserRouter([
           { index: true, element: <HomePage /> },
           { path: "events/:id", element: <EventsPage /> },
           { path: "favourites", element: <FavouritesPage /> },
-          { path: "dashboard", element: <DashboardPage /> },
           { path: "profile", element: <ProfilePage /> },
           { path: "contact", element: <ContactPage /> },
           { path: "about", element: <AboutPage /> },
           { path: "team", element: <TeamPage />}
+        ],
+      },
+      {
+        element: <RequireRole allowedRoles={["admin"]} />,
+        children: [
+          {
+            element: <AppLayout />,
+            children: [
+              { path: "dashboard", element: <DashboardPage /> },
+            ],
+          },
         ],
       },
     ],
