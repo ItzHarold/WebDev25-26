@@ -6,6 +6,7 @@ import "./EventsPage.css";
 import FavouriteButton from "../Favourites/components/FavouriteButton";
 import { useFavouritesBackend } from "../Favourites/components/useFavouritesBackend";
 import EventAttendance from "./components/EventAttendance";
+import ImageBackground from "../../shared/ui/ImageBackground";
 
 const EventsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -36,9 +37,11 @@ const EventsPage: React.FC = () => {
           )}
           {!loading && !error && event && (
             <>
-              {event.imageUrl && (
-                <img className="banner" src={event.imageUrl} alt={event.title} />
-              )}
+              <ImageBackground
+                imageUrl={event.imageUrl}
+                defaultImage="/default-event.jpg"
+                className="banner"
+              />
               <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</p>
               <p><strong>Location:</strong> {event.location}</p>
               <p><strong>Status:</strong> {event.status}</p>
