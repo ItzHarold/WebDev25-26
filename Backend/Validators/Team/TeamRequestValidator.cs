@@ -3,8 +3,22 @@ using Backend.Models;
 
 namespace Backend.Validators.Team;
 
+/// <summary>
+/// Validator for team creation and update requests using FluentValidation.
+/// Ensures all team fields meet the required criteria.
+/// </summary>
+/// <remarks>
+/// Validation rules:
+/// - Description: Optional, max 200 characters
+/// - Points: Must be non-negative (>= 0)
+/// - ImageUrl: Optional, max 200 characters
+/// - ManagerId: Required, must be greater than 0
+/// </remarks>
 public class TeamRequestValidator : AbstractValidator<TeamRequest>
 {
+    /// <summary>
+    /// Initializes validation rules for team requests.
+    /// </summary>
     public TeamRequestValidator()
     {
         RuleFor(x => x.Description)

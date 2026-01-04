@@ -3,8 +3,26 @@ using FluentValidation;
 
 namespace Backend.Validators.User;
 
+/// <summary>
+/// Validator for user creation and update requests using FluentValidation.
+/// Ensures all user fields meet the required criteria including age restrictions.
+/// </summary>
+/// <remarks>
+/// Validation rules:
+/// - Role: Required, must be 'player', 'manager', or 'admin'
+/// - FirstName: Required, max 50 characters
+/// - LastName: Required, max 50 characters
+/// - UserName: Required, max 30 characters
+/// - Email: Required, valid email format
+/// - Password: Required, minimum 4 characters
+/// - Dob: Required, must be in the past, user must be at least 12 years old
+/// - TeamId: If provided, must be greater than 0
+/// </remarks>
 public class UserRequestValidator : AbstractValidator<UserRequest>
 {
+    /// <summary>
+    /// Initializes validation rules for user requests.
+    /// </summary>
     public UserRequestValidator()
     {
         RuleFor(x => x.Role)
@@ -35,8 +53,9 @@ public class UserRequestValidator : AbstractValidator<UserRequest>
         RuleFor(x => x.Dob)
             .NotEmpty().WithMessage("Date of birth is required.")
             .LessThan(DateTime.Now).WithMessage("Date of birth must be in the past.")
-            .Must(dob =>dob <= DateTime.Today.AddYears(-12))
+            .Must(dob => dob <= DateTime.Today.AddYears(-12))
             .WithMessage("User must be at least 12 years old.");
+
         RuleFor(x => x.TeamId)
             .GreaterThan(0).WithMessage("TeamId must be greater than zero.");
     }

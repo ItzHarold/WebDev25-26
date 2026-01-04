@@ -4,24 +4,26 @@ using FluentValidation;
 namespace Backend.Validators.Register;
 
 /// <summary>
-/// Validator for registration requests using FluentValidation.
-/// Ensures all required fields are present and meet validation criteria.
+/// Validator for user registration requests using FluentValidation.
+/// Ensures all required registration fields are present and valid.
 /// </summary>
+/// <remarks>
+/// Validation rules:
+/// - Role: Required, must be 'player' or 'manager' (admins created differently)
+/// - FirstName: Required, max 50 characters
+/// - LastName: Required, max 50 characters
+/// - UserName: Required, max 50 characters
+/// - Email: Required, valid email format
+/// - Password: Required, minimum 4 characters
+/// - Dob: Required, must be in the past
+/// 
+/// Note: Username and email uniqueness is validated in the service layer.
+/// </remarks>
 public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
 {
     /// <summary>
     /// Initializes validation rules for registration requests.
     /// </summary>
-    /// <remarks>
-    /// Validation rules:
-    /// - Role: Required, must be "player" or "manager"
-    /// - FirstName: Required, max 50 characters
-    /// - LastName: Required, max 50 characters
-    /// - UserName: Required, max 50 characters
-    /// - Email: Required, valid email format
-    /// - Password: Required, minimum 4 characters
-    /// - Dob: Required, must be in the past
-    /// </remarks>
     public RegisterRequestValidator()
     {
         RuleFor(x => x.Role)
