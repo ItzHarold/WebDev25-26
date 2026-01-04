@@ -19,7 +19,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ teams }) => {
         return <p>No leaderboard data available.</p>;
     }
     return (
-        <section className="leaderboard">
+        <section className="leaderboard" aria-label="Leaderboard">
             <ol className="leaderboard-list">
                 {leaderboard.map(entry => (
                     <li key={entry.rank} className="leaderboard-item">
