@@ -59,3 +59,32 @@ a:hover {
 .topbar_brand img {
   filter: invert(1);
 }
+
+/* Pagination*/
+.pagination {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+}
+.pagination button {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.5em 1em;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background 0.3s, border-color 0.3s;
+}
+.pagination button:hover:not(:disabled) {
+  background: var(--panel);
+}
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.pagination span {
+  font-size: 1em;
+}

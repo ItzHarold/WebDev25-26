@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFetchTeams } from "../../shared/hooks/useFetchTeams";
 import { useFetchEvents } from "../../shared/hooks/useFetchEvents";
 import EventGrid from "./components/EventGrid";
+import Pagination from "../../shared/ui/Pagination";
 import Leaderboard from "./components/LeaderBoardList";
 import TeamList from "./components/TeamList";
 import PageHero from "../../shared/ui/PageHero";
@@ -13,10 +14,10 @@ const HomePage: React.FC = () => {
     const { events } = useFetchEvents();
     const [filteredEvents, setFilteredEvents] = useState(events);
     const [activeFilter, setActiveFilter] = useState("all");
+    const [currentPage, setCurrentPage] = useState(1);
+    const eventsPerPage = 6;
 
     useEffect(() => {
-        console.log("Active filter:", activeFilter);
-        console.log("Events:", events);
         const filterEvents = () => {
             if (activeFilter === "all") {
                 setFilteredEvents(events);
@@ -24,9 +25,13 @@ const HomePage: React.FC = () => {
                 setFilteredEvents(events.filter((event) => event.status.toLowerCase() === activeFilter));
             }
         };
-
         filterEvents();
+        setCurrentPage(1);
     }, [events, activeFilter]);
+    const indexOfLastEvent = currentPage * eventsPerPage;
+    const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
+    const currentEvents = filteredEvents.slice(indexOfFirstEvent, indexOfLastEvent);
+    const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
     return (
         <>
             <PageHero
@@ -74,7 +79,12 @@ const HomePage: React.FC = () => {
                             </button>
                         </nav>
                     </header>
-                    <EventGrid events={filteredEvents} />
+                    <EventGrid events={currentEvents} />
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={setCurrentPage}
+                    />
                 </section>
 
                 {/* Leaderboard Section */}

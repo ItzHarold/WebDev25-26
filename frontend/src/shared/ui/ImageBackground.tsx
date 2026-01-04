@@ -1,4 +1,3 @@
-// src/shared/components/ImageBackground.tsx
 import React from "react";
 
 interface ImageBackgroundProps {
