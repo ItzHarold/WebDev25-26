@@ -60,14 +60,6 @@ const ProfilePage: React.FC = () => {
                         <dt className="label">Member Since</dt>
                         <dd className="value">{new Date(profile.createdAt).toLocaleDateString()}</dd>
                     </div>
-                    <div className="field">
-                        <dt className="label">Last Login</dt>
-                        <dd className="value">
-                            {profile.lastLoginAt 
-                                ? new Date(profile.lastLoginAt).toLocaleDateString() 
-                                : "—"}
-                        </dd>
-                    </div>
                 </dl>
 
                 <footer className="profile-actions">
