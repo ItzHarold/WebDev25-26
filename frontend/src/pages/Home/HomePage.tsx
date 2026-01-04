@@ -34,9 +34,9 @@ const HomePage: React.FC = () => {
                         subtitle="Overview of Events and Teams"
                         backgroundImageUrl="HeroStock.jpg"
                       />
-            <main className="main-content" aria-label="Main content with teams, events, and leaderboard">
+            <main className="main-content">
                 {/* Teams Section */}
-                <aside className="teams-sidebar" aria-label="Teams sidebar">
+                <aside className="teams-sidebar">
                     <h2>Teams</h2>
                     {teamsLoading && <p>Loading teams...</p>}
                 {teamsError && <p style={{ color: "red" }}>{teamsError}</p>}
@@ -44,10 +44,10 @@ const HomePage: React.FC = () => {
                 </aside>
 
                 {/* Event Section */}
-                <section className="event-section" aria-label="Event section">
+                <section className="event-section">
                     <header className="events-header">
                         <h2 className="events-title">Events</h2>
-                        <nav className="event-filters" role="tablist" aria-label="Event status filters navigation">
+                        <nav className="event-filters" role="tablist" aria-label="Event status filters">
                             <button
                                 className={`filter-btn ${activeFilter === "all" ? "active" : ""}`}
                                 onClick={() => setActiveFilter("all")}
@@ -78,7 +78,7 @@ const HomePage: React.FC = () => {
                 </section>
 
                 {/* Leaderboard Section */}
-                <aside className="leaderboard-sidebar" aria-label="Leaderboard sidebar">
+                <aside className="leaderboard-sidebar">
                     <h2>Leaderboard</h2>
                     {teamsLoading && <p>Loading leaderboard...</p>}
                 {teamsError && <p style={{ color: "red" }}>{teamsError}</p>}

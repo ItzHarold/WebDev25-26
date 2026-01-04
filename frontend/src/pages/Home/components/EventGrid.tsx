@@ -17,7 +17,7 @@ const EventGrid: React.FC<EventGridProps> = ({ events, onFavouriteChanged }) => 
   }
 
   return (
-    <section className="events-grid" aria-label="Event cards grid">
+    <section className="events-grid">
       {events.map((event) => {
         const eventId = Number(event.id);
         const validId = !Number.isNaN(eventId);

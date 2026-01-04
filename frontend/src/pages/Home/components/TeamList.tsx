@@ -13,7 +13,7 @@ const TeamList: React.FC<TeamListobj> = ({ teams }) => {
     }
 
     return (
-        <div className="teams-list" aria-label="Teams list">
+        <div className="teams-list">
             {teams.map(team => (
                 <TeamCard key={team.id} team={team} />
             ))}
