@@ -72,7 +72,6 @@ const EventsPage: React.FC = () => {
 
               {/* Buttons */}
               <section className="actions">
-                <button className="btn">Attend</button>
                 <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="btn">Get Directions</a>
                 <Link to="/" className="btn">Back to Home</Link>
               </section>
