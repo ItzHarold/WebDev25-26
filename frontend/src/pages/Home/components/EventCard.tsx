@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import type { Event } from "../../../shared/types/Event";
 import FavouriteButton from "../../Favourites/components/FavouriteButton";
+import ImageBackground from "../../../shared/ui/ImageBackground";
 
 interface EventCardProps {
   event: Event;
@@ -14,7 +15,6 @@ interface EventCardProps {
 
 const EventCard: React.FC<EventCardProps> = ({event, showFavouriteButton, liked = false, disabled = false,
   onToggleFavourite,}) => { const eventId = Number(event.id);
-
   return (
     <article className="event-card">
       {showFavouriteButton && !Number.isNaN(eventId) && (
@@ -24,14 +24,15 @@ const EventCard: React.FC<EventCardProps> = ({event, showFavouriteButton, liked 
           onToggle={onToggleFavourite ?? (() => {})}
         />
       )}
-      <div
-        className="card-media"
-        style={{ backgroundImage: `url(${event.imageUrl})` }}
-      />
+      <ImageBackground
+  imageUrl={event.imageUrl}
+  defaultImage="/default-event.jpg"
+  className="card-media"
+/>
       <div className="card-body">
         <h3>{event.title}</h3>
         <p className="meta">
-          {event.location} • {event.date}{" "}
+          {event.location} • {new Date(event.date).toLocaleDateString()}{" "}
           <span className={`status ${event.status?.toLowerCase?.() ?? ""}`}>
             {event.status}
           </span>

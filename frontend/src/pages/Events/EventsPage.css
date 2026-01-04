@@ -27,12 +27,14 @@
 
 .banner {
   width: 100%;
-  height: auto;
+  height: 400px; /* or whatever height you want */
   max-width: 800px;
-  display: block;
   margin: 0 auto;
   border-radius: 8px;
-  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: block;
 }
 .btn {
     display: inline-block;

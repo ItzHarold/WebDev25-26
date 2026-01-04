@@ -1,5 +1,6 @@
 using Backend.Data;
 using Backend.Models;
+using Backend.Services.Image;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services;
@@ -11,17 +12,20 @@ public interface ITeamService
     Task<Team> CreateAsync(Team team, int userId, string userRole);
     Task<bool> UpdateAsync(int id, Team team, int userId, string userRole);
     Task<bool> DeleteAsync(int id, int userId, string userRole);
+    Task<string?> UploadTeamPictureAsync(int userId, IFormFile file);
 }
 
 public class TeamService : ITeamService
 {
     private readonly AppDbContext _context;
     private readonly ILoggerService _loggerService;
+    private readonly IImageService _imageService;
 
-    public TeamService(AppDbContext context, ILoggerService loggerService)
+    public TeamService(AppDbContext context, ILoggerService loggerService, IImageService imageService)
     {
         _context = context;
         _loggerService = loggerService;
+        _imageService = imageService;
     }
 
     public Task<List<Team>> GetAllAsync()
@@ -127,5 +131,17 @@ public class TeamService : ITeamService
         }
 
         return true;
+    }
+
+    public async Task<string?> UploadTeamPictureAsync(int TeamId, IFormFile file)
+    {
+        var team = await _context.Teams.FindAsync(TeamId);
+        if (team == null)
+            return null;
+            
+        var newImageUrl = await _imageService.SaveImageAsync(file, "team-pictures", team.ImageUrl);
+        team.ImageUrl = newImageUrl;
+        await _context.SaveChangesAsync();
+        return team.ImageUrl;
     }
 }

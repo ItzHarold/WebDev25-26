@@ -12,7 +12,12 @@ const ProfilePage: React.FC = () => {
     
     const [showEditModal, setShowEditModal] = useState(false);
     const [showPasswordModal, setShowPasswordModal] = useState(false);
-
+    const backendUrl = import.meta.env.VITE_API_URL;
+    const getProfileImageUrl = (imageUrl?: string | null) => {
+    if (!imageUrl) return undefined;
+    if (imageUrl.startsWith("http")) return imageUrl;
+    return backendUrl + imageUrl;
+    };
     if (loading) return <p className="loading">Loading...</p>;
     if (error) return <p className="error">{error}</p>;
     if (!profile) return <p className="error">No profile found</p>;
@@ -25,7 +30,7 @@ const ProfilePage: React.FC = () => {
                 <header className="profile-header">
                     <figure className="avatar" aria-hidden="true">
                         {profile.imageUrl ? (
-                            <img src={profile.imageUrl} alt="" />
+                            <img src={getProfileImageUrl(profile.imageUrl)} alt="" />
                         ) : (
                             <svg viewBox="0 0 24 24" width="44" height="44">
                                 <circle cx="12" cy="8" r="4" fill="currentColor" />

@@ -1,5 +1,6 @@
 using Backend.Data;
 using Backend.Models;
+using Backend.Services.Image;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services;
@@ -11,17 +12,20 @@ public interface IEventService
     Task<Event> CreateAsync(Event ev, int userId, string userRole);
     Task<bool> UpdateAsync(int id, Event ev, int userId, string userRole);
     Task<bool> DeleteAsync(int id, int userId, string userRole);
+    Task<string?> UploadEventPictureAsync(int userId, IFormFile file);
 }
 
 public class EventService : IEventService
 {
     private readonly AppDbContext _context;
     private readonly ILoggerService _loggerService;
+    private readonly IImageService _imageService;
 
-    public EventService(AppDbContext context, ILoggerService loggerService)
+    public EventService(AppDbContext context, ILoggerService loggerService, IImageService imageService)
     {
         _context = context;
         _loggerService = loggerService;
+        _imageService = imageService;
     }
 
     public Task<List<Event>> GetAllAsync()
@@ -122,5 +126,17 @@ public class EventService : IEventService
         }
 
         return true;
+    }
+
+    public async Task<string?> UploadEventPictureAsync(int evId, IFormFile file)
+    {
+        var ev = await _context.Events.FindAsync(evId);
+        if (ev == null)
+            return null;
+            
+        var newImageUrl = await _imageService.SaveImageAsync(file, "event-pictures", ev.ImageUrl);
+        ev.ImageUrl = newImageUrl;
+        await _context.SaveChangesAsync();
+        return ev.ImageUrl;
     }
 }
