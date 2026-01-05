@@ -1,0 +1,94 @@
+/* ---------- EVENTS SECTION ---------- */
+.event-filters {
+    display: flex;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+.filter-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.5em 1em;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.filter-btn:hover {
+    background: var(--panel);
+}
+
+.filter-btn.active {
+    background: var(--accent);
+    color: var(--text);
+    border-color: var(--accent);
+}
+
+/* ---------- EVENTS GRID ---------- */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1em; /* Space between cards */
+}
+
+.event-card {
+    width: 100%;
+    margin: 1em;
+    background: var(--panel);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-4px);
+}
+/* ---------- EVENT CARD CONTENT ---------- */
+.card-media {
+    height: 160px;
+    background-size: cover;
+    background-position: center;
+}
+.card-body {
+    padding: 1em;
+    flex: 1;
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between;
+}
+
+.card-body h3 {
+    margin: 0 0 0.4em;
+    font-size: 1.2em;
+}
+
+.card-body .meta {
+    font-size: 0.9em;
+}
+
+.card-body .desc {
+    font-size: 0.95em;
+}
+
+.card-body .btn {
+    display: inline-block;
+    color: var(--text);
+    font-size: 0.9em;
+    cursor: pointer;
+    padding: 0.6em 1.2em;
+    background: var(--accent);
+    text-decoration: none;
+    border-radius: var(--radius-lg);
+    border: none;
+    transition: opacity 0.3s;
+    
+}
+
+.card-body .btn:hover {
+    opacity: 0.9;
+}

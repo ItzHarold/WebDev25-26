@@ -1,0 +1,86 @@
+.footer {
+    border-top: 1px solid #222;
+    padding: 28px 24px 18px;
+  }
+  
+  .footer__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    gap: 22px;
+  }
+  
+  .footer__brand {
+    display: grid;
+    gap: 8px;
+  }
+  
+  .footer__logo {
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .footer__tagline {
+    margin: 0;
+    color: #bdbdbd;
+    font-size: 14px;
+    max-width: 60ch;
+  }
+  
+  .footer__nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  
+  .footer__heading {
+    margin: 0 0 10px;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: #9aa0a6;
+  }
+  
+  .footer__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+  
+  .footer__list a {
+    color: #cfcfcf;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .footer__list a:hover {
+    color: #fff;
+  }
+  
+  .footer__bottom {
+    max-width: 1200px;
+    margin: 18px auto 0;
+    padding-top: 14px;
+    border-top: 1px solid #222;
+    text-align: center;
+    color: #888;
+    font-size: 13px;
+  }
+  
+  .footer__bottom p {
+    margin: 0;
+  }
+  
+ /* 
+This is in case the device is on a smaller screen to make it just one column
+ */
+  @media (max-width: 600px) {
+    .footer__nav {
+      grid-template-columns: 1fr;
+    }
+  }
+  

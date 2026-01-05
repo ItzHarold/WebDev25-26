@@ -1,0 +1,49 @@
+/* HomePage.css */
+.teams-sidebar,
+.leaderboard-sidebar,
+.events-header{
+    text-align: center;
+}
+
+/* ---------- MAIN CONTENT ---------- */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* Teams, Events, Leaderboard */
+    gap: var(--spacing-large);
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+    .main-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-medium);
+    }
+
+    .teams-sidebar {
+        order: 1; 
+    }
+
+    .events-section {
+        order: 2; 
+    }
+    
+    .leaderboard-sidebar {
+        order: 3; 
+    }
+}
+
+@media (max-width: 600px) {
+
+    .events-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-btn {
+        flex: 1 1 45%;
+        text-align: center;
+    }
+}

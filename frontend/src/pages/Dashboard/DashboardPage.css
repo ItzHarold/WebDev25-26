@@ -1,0 +1,83 @@
+/* Dashboard Page Layout */
+
+.dashboard-page {
+    min-height: 100vh;
+    padding: var(--spacing-large) var(--spacing-medium);
+    background: var(--bg);
+}
+
+.dashboard-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: var(--spacing-large);
+}
+
+.dashboard-header h1 {
+    color: var(--text);
+    margin: 0 0 0.5rem 0;
+    font-size: 2.5em;
+}
+
+.dashboard-header p {
+    color: var(--link);
+    font-size: 1.1em;
+}
+
+/* Loading and Error States */
+.loading-message,
+.error-message {
+    text-align: center;
+    padding: calc(var(--spacing-large) * 2);
+    margin: var(--spacing-large) 0;
+    background: var(--panel);
+    border-radius: var(--radius-lg);
+    color: var(--text);
+    box-shadow: var(--shadow);
+    font-size: 1.1em;
+}
+
+.error-message {
+    color: #ef4444;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-medium);
+    align-items: center;
+    border: 1px solid #ef4444;
+}
+
+.btn-retry {
+    padding: 0.75em 2em;
+    background: var(--accent);
+    color: var(--text);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-retry:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-page {
+        padding: var(--spacing-medium) var(--spacing-small);
+    }
+
+    .dashboard-header h1 {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-header h1 {
+        font-size: 1.75em;
+    }
+}

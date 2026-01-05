@@ -1,0 +1,53 @@
+.team-page {
+    padding: var(--spacing-large) var(--spacing-medium);
+    display: flex;
+    justify-content: center;
+}
+
+.team-box {
+    width: min(820px, 100%);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+    padding: 22px;
+}
+
+.team-title {
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.team-subtitle {
+    margin: 8px 0 18px;
+    color: var(--link);
+}
+
+.team-muted {
+    color: var(--link);
+    margin: 10px 0;
+}
+
+.team-error {
+    color: #f87171;
+    margin: 10px 0;
+}
+
+.team-owned-header {    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.team-action {
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(59, 130, 246, 0.22);
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+    transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
