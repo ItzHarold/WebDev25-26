@@ -166,7 +166,7 @@ public class TeamController : ControllerBase
         if (request.ImageUrl == null || request.ImageUrl.Length == 0)
             return BadRequest("No file uploaded.");
 
-        var result = await _service.UploadTeamPictureAsync(request.TeamId, request.ImageUrl);
+        var result = await _service.UploadTeamPictureAsync(id, request.ImageUrl);
         if (result == null)
             return NotFound("Team not found.");
 

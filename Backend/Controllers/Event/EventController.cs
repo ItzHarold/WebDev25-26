@@ -184,7 +184,7 @@ public class EventController : ControllerBase
         if (request.ImageUrl == null || request.ImageUrl.Length == 0)
             return BadRequest("No file uploaded.");
 
-        var result = await _service.UploadEventPictureAsync(request.EventId, request.ImageUrl);
+        var result = await _service.UploadEventPictureAsync(id, request.ImageUrl);
         if (result == null)
             return NotFound("Event not found.");
 

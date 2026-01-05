@@ -6,7 +6,7 @@ import DashboardStats from "./components/DashboardStats";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
 import "../../shared/styles/global.css";
 import "./DashboardPage.css";
-import { fetchEvents, createEvent, updateEvent, deleteEvent } from "../../shared/api/eventApi";
+import { fetchEvents, createEvent, updateEvent, deleteEvent, uploadEventImage } from "../../shared/api/eventApi";
 import type { Event, EventRequest } from "../../shared/types/Event";
 import { fetchTeams } from "../../shared/api/teamApi";
 import type { Team } from "../../shared/types/Team";
@@ -79,7 +79,7 @@ const DashboardPage = () => {
   };
 
   // add new event to list
-  const handleCreateEvent = async (eventData: Tournament) => {
+  const handleCreateEvent = async (eventData: Tournament, imageFile: File | null) => {
     try {
       const eventRequest: EventRequest = {
         title: eventData.title,
@@ -92,7 +92,12 @@ const DashboardPage = () => {
       };
 
       const createdEvent = await createEvent(eventRequest);
-      
+
+      // Upload image if provided
+      if (imageFile && createdEvent.id) {
+        await uploadEventImage(createdEvent.id, imageFile);
+      }
+
       const newEvent: Tournament = {
         id: createdEvent.id,
         title: createdEvent.title,
@@ -104,7 +109,7 @@ const DashboardPage = () => {
         imageUrl: createdEvent.imageUrl || "",
         participatingTeams: []
       };
-      
+
       setEvents([...events, newEvent]);
       setShowCreateForm(false);
     } catch (err: any) {
@@ -114,7 +119,7 @@ const DashboardPage = () => {
   };
 
   // update event in the list
-  const handleEditEvent = async (eventData: Tournament) => {
+  const handleEditEvent = async (eventData: Tournament, imageFile: File | null) => {
     try {
       const eventRequest: EventRequest = {
         title: eventData.title,
@@ -127,7 +132,10 @@ const DashboardPage = () => {
       };
 
       await updateEvent(eventData.id, eventRequest);
-      
+      if (imageFile && eventData.id) {
+        await uploadEventImage(eventData.id, imageFile);
+      }
+
       // Update local state
       const updatedList = events.map((event: Tournament) => {
         if (event.id === eventData.id) {
