@@ -68,6 +68,7 @@ public static class DataSeeder
             Email = "admin@test.com",
             Password = passwordService.Hash("123456"),
             Dob = new DateTime(1995, 1, 1),
+            ImageUrl = "/profile-pictures/animatedpop.gif",
             Team = teamA
         };
 
