@@ -26,9 +26,8 @@ export const deleteTeam = (id: number): Promise<void> =>
 
 export const uploadTeamImage = (teamId: number, file: File) => {
     const formData = new FormData();
-    formData.append("TeamId", teamId.toString());
     formData.append("ImageUrl", file);
-    return api<{ imageUrl: string }>("/team/upload-image", {
+    return api<{ imageUrl: string }>(`/team/${teamId}/upload-image`, {
         method: "POST",
         body: formData,
     });

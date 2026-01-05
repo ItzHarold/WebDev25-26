@@ -38,6 +38,6 @@ public class EventResponse
 }
 public class EventImageUploadRequest
 {
-    public int EventId { get; set; }
+
     public IFormFile? ImageUrl { get; set; }
 }

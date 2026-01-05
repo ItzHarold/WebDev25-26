@@ -16,11 +16,10 @@ export const changePassword = (data: ChangePasswordRequest) =>
         body: JSON.stringify(data),
     });
 
-export const uploadProfilePicture = (userId: number, file: File) => {
+export const uploadProfilePicture = (id: number, file: File) => {
     const formData = new FormData();
-    formData.append("userId", userId.toString());
     formData.append("imageFile", file);
-    return api<{ imageUrl: string }>("/User/upload-profile-picture", {
+    return api<{ imageUrl: string }>(`/user/${id}/upload-profile-picture`, {
         method: "POST",
         body: formData,
     });

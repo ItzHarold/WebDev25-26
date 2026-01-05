@@ -125,14 +125,15 @@ public class TeamController : ControllerBase
         if (!success) return NotFound();
         return NoContent();
     }
-
-    [HttpPost("upload-image")]
-    public async Task<IActionResult> UploadTeamImage([FromForm] TeamImageUploadRequest request)
+    //Upload Team Image
+    [Authorize(Roles = "admin,manager")]
+    [HttpPost("{id:int}/upload-image")]
+    public async Task<IActionResult> UploadTeamImage(int id, [FromForm] TeamImageUploadRequest request)
     {
         if (request.ImageUrl == null || request.ImageUrl.Length == 0)
             return BadRequest("No file uploaded.");
 
-        var result = await _service.UploadTeamPictureAsync(request.TeamId, request.ImageUrl);
+        var result = await _service.UploadTeamPictureAsync(id, request.ImageUrl);
         if (result == null)
             return NotFound("Team not found.");
 

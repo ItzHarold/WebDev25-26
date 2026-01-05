@@ -30,6 +30,5 @@ public class TeamResponse
 
 public class TeamImageUploadRequest
 {
-    public int TeamId { get; set; }
     public IFormFile? ImageUrl { get; set; }
 }

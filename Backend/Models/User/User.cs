@@ -73,7 +73,6 @@ public class UserResponse
 }
 public class UserProfilePictureUploadRequest
 {
-    public int UserId { get; set; }
     public IFormFile? ImageFile { get; set; }
 }
 

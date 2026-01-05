@@ -144,13 +144,14 @@ public class EventController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("upload-image")]
-    public async Task<IActionResult> UploadEventImage([FromForm] EventImageUploadRequest request)
+    [Authorize(Roles = "admin")]
+    [HttpPost("{id:int}/upload-image")]
+    public async Task<IActionResult> UploadEventImage(int id, [FromForm] EventImageUploadRequest request)
     {
         if (request.ImageUrl == null || request.ImageUrl.Length == 0)
             return BadRequest("No file uploaded.");
 
-        var result = await _service.UploadEventPictureAsync(request.EventId, request.ImageUrl);
+        var result = await _service.UploadEventPictureAsync(id, request.ImageUrl);
         if (result == null)
             return NotFound("Event not found.");
 
