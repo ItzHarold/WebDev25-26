@@ -46,15 +46,17 @@ export default function UpdateTeamForm({ team, onUpdated, onCancel }: Props) {
         points: team.points,
         managerId: team.managerId,
       });
+      
+      if (selectedFile) {
+        await uploadTeamImage(team.id, selectedFile);
+      }
+      
       onUpdated();
     } catch (err: any) {
       setError(err.message || "Failed to update team");
     } finally {
       setLoading(false);
     }
-    if (selectedFile) {
-            await uploadTeamImage(team.id, selectedFile);
-          }
   };
 
   return (
