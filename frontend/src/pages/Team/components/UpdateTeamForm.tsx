@@ -1,19 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./TeamForm.css";
+import type { Team } from "../../../shared/types/Team";
+import { updateTeam } from "../../../shared/api/teamApi";
 import { useAuth } from "../../../features/auth/AuthProvider";
-import { createTeam } from "../../../shared/api/teamApi";
 
 type Props = {
-  onCreated: () => void;
+  team: Team;
+  onUpdated: () => void;
+  onCancel: () => void;
 };
 
-export default function CreateTeamForm({ onCreated }: Props) {
+export default function UpdateTeamForm({ team, onUpdated, onCancel }: Props) {
   const { user } = useAuth();
 
-  const [description, setDescription] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [description, setDescription] = useState(team.description ?? "");
+  const [imageUrl, setImageUrl] = useState(team.imageUrl ?? "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setDescription(team.description ?? "");
+    setImageUrl(team.imageUrl ?? "");
+  }, [team.id, team.description, team.imageUrl]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,15 +38,15 @@ export default function CreateTeamForm({ onCreated }: Props) {
 
     try {
       setLoading(true);
-      await createTeam({
-        description,
+      await updateTeam(team.id, {
+        description: description.trim(),
         imageUrl: imageUrl.trim() ? imageUrl.trim() : null,
-        points: 0,
-        managerId: user.userId,
+        points: team.points,
+        managerId: team.managerId,
       });
-      onCreated();
+      onUpdated();
     } catch (err: any) {
-      setError(err.message || "Failed to create team");
+      setError(err.message || "Failed to update team");
     } finally {
       setLoading(false);
     }
@@ -46,7 +54,7 @@ export default function CreateTeamForm({ onCreated }: Props) {
 
   return (
     <form className="team-form" onSubmit={submit}>
-      <h2>Create Team</h2>
+      <h2>Update Team</h2>
 
       <label>
         Team Name:
@@ -65,7 +73,16 @@ export default function CreateTeamForm({ onCreated }: Props) {
 
       <div className="team-form-actions">
         <button type="submit" disabled={loading}>
-          {loading ? "Creating..." : "Create team"}
+          {loading ? "Saving..." : "Save changes"}
+        </button>
+
+        <button
+          type="button"
+          className="team-btn-secondary"
+          onClick={onCancel}
+          disabled={loading}
+        >
+          Cancel
         </button>
       </div>
     </form>
