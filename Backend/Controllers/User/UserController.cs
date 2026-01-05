@@ -5,6 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace Backend.Controllers;
+
+/// <summary>
+/// Controller for managing users.
+/// Provides endpoints for CRUD operations on users including profile management and password changes.
+/// </summary>
 [Authorize]
 [ApiController]
 [Route("[controller]")]
@@ -12,12 +17,19 @@ public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
 
+    /// <summary>
+    /// Initializes a new instance of the UserController.
+    /// </summary>
+    /// <param name="userService">The user service for data operations</param>
     public UserController(IUserService userService)
     {
         _userService = userService;
     }
 
-    // GET /User
+    /// <summary>
+    /// Retrieves all users.
+    /// </summary>
+    /// <returns>A list of all users</returns>
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserResponse>>> GetAll()
     {
@@ -39,7 +51,11 @@ public class UserController : ControllerBase
         return Ok(response);
     }
 
-    // GET /User/{id}
+    /// <summary>
+    /// Retrieves a specific user by their ID.
+    /// </summary>
+    /// <param name="id">The unique identifier of the user</param>
+    /// <returns>The user if found, NotFound otherwise</returns>
     [HttpGet("{id:int}")]
     public async Task<ActionResult<UserResponse>> GetById(int id)
     {
@@ -63,7 +79,11 @@ public class UserController : ControllerBase
         return Ok(response);
     }
 
-    // POST /User
+    /// <summary>
+    /// Creates a new user.
+    /// </summary>
+    /// <param name="request">The user data to create</param>
+    /// <returns>The created user with its assigned ID</returns>
     [HttpPost]
     public async Task<ActionResult<UserResponse>> Create([FromBody] UserRequest request)
     {
@@ -106,7 +126,12 @@ public class UserController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, response);
     }
 
-    // PUT /User/{id}
+    /// <summary>
+    /// Updates an existing user.
+    /// </summary>
+    /// <param name="id">The ID of the user to update</param>
+    /// <param name="request">The updated user data</param>
+    /// <returns>NoContent if successful, NotFound if user doesn't exist</returns>
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] UserRequest request)
     {
@@ -136,7 +161,11 @@ public class UserController : ControllerBase
 
     
 
-    // DELETE /User/{id}
+    /// <summary>
+    /// Deletes a user. Admin only.
+    /// </summary>
+    /// <param name="id">The ID of the user to delete</param>
+    /// <returns>NoContent if successful, NotFound if user doesn't exist</returns>
     [Authorize(Roles = "admin")]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
@@ -152,6 +181,11 @@ public class UserController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>
+    /// Uploads a profile picture for a user.
+    /// </summary>
+    /// <param name="request">The upload request containing user ID and image file</param>
+    /// <returns>The URL of the uploaded profile picture, or NotFound if user doesn't exist</returns>
     [HttpPost("upload-profile-picture")]
     public async Task<IActionResult> UploadProfilePicture([FromForm] UserProfilePictureUploadRequest request)
     {
@@ -165,8 +199,11 @@ public class UserController : ControllerBase
         return Ok(new { imageUrl = result });
     }
 
-    
-    // PUT /User/ChangePassword
+    /// <summary>
+    /// Changes a user's password. Users can only change their own password.
+    /// </summary>
+    /// <param name="request">The password change request containing user ID, current password, and new password</param>
+    /// <returns>NoContent if successful, BadRequest if current password is incorrect, Forbidden if attempting to change another user's password</returns>
     [HttpPut("ChangePassword")]
     public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
     {
