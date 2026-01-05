@@ -14,7 +14,7 @@ namespace Backend.Validators.Event;
 /// - Date: Required
 /// - Description: Optional, max 500 characters
 /// - Detail: Optional, max 2000 characters
-/// - Status: Required, must be one of: live, upcoming, ended, Cancelled
+/// - Status: Required, must be one of: Live, Upcoming, Ended
 /// - ImageUrl: Optional, max 300 characters
 /// </remarks>
 public class EventRequestValidator : AbstractValidator<EventRequest>
@@ -43,8 +43,10 @@ public class EventRequestValidator : AbstractValidator<EventRequest>
 
         RuleFor(e => e.Status)
             .NotEmpty().WithMessage("Status is required.")
-            .Must(status => new[] { "live", "upcoming", "ended", "Cancelled" }.Contains(status))
-            .WithMessage("Status must be one of the following: live, upcoming, ended and Cancelled.");
+            .Must(status => !string.IsNullOrEmpty(status) && 
+                new[] { "live", "upcoming", "ended"}
+                .Contains(status.ToLower()))
+            .WithMessage("Status must be one of the following: Live, Upcoming or Ended.");
 
         RuleFor(e => e.ImageUrl)
             .MaximumLength(300).WithMessage("ImageUrl cannot exceed 300 characters.");

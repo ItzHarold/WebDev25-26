@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import type { Event } from "../../../shared/types/Event";
+import ImageUploadForm from "../../../shared/ui/ImageUploadForm";
 import "./TournamentForm.css";
 
 type Tournament = Event & {
@@ -14,7 +15,7 @@ interface TournamentFormProps {
 
 const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onCancel }) => {
   // form state
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [formData, setFormData] = useState<Tournament>({
     id: 0,
     title: "",
@@ -103,7 +104,7 @@ const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onC
             <select
               id="status"
               name="status"
-              value={formData.status}
+              value={formData.status?.toLowerCase()}
               onChange={handleChange}
               required
             >

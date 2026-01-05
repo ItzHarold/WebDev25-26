@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../features/auth/AuthProvider";
+import { useFetchUser } from "../hooks/useFetchUser";
 import "./UserMenu.css";
 
 export default function UserMenu() {
@@ -10,7 +11,9 @@ export default function UserMenu() {
   const nav = useNavigate();
 
   const { user, logout } = useAuth();
+  const { user: profile } = useFetchUser(user?.userId ?? null);
   const role = user?.role;
+  const backendUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -53,7 +56,16 @@ export default function UserMenu() {
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
       >
-        <span className="user-menu__avatar">👤</span>
+        <span className="user-menu__avatar">
+          {profile?.imageUrl ? (
+            <img 
+              src={profile.imageUrl.startsWith("http") ? profile.imageUrl : backendUrl + profile.imageUrl} 
+              alt="" 
+            />
+          ) : (
+            "👤"
+          )}
+        </span>
       </button>
 
       {open && (

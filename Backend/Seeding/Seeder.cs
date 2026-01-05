@@ -62,23 +62,24 @@ public static class DataSeeder
         var user1 = new User
         {
             Role = "admin",
-            FirstName = "AdminJohn",
-            LastName = "Robot",
+            FirstName = "John",
+            LastName = "Smith",
             UserName = "adminjohn",
-            Email = "john@admin.com",
-            Password = passwordService.Hash("1234"),
+            Email = "admin@test.com",
+            Password = passwordService.Hash("123456"),
             Dob = new DateTime(1995, 1, 1),
+            ImageUrl = "/profile-pictures/animatedpop.gif",
             Team = teamA
         };
 
         var user2 = new User
         {
-            Role = "user",
+            Role = "player",
             FirstName = "Jane",
             LastName = "Smith",
-            UserName = "janesmith",
-            Email = "jane@test.com",
-            Password = passwordService.Hash("1234"),
+            UserName = "playerJane",
+            Email = "player@test.com",
+            Password = passwordService.Hash("123456"),
             Dob = new DateTime(1998, 5, 10),
             Team = teamA
         };
@@ -88,9 +89,9 @@ public static class DataSeeder
             Role = "manager",
             FirstName = "Bob",
             LastName = "Brown",
-            UserName = "bobbrown",
-            Email = "bob@test.com",
-            Password = passwordService.Hash("1234"),
+            UserName = "managerBob",
+            Email = "manager@test.com",
+            Password = passwordService.Hash("123456"),
             Dob = new DateTime(2000, 3, 15),
             Team = teamB
         };

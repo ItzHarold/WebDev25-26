@@ -178,8 +178,9 @@ public class EventController : ControllerBase
     /// </summary>
     /// <param name="request">The upload request containing event ID and image file</param>
     /// <returns>The URL of the uploaded image, or NotFound if event doesn't exist</returns>
-    [HttpPost("upload-image")]
-    public async Task<IActionResult> UploadEventImage([FromForm] EventImageUploadRequest request)
+    [Authorize(Roles = "admin")]
+    [HttpPost("{id:int}/upload-image")]
+    public async Task<IActionResult> UploadEventImage(int id, [FromForm] EventImageUploadRequest request)
     {
         if (request.ImageUrl == null || request.ImageUrl.Length == 0)
             return BadRequest("No file uploaded.");

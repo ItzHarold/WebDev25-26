@@ -93,7 +93,6 @@ const DashboardPage = () => {
 
       const createdEvent = await createEvent(eventRequest);
 
-      // Upload image if provided
       if (imageFile && createdEvent.id) {
         await uploadEventImage(createdEvent.id, imageFile);
       }

@@ -186,8 +186,8 @@ public class UserController : ControllerBase
     /// </summary>
     /// <param name="request">The upload request containing user ID and image file</param>
     /// <returns>The URL of the uploaded profile picture, or NotFound if user doesn't exist</returns>
-    [HttpPost("upload-profile-picture")]
-    public async Task<IActionResult> UploadProfilePicture([FromForm] UserProfilePictureUploadRequest request)
+    [HttpPost("{id:int}/upload-profile-picture")]
+    public async Task<IActionResult> UploadProfilePicture(int id, [FromForm] UserProfilePictureUploadRequest request)
     {
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userRole = User.FindFirst(ClaimTypes.Role)?.Value ?? "Unknown";
