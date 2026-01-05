@@ -26,9 +26,9 @@ export const deleteEvent = (id: number): Promise<void> =>
 
 export const uploadEventImage = (Id: number, file: File) => {
     const formData = new FormData();
-    formData.append("id", Id.toString());
-    formData.append("imageFile", file);
-    return api<{ imageUrl: string }>("/event/upload-image", {
+    formData.append("EventId", Id.toString());
+    formData.append("imageUrl", file);
+    return api<{ imageUrl: string }>("/Event/upload-image", {
         method: "POST",
         body: formData,
     });
