@@ -189,18 +189,10 @@ public class UserController : ControllerBase
     [HttpPost("upload-profile-picture")]
     public async Task<IActionResult> UploadProfilePicture([FromForm] UserProfilePictureUploadRequest request)
     {
-        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        var userRole = User.FindFirst(ClaimTypes.Role)?.Value ?? "Unknown";
-        if (userIdClaim == null) return Unauthorized();
-        int tokenUserId = int.Parse(userIdClaim);
-
-        if (tokenUserId != id && userRole != "admin")
-            return Forbid();
-
         if (request.ImageFile == null || request.ImageFile.Length == 0)
             return BadRequest("No file uploaded.");
 
-        var result = await _userService.UploadProfilePictureAsync(id, request.ImageFile);
+        var result = await _userService.UploadProfilePictureAsync(request.UserId, request.ImageFile);
         if (result == null)
             return NotFound("User not found.");
 

@@ -15,7 +15,7 @@ const HomePage: React.FC = () => {
     const [filteredEvents, setFilteredEvents] = useState(events);
     const [activeFilter, setActiveFilter] = useState("all");
     const [currentPage, setCurrentPage] = useState(1);
-    const eventsPerPage = 4;
+    const eventsPerPage = 6;
 
     useEffect(() => {
         const filterEvents = () => {

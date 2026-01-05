@@ -11,8 +11,7 @@ export default function CreateTeamForm({ onCreated }: Props) {
   const { user } = useAuth();
 
   const [description, setDescription] = useState("");
-  const [imageUrl] = useState("");
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,16 +30,12 @@ export default function CreateTeamForm({ onCreated }: Props) {
 
     try {
       setLoading(true);
-      const newTeam = await createTeam({
+      await createTeam({
         description,
         imageUrl: imageUrl.trim() ? imageUrl.trim() : null,
         points: 0,
         managerId: user.userId,
       });
-      if (selectedFile) {
-        await uploadTeamImage(newTeam.id, selectedFile);
-      }
-
       onCreated();
     } catch (err: any) {
       setError(err.message || "Failed to create team");

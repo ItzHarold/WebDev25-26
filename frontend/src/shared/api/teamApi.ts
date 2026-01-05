@@ -23,12 +23,3 @@ export const deleteTeam = (id: number): Promise<void> =>
     api<void>(`/team/${id}`, {
         method: "DELETE",
     });
-
-export const uploadTeamImage = (teamId: number, file: File) => {
-    const formData = new FormData();
-    formData.append("ImageUrl", file);
-    return api<{ imageUrl: string }>(`/team/${teamId}/upload-image`, {
-        method: "POST",
-        body: formData,
-    });
-};

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { updateUser, uploadProfilePicture } from "../../../shared/api/userApi";
 import type { User, UpdateUserRequest } from "../../../shared/types/User";
 import "../../../shared/ui/Modal.css";
-import ImageUploadForm from "../../../shared/ui/ImageUploadForm";
 
 interface EditProfileModalProps {
     profile: User;
@@ -11,9 +10,6 @@ interface EditProfileModalProps {
 }
 
 const EditProfileModal: React.FC<EditProfileModalProps> = ({ profile, onClose, onSave }) => {
-    const [error, setError] = useState<string | null>(null);
-    const [saving, setSaving] = useState(false);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [formData, setFormData] = useState<UpdateUserRequest>({
         role: "",
         firstName: "",
@@ -25,7 +21,9 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ profile, onClose, o
         teamId: null,
         imageUrl: null,
     });
-    
+    const [error, setError] = useState<string | null>(null);
+    const [saving, setSaving] = useState(false);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     useEffect(() => {
         setFormData({
@@ -152,10 +150,13 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ profile, onClose, o
                     </fieldset>
 
                     <fieldset className="form-group">
-                        <ImageUploadForm
-                            label="Profile Picture"
-                            imageUrl={formData.imageUrl}
-                            onFileChange={setSelectedFile}
+                        <label className="form-label" htmlFor="profilePicture">Profile Picture</label>
+                        <input
+                            className="form-input"
+                            type="file"
+                            id="profilePicture"
+                            accept="image/*"
+                            onChange={e => setSelectedFile(e.target.files?.[0] || null)}
                         />
                     </fieldset>
 

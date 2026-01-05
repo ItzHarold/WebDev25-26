@@ -8,13 +8,12 @@ type Tournament = Event & {
 
 interface TournamentFormProps {
   tournament?: Tournament;
-  onSave: (event: Tournament, imageFile: File | null) => void;
+  onSave: (event: Tournament) => void;
   onCancel: () => void;
 }
 
 const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onCancel }) => {
   // form state
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [formData, setFormData] = useState<Tournament>({
     id: 0,
     title: "",
@@ -45,10 +44,11 @@ const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onC
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
     if (tournament) {
-      onSave({ ...formData, id: tournament.id }, selectedFile);
+      onSave({ ...formData, id: tournament.id });
     } else {
-      onSave(formData, selectedFile);
+      onSave(formData);
     }
   };
 
@@ -136,7 +136,15 @@ const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onC
           </div>
 
           <div className="form-group">
-            <ImageUploadForm label="Upload Image" onFileChange={setSelectedFile} />
+            <label htmlFor="imageUrl">Image URL</label>
+            <input
+              type="text"
+              id="imageUrl"
+              name="imageUrl"
+              value={formData.imageUrl || ""}
+              onChange={handleChange}
+              placeholder="/src/assets/tournament-image.png"
+            />
           </div>
 
           <div className="form-actions">
