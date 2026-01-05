@@ -104,7 +104,7 @@ const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onC
             <select
               id="status"
               name="status"
-              value={formData.status}
+              value={formData.status?.toLowerCase()}
               onChange={handleChange}
               required
             >
