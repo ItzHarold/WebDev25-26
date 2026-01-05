@@ -18,45 +18,43 @@ public static class DataSeeder
         {
             Description = "The Tetris Titans",
             Points = 50,
-            ManagerId = 0
+            ManagerId = 0,
+            ImageUrl = "/team-pictures/demon.jpg" 
         };
 
         var teamB = new Team
         {
             Description = "The Minecraft Miners",
             Points = 40,
-            ManagerId = 0
+            ManagerId = 0,
+            ImageUrl = "/team-pictures/fox.jpg" 
         };
 
         var teamC = new Team
         {
             Description = "The Fortnite Fighters",
             Points = 60,
-            ManagerId = 0
+            ManagerId = 0,
+            ImageUrl = "/team-pictures/goat.jpg"
         };
 
         var teamD = new Team
         {
             Description = "The Overwatch Outlaws",
             Points = 30,
-            ManagerId = 0
+            ManagerId = 0,
+            ImageUrl = "/team-pictures/storm.jpg"
         };
 
         var teamE = new Team
         {
             Description = "The League Legends",
             Points = 70,
-            ManagerId = 0
+            ManagerId = 0,
+            ImageUrl = "/team-pictures/wolf.jpg"
         };
 
-        var teamF = new Team
-        {
-            Description = "The Valorant Vipers",
-            Points = 20,
-            ManagerId = 0
-        };
-
-        context.Teams.AddRange(teamA, teamB, teamC, teamD, teamE, teamF);
+        context.Teams.AddRange(teamA, teamB, teamC, teamD, teamE);
         context.SaveChanges();
         
         
@@ -102,6 +100,10 @@ public static class DataSeeder
 
         teamA.ManagerId = user1.Id;
         teamB.ManagerId = user3.Id;
+        teamC.ManagerId = user3.Id;
+        teamD.ManagerId = user3.Id;
+        teamE.ManagerId = user3.Id;
+
         context.SaveChanges();
         
         //Create Events
@@ -113,6 +115,8 @@ public static class DataSeeder
             Description = "The ultimate Tetris showdown.",
             Detail = "Players from around the world compete for the Tetris crown.",
             Status = "Active",
+            ImageUrl = "/event-pictures/tetris.jpg"
+            
         };
 
         var event2 = new Event
@@ -123,6 +127,7 @@ public static class DataSeeder
             Description = "A creative Minecraft competition.",
             Detail = "Teams compete to build the most impressive structures.",
             Status = "Active",
+            ImageUrl = "/event-pictures/minecraft.jpg"
         };
 
         var event3 = new Event
@@ -133,6 +138,7 @@ public static class DataSeeder
             Description = "A thrilling Fortnite tournament.",
             Detail = "Top players battle it out in the ultimate survival game.",
             Status = "Upcoming",
+            ImageUrl = "/event-pictures/fortnite.jpg"
         };
 
         var event4 = new Event
@@ -143,6 +149,7 @@ public static class DataSeeder
             Description = "The grand finale of the Overwatch League.",
             Detail = "The best teams compete for the championship title.",
             Status = "Upcoming",
+            ImageUrl = "/event-pictures/overwatch.jpg"
         };
 
         var event5 = new Event
@@ -153,6 +160,7 @@ public static class DataSeeder
             Description = "The biggest League of Legends tournament.",
             Detail = "Teams from all regions compete for the Summoner's Cup.",
             Status = "Ended",
+            ImageUrl = "/event-pictures/lol.jpg"
         };
 
         var event6 = new Event
@@ -163,6 +171,7 @@ public static class DataSeeder
             Description = "The premier Valorant tournament.",
             Detail = "Top teams showcase their skills in tactical FPS gameplay.",
             Status = "Ended",
+            ImageUrl = "/event-pictures/valorant.jpg"
         };
 
         var event7 = new Event
@@ -173,16 +182,18 @@ public static class DataSeeder
             Description = "A strategic chess tournament.",
             Detail = "Players compete in a knockout format.",
             Status = "Live",
+            ImageUrl = "/event-pictures/chess.jpg"
         };
 
         var event8 = new Event
         {
-            Title = "Music Festival",
+            Title = "Clash Royale",
             Location = "Open Grounds",
             Date = DateTime.UtcNow,
-            Description = "A lively music festival.",
-            Detail = "Bands and artists are performing live.",
+            Description = "A lively Clash Royale tournament.",
+            Detail = "Players compete in fast-paced battles.",
             Status = "Live",
+            ImageUrl = "/event-pictures/clash.jpg"
         };
 
         context.Events.AddRange(event1, event2, event3, event4, event5, event6, event7, event8);
