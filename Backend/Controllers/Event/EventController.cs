@@ -5,6 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace Backend.Controllers;
+
+/// <summary>
+/// Controller for managing esports events.
+/// Provides endpoints for CRUD operations on events.
+/// </summary>
 [Authorize]
 [ApiController]
 [Route("[controller]")]
@@ -12,12 +17,19 @@ public class EventController : ControllerBase
 {
     private readonly IEventService _service;
 
+    /// <summary>
+    /// Initializes a new instance of the EventController.
+    /// </summary>
+    /// <param name="service">The event service for data operations</param>
     public EventController(IEventService service)
     {
         _service = service;
     }
 
-    // GET /Event
+    /// <summary>
+    /// Retrieves all events.
+    /// </summary>
+    /// <returns>A list of all events</returns>
     [HttpGet]
     public async Task<ActionResult<IEnumerable<EventResponse>>> GetAll()
     {
@@ -36,7 +48,11 @@ public class EventController : ControllerBase
         return Ok(response);
     }
 
-    // GET /Event/{id}
+    /// <summary>
+    /// Retrieves a specific event by its ID.
+    /// </summary>
+    /// <param name="id">The unique identifier of the event</param>
+    /// <returns>The event if found, NotFound otherwise</returns>
     [HttpGet("{id:int}")]
     public async Task<ActionResult<EventResponse>> GetById(int id)
     {
@@ -61,7 +77,11 @@ public class EventController : ControllerBase
         return Ok(response);
     }
 
-    // POST /Event
+    /// <summary>
+    /// Creates a new event. Admin only.
+    /// </summary>
+    /// <param name="request">The event data to create</param>
+    /// <returns>The created event with its assigned ID</returns>
     [Authorize(Roles = "admin")]
     [HttpPost]
     public async Task<ActionResult<EventResponse>> Create([FromBody] EventRequest request)
@@ -100,7 +120,12 @@ public class EventController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, response);
     }
 
-    // PUT /Event/{id}
+    /// <summary>
+    /// Updates an existing event. Admin only.
+    /// </summary>
+    /// <param name="id">The ID of the event to update</param>
+    /// <param name="request">The updated event data</param>
+    /// <returns>NoContent if successful, NotFound if event doesn't exist</returns>
     [Authorize(Roles = "admin")]
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] EventRequest request)
@@ -128,7 +153,11 @@ public class EventController : ControllerBase
         return NoContent();
     }
 
-    // DELETE /Event/{id}
+    /// <summary>
+    /// Deletes an event. Admin only.
+    /// </summary>
+    /// <param name="id">The ID of the event to delete</param>
+    /// <returns>NoContent if successful, NotFound if event doesn't exist</returns>
     [Authorize(Roles = "admin")]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
@@ -144,6 +173,11 @@ public class EventController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>
+    /// Uploads an image for a specific event.
+    /// </summary>
+    /// <param name="request">The upload request containing event ID and image file</param>
+    /// <returns>The URL of the uploaded image, or NotFound if event doesn't exist</returns>
     [HttpPost("upload-image")]
     public async Task<IActionResult> UploadEventImage([FromForm] EventImageUploadRequest request)
     {
