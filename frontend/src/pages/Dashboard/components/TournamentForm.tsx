@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import type { Event } from "../../../shared/types/Event";
+import "./TournamentForm.css";
 
 type Tournament = Event & {
   participatingTeams: number[];

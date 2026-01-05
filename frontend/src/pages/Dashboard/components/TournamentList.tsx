@@ -1,5 +1,6 @@
 import React from "react";
 import type { Event } from "../../../shared/types/Event";
+import "./TournamentList.css";
 
 type Tournament = Event & {
   participatingTeams: number[];

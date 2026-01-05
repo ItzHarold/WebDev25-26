@@ -1,0 +1,102 @@
+/* Delete Confirmation Modal */
+
+.delete-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.delete-modal-content {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-large);
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.delete-modal-content h2 {
+    color: var(--text);
+    margin: 0 0 var(--spacing-medium) 0;
+    font-size: 1.5em;
+}
+
+.delete-modal-content p {
+    color: var(--link);
+    margin: 0 0 var(--spacing-small) 0;
+    line-height: 1.6;
+}
+
+.delete-modal-content p strong {
+    color: var(--text);
+}
+
+.delete-modal-content .warning {
+    color: #ef4444;
+    font-size: 0.9em;
+    margin-bottom: var(--spacing-medium);
+}
+
+.delete-modal-actions {
+    display: flex;
+    gap: var(--spacing-medium);
+    justify-content: flex-end;
+    margin-top: var(--spacing-large);
+}
+
+.btn-delete-confirm {
+    padding: 0.75em 2em;
+    background: #ef4444;
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-delete-confirm:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .delete-modal-content {
+        width: 95%;
+        padding: var(--spacing-medium);
+    }
+
+    .delete-modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .btn-cancel,
+    .btn-delete-confirm {
+        width: 100%;
+    }
+}
