@@ -3,6 +3,7 @@ import TournamentList from "./components/TournamentList";
 import TournamentForm from "./components/TournamentForm";
 import TournamentDetails from "./components/TournamentDetails";
 import DashboardStats from "./components/DashboardStats";
+import DeleteConfirmModal from "./components/DeleteConfirmModal";
 import "../../shared/styles/global.css";
 import "./DashboardPage.css";
 import { fetchEvents, createEvent, updateEvent, deleteEvent } from "../../shared/api/eventApi";
@@ -26,6 +27,8 @@ const DashboardPage = () => {
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [eventToDelete, setEventToDelete] = useState<Tournament | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<Tournament | null>(null);
   const [selectedEventTeams, setSelectedEventTeams] = useState<Team[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -140,17 +143,31 @@ const DashboardPage = () => {
   };
 
   // remove event from list
-  const handleDeleteEvent = async (id: number) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this event?");
-    if (confirmDelete) {
-      try {
-        await deleteEvent(id);
-        setEvents(events.filter((event: Tournament) => event.id !== id));
-      } catch (err: any) {
-        alert("Failed to delete event: " + err.message);
-        console.error("Error deleting event:", err);
-      }
+  const handleDeleteEvent = (id: number) => {
+    const event = events.find((e) => e.id === id);
+    if (event) {
+      setEventToDelete(event);
+      setShowDeleteConfirm(true);
     }
+  };
+
+  const confirmDelete = async () => {
+    if (!eventToDelete) return;
+    
+    try {
+      await deleteEvent(eventToDelete.id);
+      setEvents(events.filter((event: Tournament) => event.id !== eventToDelete.id));
+      setShowDeleteConfirm(false);
+      setEventToDelete(null);
+    } catch (err: any) {
+      alert("Failed to delete event: " + err.message);
+      console.error("Error deleting event:", err);
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteConfirm(false);
+    setEventToDelete(null);
   };
 
   // show event details
@@ -278,6 +295,14 @@ const DashboardPage = () => {
                   teams={selectedEventTeams}
                   onClose={handleCancel}
                   onDisqualifyTeam={handleDisqualifyTeam}
+                />
+              )}
+
+              {showDeleteConfirm && eventToDelete && (
+                <DeleteConfirmModal
+                  eventTitle={eventToDelete.title}
+                  onConfirm={confirmDelete}
+                  onCancel={cancelDelete}
                 />
               )}
             </>
