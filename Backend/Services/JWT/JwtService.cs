@@ -9,12 +9,22 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Backend.Services;
 
+/// <summary>
+/// Service responsible for JWT token generation and user authentication.
+/// Handles credential validation and token creation using configured JWT settings.
+/// </summary>
 public class JwtService
 {
     private readonly AppDbContext _dbContext;
     private readonly IConfiguration _configuration;
     private readonly IPasswordService _passwordService;
 
+    /// <summary>
+    /// Initializes a new instance of the JwtService.
+    /// </summary>
+    /// <param name="context">Database context for user lookup</param>
+    /// <param name="configuration">Application configuration containing JWT settings</param>
+    /// <param name="passwordService">Service for password hashing and verification</param>
     public JwtService(AppDbContext context, IConfiguration configuration, IPasswordService passwordService)
     {
         _dbContext = context;
@@ -22,6 +32,22 @@ public class JwtService
         _passwordService = passwordService;
     }
 
+    /// <summary>
+    /// Authenticates a user and generates a JWT token.
+    /// </summary>
+    /// <param name="request">Login credentials containing email and password</param>
+    /// <returns>
+    /// A LoginResponse containing the JWT token and user info if authentication succeeds,
+    /// or null if credentials are invalid.
+    /// </returns>
+    /// <remarks>
+    /// This method performs the following steps:
+    /// 1. Validates input is not empty
+    /// 2. Looks up user by email in database
+    /// 3. Verifies password hash matches
+    /// 4. Updates LastLoginAt timestamp
+    /// 5. Generates JWT token with user claims (Id, Email, Role)
+    /// </remarks>
     public async Task<LoginResponse?> Authenticate(LoginRequest request)
     {
         // Controleren van de input van de gebruiker
