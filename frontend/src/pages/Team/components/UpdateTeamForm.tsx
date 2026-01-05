@@ -3,6 +3,8 @@ import "./TeamForm.css";
 import type { Team } from "../../../shared/types/Team";
 import { updateTeam } from "../../../shared/api/teamApi";
 import { useAuth } from "../../../features/auth/AuthProvider";
+import { uploadTeamImage } from "../../../shared/api/teamApi";
+import ImageUploadForm from "../../../shared/ui/ImageUploadForm";
 
 type Props = {
   team: Team;
@@ -12,7 +14,7 @@ type Props = {
 
 export default function UpdateTeamForm({ team, onUpdated, onCancel }: Props) {
   const { user } = useAuth();
-
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [description, setDescription] = useState(team.description ?? "");
   const [imageUrl, setImageUrl] = useState(team.imageUrl ?? "");
   const [loading, setLoading] = useState(false);
@@ -50,6 +52,9 @@ export default function UpdateTeamForm({ team, onUpdated, onCancel }: Props) {
     } finally {
       setLoading(false);
     }
+    if (selectedFile) {
+            await uploadTeamImage(team.id, selectedFile);
+          }
   };
 
   return (
@@ -65,9 +70,13 @@ export default function UpdateTeamForm({ team, onUpdated, onCancel }: Props) {
       </label>
 
       <label>
-        Image URL (optional)
-        <input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} />
-      </label>
+      Image URL (optional)
+      <ImageUploadForm
+        label="Team Image"
+        imageUrl={imageUrl}
+        onFileChange={setSelectedFile}
+      />
+    </label>
 
       {error && <div className="team-form-error">{error}</div>}
 

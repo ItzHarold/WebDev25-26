@@ -15,7 +15,7 @@ interface TournamentFormProps {
 
 const TournamentForm: React.FC<TournamentFormProps> = ({ tournament, onSave, onCancel }) => {
   // form state
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [formData, setFormData] = useState<Tournament>({
     id: 0,
     title: "",
