@@ -160,8 +160,9 @@ public class TeamController : ControllerBase
     /// </summary>
     /// <param name="request">The upload request containing team ID and image file</param>
     /// <returns>The URL of the uploaded image, or NotFound if team doesn't exist</returns>
-    [HttpPost("upload-image")]
-    public async Task<IActionResult> UploadTeamImage([FromForm] TeamImageUploadRequest request)
+    [Authorize(Roles = "admin,manager")]
+    [HttpPost("{id:int}/upload-image")]
+    public async Task<IActionResult> UploadTeamImage(int id, [FromForm] TeamImageUploadRequest request)
     {
         if (request.ImageUrl == null || request.ImageUrl.Length == 0)
             return BadRequest("No file uploaded.");

@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./TeamForm.css";
 import { useAuth } from "../../../features/auth/AuthProvider";
 import { createTeam } from "../../../shared/api/teamApi";
+import { uploadTeamImage } from "../../../shared/api/teamApi";
+import ImageUploadForm from "../../../shared/ui/ImageUploadForm";
 
 type Props = {
   onCreated: () => void;
@@ -62,9 +64,13 @@ export default function CreateTeamForm({ onCreated }: Props) {
       </label>
 
       <label>
-        Image URL (optional)
-        <input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} />
-      </label>
+      Image URL (optional)
+      <ImageUploadForm
+        label="Team Image"
+        imageUrl={imageUrl}
+        onFileChange={setSelectedFile}
+      />
+    </label>
 
       {error && <div className="team-form-error">{error}</div>}
 
