@@ -8,7 +8,6 @@ namespace Backend.Services.Image
     public interface IImageService
     {
         Task<string> SaveImageAsync(IFormFile file, string folderName, string? oldImageUrl = null);
-        void DeleteImage(string imageUrl, string folderName);
     }
 
     public class ImageService : IImageService
@@ -42,16 +41,6 @@ namespace Backend.Services.Image
             }
 
             return $"/{folderName}/{fileName}";
-        }
-
-        public void DeleteImage(string imageUrl, string folderName)
-        {
-            if (string.IsNullOrEmpty(imageUrl) || imageUrl.Contains("default")) return;
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", imageUrl.TrimStart('/').Replace("/", "\\"));
-            if (File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
         }
     }
 }
