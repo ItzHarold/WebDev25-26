@@ -28,7 +28,9 @@ const DashboardPage = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showRemoveTeamConfirm, setShowRemoveTeamConfirm] = useState(false);
   const [eventToDelete, setEventToDelete] = useState<Tournament | null>(null);
+  const [teamToRemove, setTeamToRemove] = useState<{ teamId: number; teamName: string } | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<Tournament | null>(null);
   const [selectedEventTeams, setSelectedEventTeams] = useState<Team[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -190,17 +192,24 @@ const DashboardPage = () => {
   };
 
   // remove team from event
-  const handleDisqualifyTeam = async (teamId: number) => {
+  const handleDisqualifyTeam = (teamId: number) => {
     if (!selectedEvent) return;
     
-    const confirmRemove = window.confirm("Remove this team?");
-    if (!confirmRemove) return;
+    const team = selectedEventTeams.find((t) => t.id === teamId);
+    const teamName = team ? `Team #${team.id}` : `Team #${teamId}`;
+    
+    setTeamToRemove({ teamId, teamName });
+    setShowRemoveTeamConfirm(true);
+  };
+
+  const confirmRemoveTeam = async () => {
+    if (!selectedEvent || !teamToRemove) return;
     
     try {
-      await removeTeamFromEventByIds(selectedEvent.id, teamId);
+      await removeTeamFromEventByIds(selectedEvent.id, teamToRemove.teamId);
       
       // Update local state
-      const newTeamList = selectedEvent.participatingTeams.filter((id: number) => id !== teamId);
+      const newTeamList = selectedEvent.participatingTeams.filter((id: number) => id !== teamToRemove.teamId);
       const updatedEvent = { ...selectedEvent, participatingTeams: newTeamList };
       
       // Update events list
@@ -212,11 +221,19 @@ const DashboardPage = () => {
       setSelectedEvent(updatedEvent);
       
       // Update selected event teams
-      setSelectedEventTeams(selectedEventTeams.filter((team: Team) => team.id !== teamId));
+      setSelectedEventTeams(selectedEventTeams.filter((team: Team) => team.id !== teamToRemove.teamId));
+      
+      setShowRemoveTeamConfirm(false);
+      setTeamToRemove(null);
     } catch (err: any) {
       alert("Failed to remove team: " + err.message);
       console.error("Error removing team:", err);
     }
+  };
+
+  const cancelRemoveTeam = () => {
+    setShowRemoveTeamConfirm(false);
+    setTeamToRemove(null);
   };
 
   // close all modals
@@ -300,9 +317,21 @@ const DashboardPage = () => {
 
               {showDeleteConfirm && eventToDelete && (
                 <DeleteConfirmModal
-                  eventTitle={eventToDelete.title}
+                  title="Delete Event"
+                  message={`Are you sure you want to delete <strong>"${eventToDelete.title}"</strong>?`}
+                  confirmText="Delete"
                   onConfirm={confirmDelete}
                   onCancel={cancelDelete}
+                />
+              )}
+
+              {showRemoveTeamConfirm && teamToRemove && (
+                <DeleteConfirmModal
+                  title="Remove Team"
+                  message={`Are you sure you want to remove <strong>${teamToRemove.teamName}</strong> from this event?`}
+                  confirmText="Remove"
+                  onConfirm={confirmRemoveTeam}
+                  onCancel={cancelRemoveTeam}
                 />
               )}
             </>

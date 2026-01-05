@@ -2,28 +2,32 @@ import React from "react";
 import "./DeleteConfirmModal.css";
 
 interface DeleteConfirmModalProps {
-  eventTitle: string;
+  title: string;
+  message: string;
+  confirmText?: string;
   onConfirm: () => void;
   onCancel: () => void;
 }
 
 const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
-  eventTitle,
+  title,
+  message,
+  confirmText = "Delete",
   onConfirm,
   onCancel,
 }) => {
   return (
     <div className="delete-modal-overlay" onClick={onCancel}>
       <div className="delete-modal-content" onClick={(e) => e.stopPropagation()}>
-        <h2>Delete Event</h2>
-        <p>Are you sure you want to delete <strong>"{eventTitle}"</strong>?</p>
+        <h2>{title}</h2>
+        <p dangerouslySetInnerHTML={{ __html: message }} />
         <p className="warning">This action cannot be undone.</p>
         <div className="delete-modal-actions">
           <button className="btn-cancel" onClick={onCancel}>
             Cancel
           </button>
           <button className="btn-delete-confirm" onClick={onConfirm}>
-            Delete
+            {confirmText}
           </button>
         </div>
       </div>
