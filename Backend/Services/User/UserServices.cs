@@ -5,20 +5,61 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services;
 
+/// <summary>
+/// Interface defining operations for managing users.
+/// </summary>
 public interface IUserService
 {
+    /// <summary>
+    /// Retrieves all users from the database.
+    /// </summary>
     Task<List<User>> GetAllAsync();
+
+    /// <summary>
+    /// Retrieves a specific user by their ID.
+    /// </summary>
     Task<User?> GetByIdAsync(int id);
+
+    /// <summary>
+    /// Creates a new user with admin logging.
+    /// </summary>
     Task<User> CreateAsync(User user, int userId, string userRole);
+
+    /// <summary>
+    /// Creates a new user from a registration request.
+    /// </summary>
     Task<bool> CreateUser(RegisterRequest request);
+
+    /// <summary>
+    /// Updates an existing user and logs the action.
+    /// </summary>
     Task<bool> UpdateAsync(int id, User user, int userId, string userRole);
+
+    /// <summary>
+    /// Deletes a user and logs the action.
+    /// </summary>
     Task<bool> DeleteAsync(int id, int userId, string userRole);
+
+    /// <summary>
+    /// Changes a user's password after verifying the current password.
+    /// </summary>
     Task<bool> ChangePasswordAsync(int userId, string currentPassword, string newPassword);
+
+    /// <summary>
+    /// Uploads a profile picture for a user.
+    /// </summary>
     Task<string?> UploadProfilePictureAsync(int userId, IFormFile file);
 
+    /// <summary>
+    /// Returns a queryable collection of users for custom queries.
+    /// </summary>
     IQueryable<User> Users();
 }
 
+/// <summary>
+/// Service responsible for managing users in the system.
+/// Handles CRUD operations, password management, and profile pictures with audit logging.
+/// </summary>
 public class UserService : IUserService
 {
     private readonly AppDbContext _context;
@@ -26,8 +67,19 @@ public class UserService : IUserService
     private readonly ILoggerService _loggerService;
     private readonly IImageService _imageService;
 
+    /// <summary>
+    /// Returns a queryable collection of users for custom queries.
+    /// </summary>
+    /// <returns>IQueryable of User entities</returns>
     public IQueryable<User> Users() => _context.Users.AsQueryable();
 
+    /// <summary>
+    /// Initializes a new instance of the UserService.
+    /// </summary>
+    /// <param name="context">Database context for data access</param>
+    /// <param name="password">Service for password hashing and verification</param>
+    /// <param name="loggerService">Service for audit logging</param>
+    /// <param name="imageService">Service for image upload handling</param>
     public UserService(AppDbContext context, IPasswordService password, ILoggerService loggerService, IImageService imageService)
     {
         _context = context;
@@ -36,16 +88,35 @@ public class UserService : IUserService
         _imageService = imageService;
     }
 
+    /// <summary>
+    /// Retrieves all users from the database.
+    /// </summary>
+    /// <returns>A list of all users</returns>
     public Task<List<User>> GetAllAsync()
     {
         return _context.Users.ToListAsync();
     }
 
+    /// <summary>
+    /// Retrieves a specific user by their ID.
+    /// </summary>
+    /// <param name="id">The unique identifier of the user</param>
+    /// <returns>The user if found, null otherwise</returns>
     public Task<User?> GetByIdAsync(int id)
     {
         return _context.Users.FindAsync(id).AsTask();
     }
 
+    /// <summary>
+    /// Creates a new user in the database (admin operation).
+    /// Validates username and email uniqueness, and team existence.
+    /// </summary>
+    /// <param name="user">The user data to create</param>
+    /// <param name="userId">ID of the admin performing the action (for audit)</param>
+    /// <param name="userRole">Role of the admin performing the action (for audit)</param>
+    /// <returns>The created user with generated ID</returns>
+    /// <exception cref="InvalidOperationException">Thrown when username or email already exists</exception>
+    /// <exception cref="KeyNotFoundException">Thrown when specified team does not exist</exception>
     public async Task<User> CreateAsync(User user, int userId, string userRole)
     {
         var usernameTaken = await _context.Users.AnyAsync(u => u.UserName == user.UserName);
@@ -87,6 +158,12 @@ public class UserService : IUserService
         return user;
     }
 
+    /// <summary>
+    /// Creates a new user from a registration request (self-registration).
+    /// Hashes the password and normalizes email to lowercase.
+    /// </summary>
+    /// <param name="request">The registration data</param>
+    /// <returns>True if user was created successfully</returns>
     public async Task<bool> CreateUser(RegisterRequest request)
     {
         var user = new User
@@ -107,6 +184,18 @@ public class UserService : IUserService
         return true;
     }
 
+    /// <summary>
+    /// Updates an existing user in the database.
+    /// Requires current password verification for security.
+    /// Validates username and email uniqueness.
+    /// </summary>
+    /// <param name="id">The ID of the user to update</param>
+    /// <param name="data">The new user data (must include current password)</param>
+    /// <param name="userId">ID of the user performing the action (for audit)</param>
+    /// <param name="userRole">Role of the user performing the action (for audit)</param>
+    /// <returns>True if update succeeded, false if user not found</returns>
+    /// <exception cref="InvalidOperationException">Thrown when password is invalid or username/email already exists</exception>
+    /// <exception cref="KeyNotFoundException">Thrown when specified team does not exist</exception>
     public async Task<bool> UpdateAsync(int id, User data, int userId, string userRole)
     {
         var user = await _context.Users.FindAsync(id);
@@ -162,6 +251,13 @@ public class UserService : IUserService
         return true;
     }
 
+    /// <summary>
+    /// Deletes a user from the database.
+    /// </summary>
+    /// <param name="id">The ID of the user to delete</param>
+    /// <param name="userId">ID of the admin performing the action (for audit)</param>
+    /// <param name="userRole">Role of the admin performing the action (for audit)</param>
+    /// <returns>True if deletion succeeded, false if user not found</returns>
     public async Task<bool> DeleteAsync(int id, int userId, string userRole)
     {
         var user = await _context.Users.FindAsync(id);
@@ -192,6 +288,13 @@ public class UserService : IUserService
         return true;
     }
 
+    /// <summary>
+    /// Uploads and saves a new profile picture for a user.
+    /// Replaces the old image if one exists.
+    /// </summary>
+    /// <param name="userId">The ID of the user to update</param>
+    /// <param name="file">The image file to upload</param>
+    /// <returns>The URL of the uploaded image, or null if user not found</returns>
     public async Task<string?> UploadProfilePictureAsync(int userId, IFormFile file)
     {
         var user = await _context.Users.FindAsync(userId);
@@ -204,7 +307,14 @@ public class UserService : IUserService
         return user.ImageUrl;
     }
 
-    
+    /// <summary>
+    /// Changes a user's password after verifying the current password.
+    /// The new password is hashed before storage.
+    /// </summary>
+    /// <param name="userId">The ID of the user changing their password</param>
+    /// <param name="currentPassword">The user's current password for verification</param>
+    /// <param name="newPassword">The new password to set</param>
+    /// <returns>True if password was changed, false if user not found or current password is incorrect</returns>
     public async Task<bool> ChangePasswordAsync(int userId, string currentPassword, string newPassword)
     {
         var user = await _context.Users.FindAsync(userId);

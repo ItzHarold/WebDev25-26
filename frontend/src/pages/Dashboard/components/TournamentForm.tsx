@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import type { Event } from "../../../shared/types/Event";
-import ImageUploadForm from "../../../shared/ui/ImageUploadForm";
+import "./TournamentForm.css";
 
 type Tournament = Event & {
   participatingTeams: number[];

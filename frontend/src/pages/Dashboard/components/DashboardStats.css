@@ -1,0 +1,61 @@
+/* Dashboard Stats Component */
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-medium);
+    margin-bottom: var(--spacing-large);
+}
+
+.stat-card {
+    background: var(--panel);
+    padding: var(--spacing-large);
+    text-align: center;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    transition: transform 0.25s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+}
+
+.stat-icon {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+}
+
+.stat-content h3 {
+    color: var(--accent);
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+.stat-content p {
+    color: var(--link);
+    margin: 0.5em 0 0 0;
+    font-size: 1em;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .dashboard-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-small);
+    }
+
+    .stat-card {
+        padding: var(--spacing-medium);
+    }
+
+    .stat-content h3 {
+        font-size: 2em;
+    }
+}

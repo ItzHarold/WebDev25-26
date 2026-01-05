@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;
 
+/// <summary>
+/// Controller for authentication operations.
+/// Handles user login and registration with JWT token generation.
+/// </summary>
 [ApiController]
 [Route("[controller]")]
 public class AuthController : ControllerBase
@@ -13,12 +17,22 @@ public class AuthController : ControllerBase
     private readonly IUserService _userService;
     private readonly JwtService _jwtService;
 
+    /// <summary>
+    /// Initializes a new instance of the AuthController.
+    /// </summary>
+    /// <param name="userService">The user service for user operations</param>
+    /// <param name="jwtService">The JWT service for authentication token generation</param>
     public AuthController(IUserService userService, JwtService jwtService)
     {
         _userService = userService;
         _jwtService = jwtService;
     }
 
+    /// <summary>
+    /// Authenticates a user and returns a JWT token.
+    /// </summary>
+    /// <param name="request">The login credentials containing email and password</param>
+    /// <returns>A JWT token and user information if successful, Unauthorized if credentials are invalid</returns>
     [AllowAnonymous]
     [HttpPost("login")] 
     public async Task<ActionResult<LoginResponse>> Login(LoginRequest request)
@@ -31,6 +45,11 @@ public class AuthController : ControllerBase
         return result;
     }
 
+    /// <summary>
+    /// Registers a new user account.
+    /// </summary>
+    /// <param name="request">The registration information including email, password, username, and user details</param>
+    /// <returns>A JWT token and user information if successful, BadRequest if validation fails or email/username already exists</returns>
     [AllowAnonymous]
     [HttpPost("register")]
     public async Task<ActionResult<RegisterResponse>> Register(RegisterRequest request)

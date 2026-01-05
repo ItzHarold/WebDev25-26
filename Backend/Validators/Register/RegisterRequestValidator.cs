@@ -1,34 +1,35 @@
 using Backend.Models;
 using FluentValidation;
 
-namespace Backend.Validators.User;
+namespace Backend.Validators.Register;
 
 /// <summary>
-/// Validator for user creation and update requests using FluentValidation.
-/// Ensures all user fields meet the required criteria including age restrictions.
+/// Validator for user registration requests using FluentValidation.
+/// Ensures all required registration fields are present and valid.
 /// </summary>
 /// <remarks>
 /// Validation rules:
-/// - Role: Required, must be 'player', 'manager', or 'admin'
+/// - Role: Required, must be 'player' or 'manager' (admins created differently)
 /// - FirstName: Required, max 50 characters
 /// - LastName: Required, max 50 characters
-/// - UserName: Required, max 30 characters
+/// - UserName: Required, max 50 characters
 /// - Email: Required, valid email format
 /// - Password: Required, minimum 4 characters
-/// - Dob: Required, must be in the past, user must be at least 12 years old
-/// - TeamId: If provided, must be greater than 0
+/// - Dob: Required, must be in the past
+/// 
+/// Note: Username and email uniqueness is validated in the service layer.
 /// </remarks>
-public class UserRequestValidator : AbstractValidator<UserRequest>
+public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
 {
     /// <summary>
-    /// Initializes validation rules for user requests.
+    /// Initializes validation rules for registration requests.
     /// </summary>
-    public UserRequestValidator()
+    public RegisterRequestValidator()
     {
         RuleFor(x => x.Role)
             .NotEmpty().WithMessage("Role is required.")
-            .Must(role => role == "player" || role == "manager" || role == "admin")
-            .WithMessage("Role must be either 'player','manager' or 'admin'.");
+            .Must(role => role == "player" || role == "manager")
+            .WithMessage("Role must be either 'player' or 'manager'.");
 
         RuleFor(x => x.FirstName)
             .NotEmpty().WithMessage("First name is required.")
@@ -40,7 +41,7 @@ public class UserRequestValidator : AbstractValidator<UserRequest>
 
         RuleFor(x => x.UserName)
             .NotEmpty().WithMessage("Username is required.")
-            .MaximumLength(30).WithMessage("Username cannot exceed 30 characters.");
+            .MaximumLength(50).WithMessage("Username cannot exceed 50 characters.");
 
         RuleFor(x => x.Email)
             .NotEmpty().WithMessage("Email is required.")
@@ -52,11 +53,6 @@ public class UserRequestValidator : AbstractValidator<UserRequest>
 
         RuleFor(x => x.Dob)
             .NotEmpty().WithMessage("Date of birth is required.")
-            .LessThan(DateTime.Now).WithMessage("Date of birth must be in the past.")
-            .Must(dob => dob <= DateTime.Today.AddYears(-12))
-            .WithMessage("User must be at least 12 years old.");
-
-        RuleFor(x => x.TeamId)
-            .GreaterThan(0).WithMessage("TeamId must be greater than zero.");
+            .LessThan(DateTime.Now).WithMessage("Date of birth must be in the past.");
     }
 }

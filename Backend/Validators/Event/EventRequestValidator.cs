@@ -3,8 +3,25 @@ using Backend.Models;
 
 namespace Backend.Validators.Event;
 
+/// <summary>
+/// Validator for event creation and update requests using FluentValidation.
+/// Ensures all event fields meet the required criteria.
+/// </summary>
+/// <remarks>
+/// Validation rules:
+/// - Title: Required, max 100 characters
+/// - Location: Required, max 200 characters
+/// - Date: Required
+/// - Description: Optional, max 500 characters
+/// - Detail: Optional, max 2000 characters
+/// - Status: Required, must be one of: live, upcoming, ended, Cancelled
+/// - ImageUrl: Optional, max 300 characters
+/// </remarks>
 public class EventRequestValidator : AbstractValidator<EventRequest>
 {
+    /// <summary>
+    /// Initializes validation rules for event requests.
+    /// </summary>
     public EventRequestValidator()
     {
         RuleFor(e => e.Title)
