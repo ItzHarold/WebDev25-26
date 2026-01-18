@@ -7,6 +7,7 @@ import HomePage from "../pages/Home/HomePage";
 import EventsPage from "../pages/Events/EventsPage";
 import DashboardPage from "../pages/Dashboard/DashboardPage";
 import ProfilePage from "../pages/Profile/ProfilePage";
+import DemoLoginPage from "../pages/Login/DemoLoginPage";
 import LoginPage from "../pages/Login/LoginPage";
 import AboutPage from "../pages/About/AboutPage";
 import RegisterPage from "../pages/Register/RegisterPage";
@@ -16,7 +17,8 @@ import TeamPage from "../pages/Team/TeamPage";
 
 
 export const router = createBrowserRouter([
-  { path: "/login", element: <LoginPage /> },
+  { path: "/login", element: <DemoLoginPage /> },
+  { path: "/login/manual", element: <LoginPage /> },
   { path: "/register", element: <RegisterPage /> },
 
   {
