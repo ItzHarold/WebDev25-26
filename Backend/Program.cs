@@ -149,24 +149,24 @@ app.UseExceptionHandler(errorApp =>
     });
 });
 
-// Dit is om de database te seeden met data Testing doeleinden, Veranderen naar false voor deployment
-var seeddb = true;
+// Seed database (for demo purposes, always seed if empty)
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    context.Database.Migrate();
+    
+    // Only seed if database is empty (first deployment)
+    if (!context.Users.Any())
+    {
+        var passwordService = scope.ServiceProvider.GetRequiredService<IPasswordService>();
+        DataSeeder.Seed(context, passwordService);
+    }
+}
 
-
-// Seed database
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    if(seeddb == true){
-        using (var scope = app.Services.CreateScope())
-        {
-            var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            context.Database.Migrate();
-            var passwordService = scope.ServiceProvider.GetRequiredService<IPasswordService>();
-            DataSeeder.Seed(context, passwordService); 
-        }
-    }
 }
 
 app.UseHttpsRedirection();
