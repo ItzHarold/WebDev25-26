@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ['dotnet-sdk_8']
+
+[phases.build]
+cmds = ['dotnet restore', 'dotnet build --configuration Release']
+
+[start]
+cmd = 'dotnet run --project Backend.csproj --configuration Release'
