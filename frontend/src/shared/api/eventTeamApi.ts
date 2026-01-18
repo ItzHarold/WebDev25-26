@@ -1,5 +1,5 @@
 import { api } from "./http";
-import type { EventTeam, EventTeamRequest } from "../types/Event";
+import type { EventTeam } from "../types/Event";
 import type { Team } from "../types/Team";
 
 export const fetchEventTeams = (): Promise<EventTeam[]> =>

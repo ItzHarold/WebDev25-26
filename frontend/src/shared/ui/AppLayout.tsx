@@ -1,5 +1,4 @@
-import { Outlet, NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../../features/auth/AuthProvider";
+import { Outlet } from "react-router-dom";
 import "./AppLayout.css";
 import Footer from "./Footer";
 import "../../pages/Login/LoginPage.css";
@@ -7,14 +6,7 @@ import UserMenu from "./UserMenu";
 
 
 
-export default function AppLayout() { 
-  const { logout, user } = useAuth();
-  const navigate = useNavigate();
-
-  function handleLogout() {
-    logout();
-    navigate("/login", {replace: true});
-  }
+export default function AppLayout() {
 
   return(
     <>
