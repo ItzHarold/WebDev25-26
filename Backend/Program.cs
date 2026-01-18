@@ -85,6 +85,7 @@ builder.Services.AddCors(options =>
                 "http://localhost:5079",
                 "http://localhost:5173",
                 "http://localhost:3000",
+                "https://webdev25-26-production.up.railway.app",
                 "https://web-dev25-26-git-main-harold-ponte-da-costas-projects.vercel.app",
                 "https://haroldpdc.com",
                 "https://www.haroldpdc.com",
